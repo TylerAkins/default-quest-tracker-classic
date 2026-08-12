@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      # Packager creates/updates a GitHub Release when this is set.
+      # secrets.GITHUB_TOKEN is provided by Actions (needs contents: write).
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Package and publish GitHub Release
+        uses: BigWigsMods/packager@v2
+        # No CurseForge/Wago tokens yet — GitHub-only upload.
+        # Prefer annotated tags: git tag -a v1.0.0 -m "v1.0.0"

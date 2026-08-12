@@ -28,5 +28,4 @@ Database/Wowhead/crawl_meta.json
 
 # Local / scratch
 *.zip
-dist/
 .release/

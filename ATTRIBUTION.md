@@ -29,8 +29,10 @@ Embedded [HereBeDragons](https://www.wowace.com/projects/herebedragons) (BSD), n
 
 - [x] GPLv3 `LICENSE` + Questie credits in README  
 - [x] HereBeDragons credit / embed  
-- [x] `.gitignore` / `.pkgmeta`  
+- [x] `.gitignore` / `.pkgmeta` (player zip ignores `tools/`)  
 - [x] GitHub repo: https://github.com/TylerAkins/default-quest-tracker-classic  
-- [ ] First **GitHub Release** (`v1.0.0`) with addon zip asset (folder name `DefaultQuestTrackerClassic`)  
+- [x] CI + Release workflows (`.github/workflows/`) — tag `v*` → GitHub Release zip  
+- [ ] First **GitHub Release** (`v1.0.0`): bump TOC/CHANGELOG, `git tag -a v1.0.0 -m "v1.0.0" && git push origin v1.0.0`  
 - [ ] CurseForge project (coming soon); paste `CURSEFORGE_DESCRIPTION.md`; GPLv3; Relations for HBD / TomTom  
+- [ ] Phase 2: CurseForge auto-upload — repo secret `CF_API_TOKEN`, `## X-Curse-Project-ID:` in TOC, same tag workflow  
 - [ ] Keep GitHub Releases in sync with CurseForge version numbers after launch  

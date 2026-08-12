@@ -85,19 +85,26 @@ Scripts under `tools/` are for maintainers. Do not commit `tools/.wowhead_cache/
 
 ### Cutting a release
 
-Players need a **GitHub Release** with an attached zip (CurseForge will use its own uploads later).
+Releases are built by GitHub Actions ([`.github/workflows/release.yml`](.github/workflows/release.yml)) using the [BigWigs packager](https://github.com/BigWigsMods/packager) and [`.pkgmeta`](.pkgmeta). Players should download the **Release asset** zip, not GitHub’s automatic “Source code” archive.
 
-1. Bump `## Version:` in `DefaultQuestTrackerClassic.toc` and add notes to [CHANGELOG.md](CHANGELOG.md).
-2. Build a zip whose **top-level folder** is `DefaultQuestTrackerClassic` (include the `.toc`, `Libs/`, `Database/`, modules — exclude `.git`, caches, and preferably `tools/`).
-3. Tag and publish on GitHub, e.g. `v1.0.0`, and attach that zip as a release asset.
-4. Prefer the [BigWigs packager](https://github.com/BigWigsMods/packager) with [.pkgmeta](.pkgmeta) so ignore rules stay consistent.
+1. Set `## Version: X.Y.Z` in `DefaultQuestTrackerClassic.toc` (no `v` prefix).
+2. Update [CHANGELOG.md](CHANGELOG.md) for that version.
+3. Commit and push to `main` (CI will dry-run package on push/PR).
+4. Create an **annotated** tag and push it:
+   ```bash
+   git tag -a v1.0.0 -m "v1.0.0"
+   git push origin v1.0.0
+   ```
+5. The **Release** workflow packages `DefaultQuestTrackerClassic` and publishes a GitHub Release with the zip attached.
+
+CurseForge auto-upload is not wired yet (see below). Until then, GitHub Releases are the player install path.
 
 ### CurseForge (when you publish)
 
 1. Create the project; set license to **GPLv3**.
 2. Relations → **Embedded Library** → HereBeDragons; optional → TomTom.
 3. Paste [CURSEFORGE_DESCRIPTION.md](CURSEFORGE_DESCRIPTION.md) into the project description.
-4. Upload the same style of zip as GitHub Releases.
+4. Later: add repo secret `CF_API_TOKEN`, set `## X-Curse-Project-ID:` in the TOC, and extend the Release workflow so the same tag also uploads to CurseForge (packager reads `CF_API_TOKEN` when present).
 
 ## Changelog
 
