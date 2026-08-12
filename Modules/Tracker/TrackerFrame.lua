@@ -209,6 +209,10 @@ end
 function TrackerFrame:Update()
     self:Initialize()
     local frame = self.frame
+    if DQTC.Config:Get("hideDuringCombat") and InCombatLockdown() then
+        frame:Hide()
+        return
+    end
     local TrackerLines = Loader:ImportModule("TrackerLines")
     local WatchState = Loader:ImportModule("WatchState")
     local QuestLogCache = Loader:ImportModule("QuestLogCache")
