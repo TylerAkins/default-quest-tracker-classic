@@ -116,6 +116,14 @@ local function Initialize()
         Loader:ImportModule("MarkerController"):Refresh()
     end, 0.2)
 
+    Events:Register("PLAYER_REGEN_DISABLED", function()
+        Loader:ImportModule("TrackerFrame"):Update()
+    end)
+
+    Events:Register("PLAYER_REGEN_ENABLED", function()
+        Loader:ImportModule("TrackerFrame"):Update()
+    end)
+
     Events:Register("NAME_PLATE_UNIT_ADDED", function(_, unit)
         QuestNameplates:OnAdded(unit)
     end)

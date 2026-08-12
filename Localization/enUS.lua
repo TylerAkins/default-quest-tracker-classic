@@ -3,7 +3,7 @@ local ADDON_NAME = ...
 _G[ADDON_NAME] = _G[ADDON_NAME] or {}
 local DQTC = _G[ADDON_NAME]
 DQTC.name = ADDON_NAME
-DQTC.version = "1.0.0"
+DQTC.version = "1.0.1"
 
 local L = {}
 DQTC.L = L
@@ -33,6 +33,7 @@ L["FOCUS_QUEST"] = "Focus quest"
 L["UNFOCUS_QUEST"] = "Clear focus"
 L["OPTIONS_TITLE"] = "Default Quest Tracker"
 L["ENABLE_TRACKER"] = "Enable tracker"
+L["HIDE_DURING_COMBAT"] = "Hide tracker during combat"
 L["AUTO_TRACK"] = "Auto-track quests"
 L["SHOW_MARKERS"] = "Show quest markers"
 L["SHOW_AVAILABLE"] = "Show available quest givers"

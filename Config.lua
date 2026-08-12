@@ -7,6 +7,7 @@ local Config = DQTC.Config
 local defaults = {
     profile = {
         enableTracker = true,
+        hideDuringCombat = false,
         autoTrackQuests = true,
         trackerLocked = true,
         trackerScale = 1.0,

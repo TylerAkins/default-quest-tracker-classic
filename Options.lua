@@ -9,6 +9,7 @@ local category
 
 local TOGGLES = {
     { key = "enableTracker", label = "ENABLE_TRACKER" },
+    { key = "hideDuringCombat", label = "HIDE_DURING_COMBAT" },
     { key = "autoTrackQuests", label = "AUTO_TRACK" },
     { key = "trackerLocked", label = "LOCK_TRACKER" },
     { key = "showQuestLevel", label = "SHOW_QUEST_LEVEL" },
