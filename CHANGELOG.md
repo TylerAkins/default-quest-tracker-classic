@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.0.1] - 2026-08-12
+
+### Added
+
+- Optional setting to hide the quest tracker during combat, disabled by default
+
 ## [1.0.0] - 2026-08-12
 
 ### Added
