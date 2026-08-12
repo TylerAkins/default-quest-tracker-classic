@@ -1,0 +1,115 @@
+name: Bug report
+description: Something in Default Quest Tracker Classic isn't working as expected
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Fill in what you can — more detail = faster fix.
+        Please check [existing issues](https://github.com/TylerAkins/default-quest-tracker-classic/issues) first.
+
+  - type: input
+    id: dqtc-version
+    attributes:
+      label: DQTC version
+      description: From the addon `.toc` (`## Version:`) or the release zip name (e.g. 1.0.0).
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: wow-flavor
+    attributes:
+      label: WoW client
+      options:
+        - Classic Era / Season of Discovery / Hardcore (_classic_era_)
+        - Other (describe in Additional context)
+    validations:
+      required: true
+
+  - type: input
+    id: wow-build
+    attributes:
+      label: Game build / interface (if known)
+      description: Optional. Character select → bottom-left build, or TOC Interface value (e.g. 11508).
+      placeholder: "1.15.x / 11508"
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Short description of the bug.
+      placeholder: Tracker jumps left when I open the spellbook…
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      placeholder: Tracker stays under the minimap…
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps help a lot.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: reproducible
+    attributes:
+      label: How often does it happen?
+      options:
+        - Always
+        - Sometimes
+        - Once / rare
+        - Not sure
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: areas
+    attributes:
+      label: Area affected (check all that apply)
+      options:
+        - label: Quest tracker UI
+        - label: Tracker position / dragging
+        - label: World map markers
+        - label: Minimap markers
+        - label: Nameplates
+        - label: Unit tooltips
+        - label: Options / slash commands
+        - label: TomTom / GPS
+        - label: Other / not sure
+
+  - type: textarea
+    id: other-addons
+    attributes:
+      label: Other addons
+      description: Especially Questie, TomTom, Zygor, ElvUI, or anything that moves the minimap/tracker. `/dqtc markers` output is helpful for map issues.
+      placeholder: |
+        Questie: yes/no
+        TomTom: yes/no
+        Others:
+
+  - type: textarea
+    id: errors
+    attributes:
+      label: Lua errors / chat output
+      description: Paste any red errors, or output from `/dqtc markers` / `/dqtc testpin` if relevant. Wrap in a code block.
+      render: shell
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Screenshots, character faction/level, zone, quest IDs, etc.
