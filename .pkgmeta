@@ -1,0 +1,20 @@
+# https://github.com/BigWigsMods/packager
+package-as: DefaultQuestTrackerClassic
+
+ignore:
+  - .git
+  - .github
+  - .cursor
+  - .gitignore
+  - .pkgmeta
+  - ATTRIBUTION.md
+  - CURSEFORGE_DESCRIPTION.md
+  - tools/.wowhead_cache
+  - tools/.wowhead_full_classic.log
+  - tools/**/*.log
+  - Database/Wowhead/crawl_meta.json
+  - "**/.DS_Store"
+  - "**/Thumbs.db"
+  - "**/__pycache__"
+
+manual-changelog: CHANGELOG.md

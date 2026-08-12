@@ -1,0 +1,10 @@
+HereBeDragons
+Copyright (c) Nevcairiel and contributors
+
+This library is licensed under the BSD 2-Clause / BSD-style license used by
+HereBeDragons upstream. See:
+
+  https://www.wowace.com/projects/herebedragons
+  https://github.com/Nevcairiel/HereBeDragons
+
+DQTC embeds a namespaced copy (`HereBeDragons-DQTC-*`) for map/minimap pins.

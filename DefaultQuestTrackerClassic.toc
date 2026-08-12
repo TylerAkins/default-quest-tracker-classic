@@ -1,0 +1,71 @@
+## Interface: 11508, 11509
+## Title: Default Quest Tracker Classic
+## Notes: Unlimited Classic Era quest tracker with retail-style map markers.
+## Author: DefaultQuestTrackerClassic
+## Version: 1.0.0
+## X-License: GPL-3.0-or-later
+## X-Category: Quests
+## SavedVariables: DQTC_DB
+## SavedVariablesPerCharacter: DQTC_CharDB
+## OptionalDeps: TomTom, ZygorGuidesViewerClassic, HereBeDragons
+## Category: Quests
+## IconTexture: Interface\QuestFrame\UI-Quest-BulletPoint
+## DefaultState: enabled
+
+Libs\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libs\HereBeDragons\HereBeDragons-2.0.lua
+Libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
+
+Localization\enUS.lua
+
+Compat.lua
+Modules\Loader.lua
+Config.lua
+
+Database\Schema.lua
+Database\ZoneMap.lua
+Database\Classic\Quests.lua
+Database\Classic\Npcs.lua
+Database\Classic\Objects.lua
+Database\Classic\ItemDrops.lua
+Database\Classic\ItemNames.lua
+Database\Classic\AreaMap.lua
+Database\Classic\EventQuests.lua
+Database\Classic\SoftPrereqs.lua
+Database\Wowhead\Init.lua
+Database\Wowhead\AreaMap.lua
+Database\Wowhead\Quests.lua
+Database\Wowhead\Npcs.lua
+Database\Wowhead\ItemDrops.lua
+Database\Wowhead\ItemNames.lua
+Database\DataProvider.lua
+Database\DB.lua
+
+Modules\CombatQueue.lua
+Modules\Events.lua
+Modules\QuestLogCache.lua
+Modules\HolidayEvents.lua
+Modules\QuestAvailability.lua
+Modules\WatchState.lua
+
+Modules\Integrations\Gps.lua
+Modules\Integrations\Wowhead.lua
+
+Modules\Tracker\TrackerPosition.lua
+Modules\Tracker\TrackerLines.lua
+Modules\Tracker\TrackerMenu.lua
+Modules\Tracker\TrackerFrame.lua
+
+Modules\Map\HBDHelper.lua
+Modules\Map\PinArt.lua
+Modules\Map\WorldMapPins.lua
+Modules\Map\MinimapPins.lua
+Modules\Map\MarkerController.lua
+
+Modules\Nameplates\QuestNameplates.lua
+
+Modules\Tooltip\QuestTooltip.lua
+
+Options.lua
+Core.lua
