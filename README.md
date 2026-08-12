@@ -1,100 +1,103 @@
 # Default Quest Tracker Classic
 
-Unlimited quest tracker for **WoW Classic Era** that keeps the default Blizzard tracker look, with map/minimap markers and nameplate quest icons.
+Unlimited quest tracker for **WoW Classic Era** with a Blizzard-style look, plus map/minimap markers and nameplate quest icons.
 
-Questie is **not required** at runtime. The slim spawn/quest database shipped in `Database/Classic/` is **derived from Questie Classic** (see [Credits](#credits--license)).
+**Questie is not required.** This addon ships its own slim quest/spawn database derived from Questie Classic (see [Credits](#credits--license)).
+
+**Repository:** [github.com/TylerAkins/default-quest-tracker-classic](https://github.com/TylerAkins/default-quest-tracker-classic)
+
+## Install
+
+### CurseForge (coming soon)
+
+Install and update through the [CurseForge](https://www.curseforge.com/) app once the project is published. That will be the easiest option for most players.
+
+### GitHub Releases (available now)
+
+1. Open [Releases](https://github.com/TylerAkins/default-quest-tracker-classic/releases) and download the latest **addon zip** (not “Source code”).
+2. Extract so the folder is named exactly `DefaultQuestTrackerClassic`.
+3. Copy that folder into:
+   `World of Warcraft\_classic_era_\Interface\AddOns\`
+4. Restart WoW (or `/reload`), then enable the addon at the character select screen if needed.
+
+> **Note:** GitHub’s automatic “Source code” zip is fine for developers, but players should use a **Release asset** zip whose root folder matches the `.toc` name. See [Cutting a release](#cutting-a-release) below.
+
+### Optional addons
+
+- [TomTom](https://www.curseforge.com/wow/addons/tomtom) — “Send to GPS” from the tracker or map pins  
+- **HereBeDragons** — already embedded; no separate install needed for pins
 
 ## Features
 
-- Track more than 5 quests (bypasses Blizzard watch limit)
-- Default position under the minimap; unlock and drag to move; reset in options
-- Map/minimap markers: `!` / `?` for available and turn-ins, small dots for objectives
-- Item-drop objectives (bandanas, Hogger claw, etc.) resolve to mob spawn pins
-- Available quest givers, objectives, and turn-ins (toggleable)
-- Quest icons on nameplates + unit tooltip quest lines
-- Right-click: Send to GPS (TomTom or Zygor), Copy Wowhead URL, untrack, focus
-- Built-in Settings panel (`/dqtc`)
-
-## Install (players)
-
-1. Download a release zip (GitHub Releases or CurseForge when published).
-2. Extract so the folder is named exactly `DefaultQuestTrackerClassic`.
-3. Place it in:
-   `World of Warcraft\_classic_era_\Interface\AddOns\`
-4. Enable the addon at the character select screen.
-
-Optional: [TomTom](https://www.curseforge.com/wow/addons/tomtom) for “Send to GPS”.
-
-**HereBeDragons** is embedded under `Libs/` — you do **not** need a separate HBD install for pins.
+- Track more than Blizzard’s usual watch limit
+- Default position under the minimap; unlock/drag to move; reset in options
+- Map and minimap markers (`!` / `?` for available and turn-ins; dots for objectives)
+- Item-drop objectives resolve to mob spawn pins
+- Available quests, objectives, and turn-ins (each toggleable)
+- Nameplate icons and unit tooltip quest lines
+- Right-click: Send to GPS, copy Wowhead URL, untrack, focus
+- Options via `/dqtc`
 
 ## Commands
 
 | Command | Action |
 |---------|--------|
 | `/dqtc` | Open options |
-| `/dqtc lock` | Lock tracker position |
-| `/dqtc unlock` | Unlock tracker (drag to move) |
-| `/dqtc reset` | Reset tracker to default position |
-| `/dqtc refresh` | Force refresh |
-| `/dqtc testpin` | Drop a test pin on your position (opens map) |
-| `/dqtc markers` | Force-enable markers and print diagnostics |
-| `/dqtc tooltip [npcId]` | Print quest tooltip lines for an NPC |
+| `/dqtc lock` / `unlock` | Lock or unlock tracker position |
+| `/dqtc reset` | Reset tracker to the default position |
+| `/dqtc refresh` | Force a full refresh |
+| `/dqtc testpin` | Place a test pin on your position |
+| `/dqtc markers` | Enable markers and print diagnostics |
+| `/dqtc tooltip [npcId]` | Print tooltip lines for an NPC |
 
-## Verify markers
+## Using with Questie
 
-1. `/reload`
-2. `/dqtc testpin` — yellow `!` on you with the map open
-3. `/dqtc markers` — expect `mode=OK`, `hbd=true`
-4. Hover a quest NPC/mob — tooltip lines appear
-
-If Questie is also installed, leave **Suppress map/nameplate markers if Questie is loaded** **off** to see DQTC pins (or turn it on to avoid double markers).
+You can run both. To avoid double map markers, enable **Suppress map/nameplate markers if Questie is loaded** in options. Leave it off if you want DQTC’s pins instead.
 
 ## Credits & license
 
-This addon is released under the **GNU General Public License v3** — see [LICENSE](LICENSE).
+Licensed under **GPLv3** — see [LICENSE](LICENSE).
 
-### Questie (quest / spawn database)
+### Questie (database source)
 
-The Classic Era data under `Database/Classic/` is a **slim conversion** of Questie Classic community DB tables (`tools/convert_questie_db.py`). Questie is **not** bundled; DQTC does not copy Questie UI code or icons.
+`Database/Classic/` is a slim conversion of Questie Classic community DB tables. Questie itself is not bundled; this addon does not copy Questie UI code or icons.
 
-- GitHub: [https://github.com/Questie/Questie](https://github.com/Questie/Questie)
-- CurseForge: [https://www.curseforge.com/wow/addons/questie](https://www.curseforge.com/wow/addons/questie)
+- [Questie on GitHub](https://github.com/Questie/Questie)
+- [Questie on CurseForge](https://www.curseforge.com/wow/addons/questie)
 
-Huge thanks to the Questie authors and contributors. If you want the full quest helper experience, use Questie.
+Thanks to the Questie authors and contributors. For a full quest helper suite, use Questie.
 
 ### HereBeDragons
 
-Map/minimap pins use an embedded copy of [HereBeDragons](https://www.wowace.com/projects/herebedragons) (BSD) by Nevcairiel, namespaced as `HereBeDragons-DQTC-*`.
+Map pins use an embedded copy of [HereBeDragons](https://www.wowace.com/projects/herebedragons) (BSD) by Nevcairiel (`HereBeDragons-DQTC-*`).
 
-### Other optional integrations
-
-- [TomTom](https://www.curseforge.com/wow/addons/tomtom) — GPS arrow
-- Zygor Guides — optional GPS if present (not required)
-
-See [ATTRIBUTION.md](ATTRIBUTION.md) for publishing notes.
+More detail: [ATTRIBUTION.md](ATTRIBUTION.md).
 
 ## Development
 
-### Regenerating the slim DB
-
-Requires the [Questie](https://github.com/Questie/Questie) addon installed as a sibling folder (`../Questie`):
+Regenerate the slim DB with [Questie](https://github.com/Questie/Questie) installed next to this folder (`../Questie`):
 
 ```bash
 python tools/convert_questie_db.py
 ```
 
-Other maintainers scripts live under `tools/` (item objective patches, offline Wowhead crawl experiments). Do **not** commit `tools/.wowhead_cache/` or crawl logs.
+Scripts under `tools/` are for maintainers. Do not commit `tools/.wowhead_cache/` or crawl logs.
 
-### CurseForge packaging (when you publish)
+### Cutting a release
 
-1. Create the CurseForge project; set license to **GPLv3**.
-2. Relations → **Embedded Library** → HereBeDragons (documentation).
-3. Optional Relations → TomTom as **Optional Dependency**.
-4. Upload a zip whose root folder is `DefaultQuestTrackerClassic` (same as the `.toc` name).
-5. Prefer [BigWigs packager](https://github.com/BigWigsMods/packager) / `.pkgmeta` so `tools/` caches are excluded from the player zip; keep full source on GitHub for GPL compliance.
-6. Paste a short Credits blurb (Questie + HereBeDragons links) into the CurseForge description.
+Players need a **GitHub Release** with an attached zip (CurseForge will use its own uploads later).
 
-Do **not** ship Questie’s addon folder, icons, or branding.
+1. Bump `## Version:` in `DefaultQuestTrackerClassic.toc` and add notes to [CHANGELOG.md](CHANGELOG.md).
+2. Build a zip whose **top-level folder** is `DefaultQuestTrackerClassic` (include the `.toc`, `Libs/`, `Database/`, modules — exclude `.git`, caches, and preferably `tools/`).
+3. Tag and publish on GitHub, e.g. `v1.0.0`, and attach that zip as a release asset.
+4. Prefer the [BigWigs packager](https://github.com/BigWigsMods/packager) with [.pkgmeta](.pkgmeta) so ignore rules stay consistent.
+
+### CurseForge (when you publish)
+
+1. Create the project; set license to **GPLv3**.
+2. Relations → **Embedded Library** → HereBeDragons; optional → TomTom.
+3. Paste [CURSEFORGE_DESCRIPTION.md](CURSEFORGE_DESCRIPTION.md) into the project description.
+4. Upload the same style of zip as GitHub Releases.
 
 ## Changelog
 

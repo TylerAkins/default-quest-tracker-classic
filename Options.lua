@@ -54,7 +54,7 @@ function Options:BuildCanvas(panel)
     hint:SetPoint("TOPLEFT", reset, "BOTTOMLEFT", 0, -12)
     hint:SetWidth(400)
     hint:SetJustifyH("LEFT")
-    hint:SetText("Slash: /dqtc  |  unlock  |  lock  |  reset  |  markers\nTracker: mouse wheel to scroll when content exceeds ~55% screen height.")
+    hint:SetText("Slash: /dqtc  |  unlock  |  lock  |  reset  |  markers")
 end
 
 function Options:Initialize()
