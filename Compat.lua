@@ -45,6 +45,40 @@ function Compat.GetQuestLogIndexByID(questId)
     return nil
 end
 
+function Compat.ShowQuestInLog(questId)
+    local index = Compat.GetQuestLogIndexByID(questId)
+    if not index or not QuestLogFrame then
+        return false
+    end
+
+    if not QuestLogFrame:IsShown() then
+        if ToggleQuestLog then
+            ToggleQuestLog()
+        elseif ShowUIPanel then
+            ShowUIPanel(QuestLogFrame)
+        else
+            return false
+        end
+    end
+
+    if QuestLog_SetSelection then
+        QuestLog_SetSelection(index)
+    elseif SelectQuestLogEntry then
+        SelectQuestLogEntry(index)
+    else
+        return false
+    end
+
+    if QuestLog_UpdateQuestDetails then
+        QuestLog_UpdateQuestDetails()
+    end
+    if QuestLog_Update then
+        QuestLog_Update()
+    end
+
+    return true
+end
+
 function Compat.IsQuestFlaggedCompleted(questId)
     if not questId then
         return false

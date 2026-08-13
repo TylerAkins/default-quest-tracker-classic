@@ -35,6 +35,7 @@ Install and update through the [CurseForge](https://www.curseforge.com/) app onc
 - Item-drop objectives resolve to mob spawn pins
 - Available quests, objectives, and turn-ins (each toggleable)
 - Nameplate icons and unit tooltip quest lines
+- Clickable Questie chat links open the matching active quest in the quest log
 - Right-click: Send to GPS, copy Wowhead URL, untrack, focus
 - Options via `/dqtc`
 
@@ -53,6 +54,8 @@ Install and update through the [CurseForge](https://www.curseforge.com/) app onc
 ## Using with Questie
 
 You can run both. To avoid double map markers, enable **Suppress map/nameplate markers if Questie is loaded** in options. Leave it off if you want DQTC’s pins instead.
+
+Clicking a Questie quest link in chat opens and selects that quest when it is in your quest log. Links for quests you are not currently on keep Questie’s normal tooltip behavior.
 
 ## Credits & license
 

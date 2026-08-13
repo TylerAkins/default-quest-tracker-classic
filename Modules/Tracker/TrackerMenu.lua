@@ -54,25 +54,7 @@ local function InitializeMenu(frame, level)
         info.text = L["SHOW_IN_QUEST_LOG"]
         info.notCheckable = true
         info.func = function()
-            local index = DQTC.Compat.GetQuestLogIndexByID(menuQuestId)
-            if not index then
-                return
-            end
-            if QuestLogFrame and not QuestLogFrame:IsShown() then
-                if ToggleQuestLog then
-                    ToggleQuestLog()
-                elseif ShowUIPanel then
-                    ShowUIPanel(QuestLogFrame)
-                end
-            end
-            if QuestLog_SetSelection then
-                QuestLog_SetSelection(index)
-            elseif SelectQuestLogEntry then
-                SelectQuestLogEntry(index)
-            end
-            if QuestLog_Update then
-                QuestLog_Update()
-            end
+            DQTC.Compat.ShowQuestInLog(menuQuestId)
         end
         UIDropDownMenu_AddButton(info, level)
 

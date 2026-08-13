@@ -2,12 +2,12 @@
 ## Title: Default Quest Tracker Classic
 ## Notes: Unlimited Classic Era quest tracker with retail-style map markers.
 ## Author: DefaultQuestTrackerClassic
-## Version: 1.0.1
+## Version: 1.0.2
 ## X-License: GPL-3.0-or-later
 ## X-Category: Quests
 ## SavedVariables: DQTC_DB
 ## SavedVariablesPerCharacter: DQTC_CharDB
-## OptionalDeps: TomTom, ZygorGuidesViewerClassic, HereBeDragons
+## OptionalDeps: TomTom, ZygorGuidesViewerClassic, HereBeDragons, Questie
 ## Category: Quests
 ## IconTexture: Interface\QuestFrame\UI-Quest-BulletPoint
 ## DefaultState: enabled
@@ -51,6 +51,7 @@ Modules\WatchState.lua
 
 Modules\Integrations\Gps.lua
 Modules\Integrations\Wowhead.lua
+Modules\Integrations\QuestieLinks.lua
 
 Modules\Tracker\TrackerPosition.lua
 Modules\Tracker\TrackerLines.lua
