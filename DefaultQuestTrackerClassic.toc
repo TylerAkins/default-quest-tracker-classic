@@ -7,7 +7,7 @@
 ## X-Category: Quests
 ## SavedVariables: DQTC_DB
 ## SavedVariablesPerCharacter: DQTC_CharDB
-## OptionalDeps: TomTom, ZygorGuidesViewerClassic, HereBeDragons
+## OptionalDeps: TomTom, ZygorGuidesViewerClassic, HereBeDragons, Questie
 ## Category: Quests
 ## IconTexture: Interface\QuestFrame\UI-Quest-BulletPoint
 ## DefaultState: enabled
@@ -51,6 +51,7 @@ Modules\WatchState.lua
 
 Modules\Integrations\Gps.lua
 Modules\Integrations\Wowhead.lua
+Modules\Integrations\QuestieLinks.lua
 
 Modules\Tracker\TrackerPosition.lua
 Modules\Tracker\TrackerLines.lua

@@ -62,6 +62,7 @@ local function Initialize()
     local Events = Loader:ImportModule("Events")
     local QuestNameplates = Loader:ImportModule("QuestNameplates")
     Loader:ImportModule("QuestTooltip"):Initialize()
+    Loader:ImportModule("QuestieLinks"):Initialize()
 
     if DQTC.Config:Get("enableTracker") then
         WatchState:HookBlizzard()
