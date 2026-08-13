@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.0.2] - 2026-08-13
+
+### Added
+
+- Clickable Questie chat links open and select matching quests in the active quest log
+
 ## [1.0.1] - 2026-08-12
 
 ### Added
