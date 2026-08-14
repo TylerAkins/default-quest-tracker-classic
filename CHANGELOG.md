@@ -2,6 +2,13 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.0.3] - 2026-08-13
+
+### Fixed
+
+- Hide profession-gated quest offers until the character meets their required skill rank
+- Hide AQ War Effort quest offers by default with a new configurable option
+
 ## [1.0.2] - 2026-08-13
 
 ### Added

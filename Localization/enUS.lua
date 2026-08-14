@@ -3,7 +3,7 @@ local ADDON_NAME = ...
 _G[ADDON_NAME] = _G[ADDON_NAME] or {}
 local DQTC = _G[ADDON_NAME]
 DQTC.name = ADDON_NAME
-DQTC.version = "1.0.2"
+DQTC.version = "1.0.3"
 
 local L = {}
 DQTC.L = L
@@ -37,6 +37,7 @@ L["HIDE_DURING_COMBAT"] = "Hide tracker during combat"
 L["AUTO_TRACK"] = "Auto-track quests"
 L["SHOW_MARKERS"] = "Show quest markers"
 L["SHOW_AVAILABLE"] = "Show available quest givers"
+L["HIDE_AQ_WAR_EFFORT"] = "Hide AQ War Effort Quests"
 L["SHOW_OBJECTIVES"] = "Show objective markers"
 L["SHOW_TURNINS"] = "Show turn-in markers"
 L["SHOW_TRIVIAL"] = "Show trivial (grey) quests"

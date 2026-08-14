@@ -18,6 +18,7 @@ local defaults = {
         sortMode = "log", -- log | zone | level | proximity
         showQuestMarkers = true,
         showAvailable = true,
+        hideAQWarEffortQuests = true,
         showObjectives = true,
         showTurnins = true,
         showTrivial = false,

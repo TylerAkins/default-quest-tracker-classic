@@ -16,6 +16,7 @@ local TOGGLES = {
     { key = "hideCompletedObjectives", label = "HIDE_COMPLETED" },
     { key = "showQuestMarkers", label = "SHOW_MARKERS" },
     { key = "showAvailable", label = "SHOW_AVAILABLE" },
+    { key = "hideAQWarEffortQuests", label = "HIDE_AQ_WAR_EFFORT" },
     { key = "showObjectives", label = "SHOW_OBJECTIVES" },
     { key = "showTurnins", label = "SHOW_TURNINS" },
     { key = "showTrivial", label = "SHOW_TRIVIAL" },

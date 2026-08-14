@@ -10,6 +10,7 @@ local function RefreshAll(opts)
     local TrackerFrame = Loader:ImportModule("TrackerFrame")
     local MarkerController = Loader:ImportModule("MarkerController")
     local QuestNameplates = Loader:ImportModule("QuestNameplates")
+    local QuestTooltip = Loader:ImportModule("QuestTooltip")
 
     QuestLogCache:Refresh()
     QuestAvailability:EnsureBuilt()
@@ -21,6 +22,9 @@ local function RefreshAll(opts)
     TrackerFrame:Update()
     MarkerController:Refresh()
     QuestNameplates:RefreshAll()
+    if opts.refreshOfferable then
+        QuestTooltip:Refresh()
+    end
 end
 
 function DQTC:RefreshAll()
@@ -37,7 +41,7 @@ function DQTC:OnConfigChanged(key, value)
             WatchState:HookBlizzard()
         end
     end
-    RefreshAll()
+    RefreshAll({ refreshOfferable = key == "hideAQWarEffortQuests" })
 end
 
 function DQTC:OnCharConfigChanged(key, value)
@@ -116,6 +120,10 @@ local function Initialize()
     Events:Register("PLAYER_LEVEL_UP", function()
         Loader:ImportModule("MarkerController"):Refresh()
     end, 0.2)
+
+    Events:Register("CHAT_MSG_SKILL", function()
+        RefreshAll({ refreshOfferable = true })
+    end, 0.5)
 
     Events:Register("PLAYER_REGEN_DISABLED", function()
         Loader:ImportModule("TrackerFrame"):Update()

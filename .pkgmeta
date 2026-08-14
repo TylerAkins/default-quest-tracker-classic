@@ -9,6 +9,7 @@ ignore:
   - .pkgmeta
   - ATTRIBUTION.md
   - CURSEFORGE_DESCRIPTION.md
+  - tests
   - tools
   - "**/.DS_Store"
   - "**/Thumbs.db"
