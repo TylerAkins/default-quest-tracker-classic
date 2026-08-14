@@ -3,7 +3,7 @@ local ADDON_NAME = ...
 _G[ADDON_NAME] = _G[ADDON_NAME] or {}
 local DQTC = _G[ADDON_NAME]
 DQTC.name = ADDON_NAME
-DQTC.version = "1.0.2"
+DQTC.version = "1.0.3"
 
 local L = {}
 DQTC.L = L

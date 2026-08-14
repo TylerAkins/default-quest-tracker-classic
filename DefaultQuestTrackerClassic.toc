@@ -2,7 +2,7 @@
 ## Title: Default Quest Tracker Classic
 ## Notes: Unlimited Classic Era quest tracker with retail-style map markers.
 ## Author: DefaultQuestTrackerClassic
-## Version: 1.0.2
+## Version: 1.0.3
 ## X-License: GPL-3.0-or-later
 ## X-Category: Quests
 ## SavedVariables: DQTC_DB
