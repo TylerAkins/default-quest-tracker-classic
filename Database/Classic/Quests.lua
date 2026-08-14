@@ -688,7 +688,7 @@ DQTC.Data.quests[711]={n="Study of the Elements: Rock",l=39,rl=35,f=0,s={2921},e
 DQTC.Data.quests[712]={n="Study of the Elements: Rock",l=42,rl=35,f=0,s={2921},e={2921},o={{t="item",i=4628}},pq={711}}
 DQTC.Data.quests[713]={n="Coolant Heads Prevail",l=37,rl=35,f=0,s={2921},e={2921},o={{t="item",i=3829}},nq=714}
 DQTC.Data.quests[714]={n="Gyro... What?",l=37,rl=35,f=0,s={2921},e={2921},o={{t="item",i=4389}},pq={713}}
-DQTC.Data.quests[715]={n="Liquid Stone",l=37,rl=35,f=0,s={2920},e={2920},o={{t="item",i=929},{t="item",i=3823}},pq={714}}
+DQTC.Data.quests[715]={n="Liquid Stone",l=37,rl=35,f=0,s={2920},e={2920},o={{t="item",i=929},{t="item",i=3823}},pq={714},sk={171,0}}
 DQTC.Data.quests[716]={n="Stone Is Better than Cloth",l=42,rl=35,f=0,s={2920},e={2920},o={{t="item",i=2868}},pq={712}}
 DQTC.Data.quests[717]={n="Tremors of the Earth",l=50,rl=40,f=1,s={2888},e={2888},o={{t="item",i=4615},{t="item",i=4645}},r=77,pq={732}}
 DQTC.Data.quests[718]={n="Mirages",l=38,rl=35,f=1,s={2860},e={2860},o={{t="item",i=4629}},r=77,nq=733}
@@ -740,7 +740,7 @@ DQTC.Data.quests[764]={n="The Venture Co.",l=10,rl=5,f=2,s={2988},e={2988},o={{t
 DQTC.Data.quests[765]={n="Supervisor Fizsprocket",l=12,rl=5,f=2,s={2988},e={2988},o={{t="item",i=4819}},r=178,pq={751}}
 DQTC.Data.quests[766]={n="Mazzranache",l=8,rl=5,f=2,s={3055},e={3055},o={{t="item",i=4804},{t="item",i=4805},{t="item",i=4806},{t="item",i=4807}},r=178}
 DQTC.Data.quests[767]={n="Rite of Vision",l=6,rl=3,f=2,s={2993},e={3054},o={},r=178,pq={763},nq=771}
-DQTC.Data.quests[768]={n="Gathering Leather",l=8,rl=4,f=2,s={3050},e={3050},o={{t="item",i=2318}},r=178}
+DQTC.Data.quests[768]={n="Gathering Leather",l=8,rl=4,f=2,s={3050},e={3050},o={{t="item",i=2318}},r=178,sk={393,1}}
 DQTC.Data.quests[769]={n="Kodo Hide Bag",l=10,rl=4,f=2,s={3050},e={3050},o={{t="item",i=2318},{t="item",i=2320}},r=178,pq={768}}
 DQTC.Data.quests[770]={n="The Demon Scarred Cloak",l=12,rl=6,f=2,s={},e={3052},o={},r=178}
 DQTC.Data.quests[771]={n="Rite of Vision",l=7,rl=3,f=2,s={3054},e={3054},o={{t="item",i=4808},{t="item",i=4809}},r=178,pq={767}}
@@ -816,11 +816,11 @@ DQTC.Data.quests[857]={n="The Tear of the Moons",l=30,rl=22,f=2,s={3421},e={3421
 DQTC.Data.quests[858]={n="Ignition",l=18,rl=13,f=0,s={3439},e={3439},o={{t="item",i=5050}}}
 DQTC.Data.quests[860]={n="Sergra Darkthorn",l=10,rl=10,f=2,s={3441},e={3338},o={},r=178,pq={861},nq=844}
 DQTC.Data.quests[861]={n="The Hunter's Way",l=10,rl=10,f=2,s={3052},e={3441},o={{t="item",i=5203}},r=178}
-DQTC.Data.quests[862]={n="Dig Rat Stew",l=23,rl=15,f=2,s={3443},e={3443},o={{t="item",i=5051}},r=178}
+DQTC.Data.quests[862]={n="Dig Rat Stew",l=23,rl=15,f=2,s={3443},e={3443},o={{t="item",i=5051}},r=178,sk={185,1}}
 DQTC.Data.quests[863]={n="The Escape",l=18,rl=13,f=0,s={3439},e={3442},o={},pq={858}}
 DQTC.Data.quests[864]={n="Return to Apothecary Zinge",l=46,rl=38,f=2,s={7407},e={5204},o={},r=178,pq={654}}
 DQTC.Data.quests[865]={n="Raptor Horns",l=18,rl=13,f=0,s={3446},e={3446},o={{t="item",i=5055}}}
-DQTC.Data.quests[866]={n="Root Samples",l=16,rl=9,f=0,s={3446},e={3446},o={{t="item",i=5056}}}
+DQTC.Data.quests[866]={n="Root Samples",l=16,rl=9,f=0,s={3446},e={3446},o={{t="item",i=5056}},sk={182,1}}
 DQTC.Data.quests[867]={n="Harpy Raiders",l=15,rl=12,f=2,s={3449},e={3449},o={{t="item",i=5064}},r=178,nq=875}
 DQTC.Data.quests[868]={n="Egg Hunt",l=22,rl=17,f=2,s={3428},e={3428},o={{t="item",i=5058}},r=178}
 DQTC.Data.quests[869]={n="Raptor Thieves",l=13,rl=9,f=2,s={3464},e={3464},o={{t="item",i=5062}},r=178,nq=3281}
@@ -1335,16 +1335,16 @@ DQTC.Data.quests[1534]={n="Call of Water",l=23,rl=20,f=2,s={5899},e={5899},o={{t
 DQTC.Data.quests[1535]={n="Call of Water",l=22,rl=20,f=2,s={5899},e={5899},o={{t="item",i=7769}},r=178,c=64,pq={1530},nq=1536}
 DQTC.Data.quests[1536]={n="Call of Water",l=22,rl=20,f=2,s={5899},e={5899},o={{t="item",i=7771}},r=178,c=64,pq={1535},nq=1534}
 DQTC.Data.quests[1558]={n="The Stonewrought Dam",l=60,rl=10,f=1,s={14305},e={14305},o={},r=77,pq={1468}}
-DQTC.Data.quests[1559]={n="Flash Bomb Recipe",l=37,rl=30,f=0,s={2817},e={2817},o={}}
+DQTC.Data.quests[1559]={n="Flash Bomb Recipe",l=37,rl=30,f=0,s={2817},e={2817},o={},sk={202,1}}
 DQTC.Data.quests[1560]={n="Tooga's Quest",l=50,rl=40,f=0,s={5955},e={6015},o={}}
-DQTC.Data.quests[1578]={n="Supplying the Front",l=12,rl=1,f=1,s={6031},e={6030},o={{t="item",i=2845},{t="item",i=2851}},r=77}
-DQTC.Data.quests[1579]={n="Gaffer Jacks",l=12,rl=10,f=1,s={3666},e={3666},o={{t="item",i=6717}},r=77,nq=1580}
-DQTC.Data.quests[1580]={n="Electropellers",l=12,rl=10,f=1,s={3666},e={3666},o={{t="item",i=6718}},r=77,pq={1579}}
-DQTC.Data.quests[1581]={n="Elixirs for the Bladeleafs",l=8,rl=4,f=0,s={2083},e={2083},o={{t="item",i=2454},{t="item",i=5997}}}
-DQTC.Data.quests[1582]={n="Moonglow Vest",l=18,rl=8,f=1,s={6034},e={6034},o={{t="item",i=4239},{t="item",i=2309},{t="item",i=2310}},r=77}
+DQTC.Data.quests[1578]={n="Supplying the Front",l=12,rl=1,f=1,s={6031},e={6030},o={{t="item",i=2845},{t="item",i=2851}},r=77,sk={164,30}}
+DQTC.Data.quests[1579]={n="Gaffer Jacks",l=12,rl=10,f=1,s={3666},e={3666},o={{t="item",i=6717}},r=77,nq=1580,sk={356,30}}
+DQTC.Data.quests[1580]={n="Electropellers",l=12,rl=10,f=1,s={3666},e={3666},o={{t="item",i=6718}},r=77,pq={1579},sk={356,1}}
+DQTC.Data.quests[1581]={n="Elixirs for the Bladeleafs",l=8,rl=4,f=0,s={2083},e={2083},o={{t="item",i=2454},{t="item",i=5997}},sk={171,20}}
+DQTC.Data.quests[1582]={n="Moonglow Vest",l=18,rl=8,f=1,s={6034},e={6034},o={{t="item",i=4239},{t="item",i=2309},{t="item",i=2310}},r=77,sk={165,90}}
 DQTC.Data.quests[1598]={n="The Stolen Tome",l=4,rl=1,f=1,s={459},e={459},o={{t="item",i=6785}},r=77,c=256}
 DQTC.Data.quests[1599]={n="Beginnings",l=4,rl=1,f=1,s={460},e={460},o={{t="item",i=6753}},r=77,c=256}
-DQTC.Data.quests[1618]={n="Gearing Redridge",l=16,rl=1,f=1,s={6031},e={415},o={{t="item",i=2857},{t="item",i=6214}},r=77}
+DQTC.Data.quests[1618]={n="Gearing Redridge",l=16,rl=1,f=1,s={6031},e={415},o={{t="item",i=2857},{t="item",i=6214}},r=77,sk={164,70}}
 DQTC.Data.quests[1638]={n="A Warrior's Training",l=10,rl=10,f=1,s={913,5480},e={6089},o={},r=77,c=1,ex={1679,1684},nq=1639}
 DQTC.Data.quests[1639]={n="Bartleby the Drunk",l=10,rl=10,f=1,s={6089},e={6090},o={},r=77,c=1,pq={1638},nq=1640}
 DQTC.Data.quests[1640]={n="Beat Bartleby",l=10,rl=10,f=1,s={6090},e={6090},o={},r=77,c=1,pq={1639},nq=1665}
@@ -1520,13 +1520,13 @@ DQTC.Data.quests[2158]={n="Rest and Relaxation",l=5,rl=1,f=1,s={6774},e={295},o=
 DQTC.Data.quests[2159]={n="Dolanaar Delivery",l=5,rl=1,f=1,s={6780},e={6736},o={},r=77}
 DQTC.Data.quests[2160]={n="Supplies to Tannok",l=5,rl=1,f=1,s={6782},e={6806},o={},r=77}
 DQTC.Data.quests[2161]={n="A Peon's Burden",l=5,rl=1,f=2,s={6786},e={6928},o={},r=178}
-DQTC.Data.quests[2178]={n="Easy Strider Living",l=12,rl=9,f=1,s={3702},e={3702},o={{t="item",i=5469}},r=77}
+DQTC.Data.quests[2178]={n="Easy Strider Living",l=12,rl=9,f=1,s={3702},e={3702},o={{t="item",i=5469}},r=77,sk={185,10}}
 DQTC.Data.quests[2198]={n="The Shattered Necklace",l=41,rl=37,f=1,s={},e={6826},o={},r=77,nq=2199}
 DQTC.Data.quests[2199]={n="Lore for a Price",l=41,rl=37,f=1,s={6826},e={6826},o={{t="item",i=2842}},r=77,pq={2198},nq=2200}
 DQTC.Data.quests[2200]={n="Back to Uldaman",l=42,rl=37,f=1,s={6826},e={6912},o={},r=77,pq={2199},nq=2201}
 DQTC.Data.quests[2201]={n="Find the Gems",l=43,rl=40,f=1,s={6912},e={},o={{t="item",i=7669},{t="item",i=7670},{t="item",i=7671}},r=77,pq={2200},nq=2204}
 DQTC.Data.quests[2202]={n="Uldaman Reagent Run",l=42,rl=36,f=2,s={6868},e={6868},o={{t="item",i=8047}},r=178,pq={2258}}
-DQTC.Data.quests[2203]={n="Badlands Reagent Run II",l=44,rl=40,f=2,s={6868},e={6868},o={{t="item",i=7867}},r=178,pq={2202}}
+DQTC.Data.quests[2203]={n="Badlands Reagent Run II",l=44,rl=40,f=2,s={6868},e={6868},o={{t="item",i=7867}},r=178,pq={2202},sk={171,210}}
 DQTC.Data.quests[2204]={n="Restoring the Necklace",l=44,rl=37,f=1,s={},e={6826},o={{t="item",i=7672}},r=77,pq={2201}}
 DQTC.Data.quests[2205]={n="Seek out SI: 7",l=10,rl=10,f=1,s={917},e={332},o={},r=77,c=8,ex={2218,2241}}
 DQTC.Data.quests[2206]={n="Snatch and Grab",l=10,rl=10,f=1,s={332},e={332},o={{t="item",i=7675}},r=77,c=8,pq={2205}}
@@ -1580,7 +1580,7 @@ DQTC.Data.quests[2480]={n="Hinott's Assistance",l=20,rl=20,f=2,s={2391},e={2391}
 DQTC.Data.quests[2498]={n="Return to Denalan",l=9,rl=4,f=1,s={3517},e={2080},o={},r=77,pq={923},nq=2499}
 DQTC.Data.quests[2499]={n="Oakenscowl",l=9,rl=4,f=1,s={2080},e={2080},o={{t="item",i=8136}},r=77,pq={2498}}
 DQTC.Data.quests[2500]={n="Badlands Reagent Run",l=39,rl=36,f=1,s={1470},e={1470},o={{t="item",i=7847},{t="item",i=7846},{t="item",i=7848}},r=77}
-DQTC.Data.quests[2501]={n="Badlands Reagent Run II",l=44,rl=40,f=1,s={1470},e={1470},o={{t="item",i=7867}},r=77,pq={2500}}
+DQTC.Data.quests[2501]={n="Badlands Reagent Run II",l=44,rl=40,f=1,s={1470},e={1470},o={{t="item",i=7867}},r=77,pq={2500},sk={171,210}}
 DQTC.Data.quests[2518]={n="Tears of the Moon",l=12,rl=5,f=1,s={7313},e={7313},o={{t="item",i=8344}},r=77,nq=2520}
 DQTC.Data.quests[2519]={n="The Temple of the Moon",l=10,rl=5,f=1,s={7316},e={7313},o={},r=77,nq=2518}
 DQTC.Data.quests[2520]={n="Sathrah's Sacrifice",l=12,rl=5,f=1,s={7313},e={7313},o={},r=77,pq={2518}}
@@ -1624,29 +1624,29 @@ DQTC.Data.quests[2747]={n="An Extraordinary Egg",l=60,rl=42,f=0,s={7763},e={7763
 DQTC.Data.quests[2748]={n="A Fine Egg",l=60,rl=42,f=0,s={7763},e={7763},o={{t="item",i=8644}},pq={2741}}
 DQTC.Data.quests[2749]={n="An Ordinary Egg",l=60,rl=42,f=0,s={7763},e={7763},o={{t="item",i=8645}},pq={2741}}
 DQTC.Data.quests[2750]={n="A Bad Egg",l=47,rl=42,f=0,s={7763},e={7763},o={{t="item",i=8646}},pq={2741}}
-DQTC.Data.quests[2751]={n="Barbaric Battlements",l=32,rl=32,f=2,s={7790},e={7790},o={{t="item",i=2868},{t="item",i=7957},{t="item",i=5635}},r=178}
-DQTC.Data.quests[2752]={n="On Iron Pauldrons",l=32,rl=32,f=2,s={7790},e={7790},o={{t="item",i=7958},{t="item",i=7956}},r=178,pq={2751}}
-DQTC.Data.quests[2753]={n="Trampled Under Foot",l=36,rl=32,f=2,s={7790},e={7790},o={{t="item",i=3836},{t="item",i=3835},{t="item",i=3842}},r=178,pq={2752}}
-DQTC.Data.quests[2754]={n="Horns of Frenzy",l=36,rl=32,f=2,s={7790},e={7790},o={{t="item",i=3851},{t="item",i=3482},{t="item",i=3483}},r=178,pq={2753}}
-DQTC.Data.quests[2755]={n="Joys of Omosh",l=36,rl=32,f=2,s={7790},e={7790},o={},r=178,pq={2754}}
-DQTC.Data.quests[2756]={n="The Old Ways",l=40,rl=40,f=2,s={7792},e={7792},o={{t="item",i=7963},{t="item",i=7922}},r=178,nq=2757}
-DQTC.Data.quests[2757]={n="Booty Bay or Bust!",l=40,rl=40,f=2,s={7793},e={7794},o={},r=178,pq={2756},nq=2760}
-DQTC.Data.quests[2758]={n="The Origins of Smithing",l=40,rl=40,f=1,s={7798},e={7798},o={{t="item",i=6040}},r=77,nq=2759}
-DQTC.Data.quests[2759]={n="In Search of Galvan",l=40,rl=40,f=1,s={7798},e={7794},o={},r=77,pq={2758},nq=2760}
-DQTC.Data.quests[2760]={n="The Mithril Order",l=40,rl=40,f=0,s={7794},e={7802},o={},pq={2757,2759}}
-DQTC.Data.quests[2761]={n="Smelt On, Smelt Off",l=45,rl=40,f=0,s={7802},e={7802},o={{t="item",i=3575},{t="item",i=3860}},pq={2760}}
-DQTC.Data.quests[2762]={n="The Great Silver Deceiver",l=45,rl=40,f=0,s={7802},e={7802},o={{t="item",i=3860},{t="item",i=6037}},pq={2760}}
-DQTC.Data.quests[2763]={n="The Art of the Imbue",l=45,rl=40,f=0,s={7802},e={7802},o={{t="item",i=3860},{t="item",i=3864}},pq={2760}}
-DQTC.Data.quests[2764]={n="Galvan's Finest Pupil",l=45,rl=40,f=0,s={7802},e={7804},o={},pq={2761}}
-DQTC.Data.quests[2765]={n="Expert Blacksmith!",l=45,rl=40,f=0,s={7802},e={7802},o={},pg={2761,2762,2763}}
+DQTC.Data.quests[2751]={n="Barbaric Battlements",l=32,rl=32,f=2,s={7790},e={7790},o={{t="item",i=2868},{t="item",i=7957},{t="item",i=5635}},r=178,sk={164,140}}
+DQTC.Data.quests[2752]={n="On Iron Pauldrons",l=32,rl=32,f=2,s={7790},e={7790},o={{t="item",i=7958},{t="item",i=7956}},r=178,pq={2751},sk={164,1}}
+DQTC.Data.quests[2753]={n="Trampled Under Foot",l=36,rl=32,f=2,s={7790},e={7790},o={{t="item",i=3836},{t="item",i=3835},{t="item",i=3842}},r=178,pq={2752},sk={164,1}}
+DQTC.Data.quests[2754]={n="Horns of Frenzy",l=36,rl=32,f=2,s={7790},e={7790},o={{t="item",i=3851},{t="item",i=3482},{t="item",i=3483}},r=178,pq={2753},sk={164,1}}
+DQTC.Data.quests[2755]={n="Joys of Omosh",l=36,rl=32,f=2,s={7790},e={7790},o={},r=178,pq={2754},sk={164,1}}
+DQTC.Data.quests[2756]={n="The Old Ways",l=40,rl=40,f=2,s={7792},e={7792},o={{t="item",i=7963},{t="item",i=7922}},r=178,nq=2757,sk={164,210}}
+DQTC.Data.quests[2757]={n="Booty Bay or Bust!",l=40,rl=40,f=2,s={7793},e={7794},o={},r=178,pq={2756},nq=2760,sk={164,210}}
+DQTC.Data.quests[2758]={n="The Origins of Smithing",l=40,rl=40,f=1,s={7798},e={7798},o={{t="item",i=6040}},r=77,nq=2759,sk={164,210}}
+DQTC.Data.quests[2759]={n="In Search of Galvan",l=40,rl=40,f=1,s={7798},e={7794},o={},r=77,pq={2758},nq=2760,sk={164,210}}
+DQTC.Data.quests[2760]={n="The Mithril Order",l=40,rl=40,f=0,s={7794},e={7802},o={},pq={2757,2759},sk={164,210}}
+DQTC.Data.quests[2761]={n="Smelt On, Smelt Off",l=45,rl=40,f=0,s={7802},e={7802},o={{t="item",i=3575},{t="item",i=3860}},pq={2760},sk={164,210}}
+DQTC.Data.quests[2762]={n="The Great Silver Deceiver",l=45,rl=40,f=0,s={7802},e={7802},o={{t="item",i=3860},{t="item",i=6037}},pq={2760},sk={164,210}}
+DQTC.Data.quests[2763]={n="The Art of the Imbue",l=45,rl=40,f=0,s={7802},e={7802},o={{t="item",i=3860},{t="item",i=3864}},pq={2760},sk={164,210}}
+DQTC.Data.quests[2764]={n="Galvan's Finest Pupil",l=45,rl=40,f=0,s={7802},e={7804},o={},pq={2761},sk={164,210}}
+DQTC.Data.quests[2765]={n="Expert Blacksmith!",l=45,rl=40,f=0,s={7802},e={7802},o={},pg={2761,2762,2763},sk={164,210}}
 DQTC.Data.quests[2766]={n="Find OOX-22/FE!",l=45,rl=40,f=0,s={},e={7807},o={},nq=2767}
 DQTC.Data.quests[2767]={n="Rescue OOX-22/FE!",l=45,rl=40,f=0,s={7807},e={7406},o={},pq={2766}}
 DQTC.Data.quests[2768]={n="Divino-matic Rod",l=47,rl=40,f=0,s={7407},e={7407},o={{t="item",i=8548}}}
 DQTC.Data.quests[2769]={n="The Brassbolts Brothers",l=46,rl=40,f=1,s={6169},e={4453},o={},r=77,nq=2770}
 DQTC.Data.quests[2770]={n="Gahz'rilla",l=50,rl=40,f=0,s={4453},e={4453},o={{t="item",i=8707}}}
-DQTC.Data.quests[2771]={n="A Good Head On Your Shoulders",l=45,rl=40,f=0,s={7804},e={7804},o={{t="item",i=7931},{t="item",i=7928}},pq={2760}}
-DQTC.Data.quests[2772]={n="The World At Your Feet",l=45,rl=40,f=0,s={7804},e={7804},o={{t="item",i=7933},{t="item",i=7926}},pq={2760}}
-DQTC.Data.quests[2773]={n="The Mithril Kid",l=45,rl=40,f=0,s={7804},e={7804},o={{t="item",i=7930},{t="item",i=7927}},pq={2760}}
+DQTC.Data.quests[2771]={n="A Good Head On Your Shoulders",l=45,rl=40,f=0,s={7804},e={7804},o={{t="item",i=7931},{t="item",i=7928}},pq={2760},sk={164,210}}
+DQTC.Data.quests[2772]={n="The World At Your Feet",l=45,rl=40,f=0,s={7804},e={7804},o={{t="item",i=7933},{t="item",i=7926}},pq={2760},sk={164,210}}
+DQTC.Data.quests[2773]={n="The Mithril Kid",l=45,rl=40,f=0,s={7804},e={7804},o={{t="item",i=7930},{t="item",i=7927}},pq={2760},sk={164,210}}
 DQTC.Data.quests[2781]={n="WANTED: Caliph Scorpidsting",l=46,rl=39,f=0,s={},e={7407},o={{t="item",i=8723}}}
 DQTC.Data.quests[2782]={n="Rin'ji's Secret",l=47,rl=42,f=2,s={},e={7825},o={},r=178,pq={2742}}
 DQTC.Data.quests[2783]={n="Petty Squabbles",l=57,rl=50,f=1,s={7826},e={7572},o={},r=77,nq=2801}
@@ -1660,20 +1660,20 @@ DQTC.Data.quests[2843]={n="Gnomer-gooooone!",l=35,rl=20,f=2,s={7853},e={7853},o=
 DQTC.Data.quests[2844]={n="The Giant Guardian",l=49,rl=44,f=1,s={7765},e={7774},o={},r=77,nq=2845}
 DQTC.Data.quests[2845]={n="Wandering Shay",l=49,rl=44,f=1,s={7774},e={7765},o={{t="item",i=9189}},r=77,pq={2844}}
 DQTC.Data.quests[2846]={n="Tiara of the Deep",l=46,rl=40,f=0,s={6546},e={6546},o={{t="item",i=9234}}}
-DQTC.Data.quests[2847]={n="Wild Leather Armor",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=4304}},r=77}
-DQTC.Data.quests[2848]={n="Wild Leather Shoulders",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8173},{t="item",i=8153}},r=77,pq={2847}}
-DQTC.Data.quests[2849]={n="Wild Leather Vest",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8189},{t="item",i=8187},{t="item",i=8153}},r=77,pq={2847}}
-DQTC.Data.quests[2850]={n="Wild Leather Helmet",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8175},{t="item",i=8176},{t="item",i=8153}},r=77,pq={2847}}
-DQTC.Data.quests[2851]={n="Wild Leather Boots",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8193},{t="item",i=8197},{t="item",i=8153}},r=77,pq={2847}}
-DQTC.Data.quests[2852]={n="Wild Leather Leggings",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8191},{t="item",i=8198},{t="item",i=8153}},r=77,pq={2847}}
-DQTC.Data.quests[2853]={n="Master of the Wild Leather",l=45,rl=30,f=1,s={7852},e={4212},o={},r=77,pg={2848,2849,2850,2851,2852}}
-DQTC.Data.quests[2854]={n="Wild Leather Armor",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=4304}},r=178}
-DQTC.Data.quests[2855]={n="Wild Leather Shoulders",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8173},{t="item",i=8153}},r=178,pq={2854}}
-DQTC.Data.quests[2856]={n="Wild Leather Vest",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8189},{t="item",i=8187},{t="item",i=8153}},r=178,pq={2854}}
-DQTC.Data.quests[2857]={n="Wild Leather Helmet",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8175},{t="item",i=8176},{t="item",i=8153}},r=178,pq={2854}}
-DQTC.Data.quests[2858]={n="Wild Leather Boots",l=48,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8193},{t="item",i=8197},{t="item",i=8153}},r=178,pq={2854}}
-DQTC.Data.quests[2859]={n="Wild Leather Leggings",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8191},{t="item",i=8198},{t="item",i=8153}},r=178,pq={2854}}
-DQTC.Data.quests[2860]={n="Master of the Wild Leather",l=45,rl=30,f=2,s={7854},e={3007},o={},r=178,pg={2855,2856,2857,2858,2859}}
+DQTC.Data.quests[2847]={n="Wild Leather Armor",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=4304}},r=77,sk={165,225}}
+DQTC.Data.quests[2848]={n="Wild Leather Shoulders",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8173},{t="item",i=8153}},r=77,pq={2847},sk={165,225}}
+DQTC.Data.quests[2849]={n="Wild Leather Vest",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8189},{t="item",i=8187},{t="item",i=8153}},r=77,pq={2847},sk={165,225}}
+DQTC.Data.quests[2850]={n="Wild Leather Helmet",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8175},{t="item",i=8176},{t="item",i=8153}},r=77,pq={2847},sk={165,225}}
+DQTC.Data.quests[2851]={n="Wild Leather Boots",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8193},{t="item",i=8197},{t="item",i=8153}},r=77,pq={2847},sk={165,225}}
+DQTC.Data.quests[2852]={n="Wild Leather Leggings",l=45,rl=30,f=1,s={7852},e={7852},o={{t="item",i=8191},{t="item",i=8198},{t="item",i=8153}},r=77,pq={2847},sk={165,225}}
+DQTC.Data.quests[2853]={n="Master of the Wild Leather",l=45,rl=30,f=1,s={7852},e={4212},o={},r=77,pg={2848,2849,2850,2851,2852},sk={165,225}}
+DQTC.Data.quests[2854]={n="Wild Leather Armor",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=4304}},r=178,sk={165,225}}
+DQTC.Data.quests[2855]={n="Wild Leather Shoulders",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8173},{t="item",i=8153}},r=178,pq={2854},sk={165,225}}
+DQTC.Data.quests[2856]={n="Wild Leather Vest",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8189},{t="item",i=8187},{t="item",i=8153}},r=178,pq={2854},sk={165,225}}
+DQTC.Data.quests[2857]={n="Wild Leather Helmet",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8175},{t="item",i=8176},{t="item",i=8153}},r=178,pq={2854},sk={165,225}}
+DQTC.Data.quests[2858]={n="Wild Leather Boots",l=48,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8193},{t="item",i=8197},{t="item",i=8153}},r=178,pq={2854},sk={165,225}}
+DQTC.Data.quests[2859]={n="Wild Leather Leggings",l=45,rl=30,f=2,s={7854},e={7854},o={{t="item",i=8191},{t="item",i=8198},{t="item",i=8153}},r=178,pq={2854},sk={165,225}}
+DQTC.Data.quests[2860]={n="Master of the Wild Leather",l=45,rl=30,f=2,s={7854},e={3007},o={},r=178,pg={2855,2856,2857,2858,2859},sk={165,225}}
 DQTC.Data.quests[2861]={n="Tabetha's Task",l=46,rl=40,f=0,s={3048,4568,5144,5497,5885},e={6546},o={},nq=2846}
 DQTC.Data.quests[2862]={n="War on the Woodpaw",l=42,rl=39,f=2,s={7875},e={7875},o={{t="item",i=9237}},r=178,nq=2863}
 DQTC.Data.quests[2863]={n="Alpha Strike",l=43,rl=39,f=2,s={7875},e={7875},o={{t="monster",i=5258}},r=178,pq={2862},nq=2902}
@@ -1833,7 +1833,7 @@ DQTC.Data.quests[3221]={n="Speak with Renferrel",l=12,rl=10,f=2,s={1952},e={1937
 DQTC.Data.quests[3261]={n="Jorn Skyseer",l=18,rl=10,f=2,s={3338},e={3387},o={},r=178,pq={905},nq=882}
 DQTC.Data.quests[3281]={n="Stolen Silver",l=18,rl=9,f=2,s={3464},e={3464},o={{t="item",i=5061}},r=178,pq={869}}
 DQTC.Data.quests[3301]={n="Mura Runetotem",l=15,rl=10,f=2,s={3448},e={8385},o={},r=178,pq={880}}
-DQTC.Data.quests[3321]={n="Did You Lose This?",l=50,rl=40,f=0,s={7804},e={7804},o={},pg={2771,2772,2773}}
+DQTC.Data.quests[3321]={n="Did You Lose This?",l=50,rl=40,f=0,s={7804},e={7804},o={},pg={2771,2772,2773},sk={164,210}}
 DQTC.Data.quests[3341]={n="Bring the End",l=42,rl=37,f=2,s={2308},e={2308},o={{t="item",i=10420}},r=178}
 DQTC.Data.quests[3361]={n="A Refugee's Quandary",l=3,rl=3,f=1,s={8416},e={8416},o={{t="item",i=10438},{t="item",i=16313},{t="item",i=16314}},r=77}
 DQTC.Data.quests[3362]={n="Thistleshrub Valley",l=50,rl=45,f=0,s={7876},e={7876},o={{t="monster",i=5490},{t="monster",i=5485}}}
@@ -1852,11 +1852,11 @@ DQTC.Data.quests[3375]={n="Replacement Phial",l=42,rl=37,f=1,s={6826},e={6826},o
 DQTC.Data.quests[3376]={n="Break Sharptusk!",l=5,rl=3,f=2,s={3209},e={3209},o={{t="item",i=10459}},r=178}
 DQTC.Data.quests[3377]={n="Prayer to Elune",l=50,rl=40,f=1,s={8436},e={8436},o={},r=77,nq=3378}
 DQTC.Data.quests[3378]={n="Prayer to Elune",l=50,rl=40,f=1,s={8436},e={4090},o={{t="item",i=10458}},r=77,pq={3377}}
-DQTC.Data.quests[3379]={n="Shadoweaver",l=50,rl=46,f=0,s={8439},e={8439},o={{t="monster",i=8442}},nq=3385}
+DQTC.Data.quests[3379]={n="Shadoweaver",l=50,rl=46,f=0,s={8439},e={8439},o={{t="monster",i=8442}},nq=3385,sk={197,230}}
 DQTC.Data.quests[3380]={n="The Sunken Temple",l=51,rl=46,f=2,s={8115},e={7771},o={},r=178,nq=3444}
 DQTC.Data.quests[3382]={n="A Crew Under Fire",l=57,rl=48,f=0,s={8380},e={8380},o={}}
-DQTC.Data.quests[3385]={n="The Undermarket",l=50,rl=46,f=0,s={8439},e={8439},o={{t="monster",i=8444},{t="monster",i=8447},{t="item",i=10467}},pq={3379},nq=3402}
-DQTC.Data.quests[3402]={n="The Undermarket",l=50,rl=43,f=0,s={8439},e={6568},o={},pq={3385}}
+DQTC.Data.quests[3385]={n="The Undermarket",l=50,rl=46,f=0,s={8439},e={8439},o={{t="monster",i=8444},{t="monster",i=8447},{t="item",i=10467}},pq={3379},nq=3402,sk={197,1}}
+DQTC.Data.quests[3402]={n="The Undermarket",l=50,rl=43,f=0,s={8439},e={6568},o={},pq={3385},sk={197,1}}
 DQTC.Data.quests[3421]={n="Return Trip",l=55,rl=45,f=0,s={8399},e={8399},o={}}
 DQTC.Data.quests[3441]={n="Divine Retribution",l=48,rl=40,f=0,s={8479},e={8479},o={}}
 DQTC.Data.quests[3442]={n="The Flawless Flame",l=48,rl=40,f=0,s={8479},e={8479},o={{t="item",i=10509},{t="item",i=10511}},pq={3441},nq=3443}
@@ -1900,7 +1900,7 @@ DQTC.Data.quests[3522]={n="Iverron's Antidote",l=4,rl=2,f=1,s={8583},e={8584},o=
 DQTC.Data.quests[3523]={n="Scourge of the Downs",l=37,rl=32,f=0,s={8516},e={8516},o={},nq=3525}
 DQTC.Data.quests[3524]={n="Washed Ashore",l=13,rl=11,f=1,s={10219},e={10219},o={{t="item",i=12242}},r=77,nq=4681}
 DQTC.Data.quests[3525]={n="Extinguishing the Idol",l=37,rl=32,f=0,s={8516},e={8516},o={},pq={3523}}
-DQTC.Data.quests[3526]={n="Goblin Engineering",l=47,rl=30,f=2,s={4586},e={8126},o={},r=178,ex={3629,3630,3632,3633,3634,3635,3637,4181}}
+DQTC.Data.quests[3526]={n="Goblin Engineering",l=47,rl=30,f=2,s={4586},e={8126},o={},r=178,ex={3629,3630,3632,3633,3634,3635,3637,4181},sk={202,200}}
 DQTC.Data.quests[3527]={n="The Prophecy of Mosh'aru",l=47,rl=40,f=0,s={8579},e={8579},o={{t="item",i=10660},{t="item",i=10661}},pq={3520},nq=4787}
 DQTC.Data.quests[3528]={n="The God Hakkar",l=53,rl=40,f=0,s={8579},e={8579},o={{t="item",i=10662}},pq={4787}}
 DQTC.Data.quests[3541]={n="Delivery to Jes'rimon",l=52,rl=45,f=2,s={8587},e={8659},o={},r=178,pq={3517},nq=3563}
@@ -1922,25 +1922,25 @@ DQTC.Data.quests[3625]={n="Enchanted Azsharite Fel Weaponry",l=58,rl=45,f=0,s={7
 DQTC.Data.quests[3626]={n="Return to the Blasted Lands",l=58,rl=45,f=0,s={7802},e={7572},o={},pq={3625},nq=3627}
 DQTC.Data.quests[3627]={n="Uniting the Shattered Amulet",l=60,rl=45,f=0,s={7572},e={7572},o={{t="item",i=10755},{t="item",i=10753},{t="item",i=10754}},pq={3626},nq=3628}
 DQTC.Data.quests[3628]={n="You Are Rakh'likh, Demon",l=60,rl=45,f=0,s={7572},e={7572},o={{t="item",i=10759}},pq={3627}}
-DQTC.Data.quests[3629]={n="Goblin Engineering",l=47,rl=30,f=1,s={5174},e={8126},o={},r=77,ex={3526,3630,3632,3633,3634,3635,3637,4181}}
-DQTC.Data.quests[3630]={n="Gnome Engineering",l=47,rl=30,f=1,s={5518},e={7944},o={},r=77,ex={3526,3629,3632,3633,3634,3635,3637,4181}}
+DQTC.Data.quests[3629]={n="Goblin Engineering",l=47,rl=30,f=1,s={5174},e={8126},o={},r=77,ex={3526,3630,3632,3633,3634,3635,3637,4181},sk={202,200}}
+DQTC.Data.quests[3630]={n="Gnome Engineering",l=47,rl=30,f=1,s={5518},e={7944},o={},r=77,ex={3526,3629,3632,3633,3634,3635,3637,4181},sk={202,200}}
 DQTC.Data.quests[3631]={n="Summon Felsteed",l=40,rl=40,f=2,s={3326},e={6251},o={},r=178,c=256,ex={4487,4488,4489},nq=4490}
-DQTC.Data.quests[3632]={n="Gnome Engineering",l=47,rl=30,f=1,s={5174},e={7944},o={},r=77,ex={3526,3629,3630,3633,3634,3635,3637,4181}}
-DQTC.Data.quests[3633]={n="Goblin Engineering",l=47,rl=30,f=0,s={3494},e={8126},o={},ex={3526,3629,3630,3632,3634,3635,3637,4181}}
-DQTC.Data.quests[3634]={n="Gnome Engineering",l=47,rl=30,f=1,s={3494},e={7944},o={},r=77,ex={3526,3629,3630,3632,3633,3635,3637,4181}}
-DQTC.Data.quests[3635]={n="Gnome Engineering",l=47,rl=30,f=2,s={4586},e={7406},o={},r=178,ex={3526,3629,3630,3632,3633,3634,3637,4181}}
+DQTC.Data.quests[3632]={n="Gnome Engineering",l=47,rl=30,f=1,s={5174},e={7944},o={},r=77,ex={3526,3629,3630,3633,3634,3635,3637,4181},sk={202,200}}
+DQTC.Data.quests[3633]={n="Goblin Engineering",l=47,rl=30,f=0,s={3494},e={8126},o={},ex={3526,3629,3630,3632,3634,3635,3637,4181},sk={202,200}}
+DQTC.Data.quests[3634]={n="Gnome Engineering",l=47,rl=30,f=1,s={3494},e={7944},o={},r=77,ex={3526,3629,3630,3632,3633,3635,3637,4181},sk={202,200}}
+DQTC.Data.quests[3635]={n="Gnome Engineering",l=47,rl=30,f=2,s={4586},e={7406},o={},r=178,ex={3526,3629,3630,3632,3633,3634,3637,4181},sk={202,200}}
 DQTC.Data.quests[3636]={n="Bring the Light",l=42,rl=39,f=1,s={1284},e={1284},o={{t="monster",i=7358}},r=77}
-DQTC.Data.quests[3637]={n="Gnome Engineering",l=47,rl=30,f=2,s={3494},e={7406},o={},r=178,ex={3526,3629,3630,3632,3633,3634,3635,4181}}
-DQTC.Data.quests[3638]={n="The Pledge of Secrecy",l=47,rl=30,f=0,s={8126},e={8126},o={{t="item",i=11270}},pq={3526,3629,3633,4181},ex={3640,3642},nq=3639}
-DQTC.Data.quests[3639]={n="Show Your Work",l=47,rl=30,f=0,s={8126},e={8126},o={{t="item",i=4394},{t="item",i=10507},{t="item",i=4384}},pq={3638}}
-DQTC.Data.quests[3640]={n="The Pledge of Secrecy",l=47,rl=30,f=1,s={7944},e={7944},o={{t="item",i=11283}},r=77,pq={3630,3632,3634},ex={3638,3642},nq=3641}
-DQTC.Data.quests[3641]={n="Show Your Work",l=47,rl=30,f=1,s={7944},e={7944},o={{t="item",i=10559},{t="item",i=4407},{t="item",i=4392}},r=77,pq={3640}}
-DQTC.Data.quests[3642]={n="The Pledge of Secrecy",l=47,rl=30,f=2,s={7406},e={7406},o={{t="item",i=11282}},r=178,pq={3635,3637},ex={3638,3640},nq=3643}
-DQTC.Data.quests[3643]={n="Show Your Work",l=47,rl=30,f=2,s={7406},e={7406},o={{t="item",i=10559},{t="item",i=4407},{t="item",i=4392}},r=178,pq={3642}}
-DQTC.Data.quests[3644]={n="Membership Card Renewal",l=47,rl=30,f=0,s={8126},e={8126},o={},pq={3639}}
-DQTC.Data.quests[3645]={n="Membership Card Renewal",l=47,rl=30,f=0,s={7944},e={7944},o={},pq={3641}}
-DQTC.Data.quests[3646]={n="Membership Card Renewal",l=47,rl=30,f=0,s={8738},e={8738},o={},pq={3639}}
-DQTC.Data.quests[3647]={n="Membership Card Renewal",l=47,rl=30,f=1,s={7406},e={7406},o={},r=77,pq={3643}}
+DQTC.Data.quests[3637]={n="Gnome Engineering",l=47,rl=30,f=2,s={3494},e={7406},o={},r=178,ex={3526,3629,3630,3632,3633,3634,3635,4181},sk={202,200}}
+DQTC.Data.quests[3638]={n="The Pledge of Secrecy",l=47,rl=30,f=0,s={8126},e={8126},o={{t="item",i=11270}},pq={3526,3629,3633,4181},ex={3640,3642},nq=3639,sk={202,200}}
+DQTC.Data.quests[3639]={n="Show Your Work",l=47,rl=30,f=0,s={8126},e={8126},o={{t="item",i=4394},{t="item",i=10507},{t="item",i=4384}},pq={3638},sk={202,200}}
+DQTC.Data.quests[3640]={n="The Pledge of Secrecy",l=47,rl=30,f=1,s={7944},e={7944},o={{t="item",i=11283}},r=77,pq={3630,3632,3634},ex={3638,3642},nq=3641,sk={202,200}}
+DQTC.Data.quests[3641]={n="Show Your Work",l=47,rl=30,f=1,s={7944},e={7944},o={{t="item",i=10559},{t="item",i=4407},{t="item",i=4392}},r=77,pq={3640},sk={202,200}}
+DQTC.Data.quests[3642]={n="The Pledge of Secrecy",l=47,rl=30,f=2,s={7406},e={7406},o={{t="item",i=11282}},r=178,pq={3635,3637},ex={3638,3640},nq=3643,sk={202,200}}
+DQTC.Data.quests[3643]={n="Show Your Work",l=47,rl=30,f=2,s={7406},e={7406},o={{t="item",i=10559},{t="item",i=4407},{t="item",i=4392}},r=178,pq={3642},sk={202,200}}
+DQTC.Data.quests[3644]={n="Membership Card Renewal",l=47,rl=30,f=0,s={8126},e={8126},o={},pq={3639},sk={202,200}}
+DQTC.Data.quests[3645]={n="Membership Card Renewal",l=47,rl=30,f=0,s={7944},e={7944},o={},pq={3641},sk={202,200}}
+DQTC.Data.quests[3646]={n="Membership Card Renewal",l=47,rl=30,f=0,s={8738},e={8738},o={},pq={3639},sk={202,200}}
+DQTC.Data.quests[3647]={n="Membership Card Renewal",l=47,rl=30,f=1,s={7406},e={7406},o={},r=77,pq={3643},sk={202,200}}
 DQTC.Data.quests[3661]={n="Favored of Elune?",l=47,rl=42,f=1,s={7916},e={7916},o={{t="item",i=10819}},r=77}
 DQTC.Data.quests[3681]={n="Tome of Divinity",l=12,rl=12,f=1,s={5149},e={6171},o={},r=1,c=2,ex={2998},nq=1641}
 DQTC.Data.quests[3701]={n="The Smoldering Ruins of Thaurissan",l=54,rl=50,f=1,s={8879},e={8879},o={{t="object",i=153556}},r=77,pq={3702}}
@@ -2025,15 +2025,15 @@ DQTC.Data.quests[4084]={n="Silver Heart",l=55,rl=47,f=0,s={9116},e={9116},o={{t=
 DQTC.Data.quests[4101]={n="Cleansing Felwood",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11503}},r=77}
 DQTC.Data.quests[4102]={n="Cleansing Felwood",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11503}},r=178}
 DQTC.Data.quests[4103]={n="Salve via Hunting",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11515}},r=77,pq={4101}}
-DQTC.Data.quests[4104]={n="Salve via Mining",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11513}},r=77,pq={4101}}
-DQTC.Data.quests[4105]={n="Salve via Gathering",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11514}},r=77,pq={4101}}
-DQTC.Data.quests[4106]={n="Salve via Skinning",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11512}},r=77,pq={4101}}
-DQTC.Data.quests[4107]={n="Salve via Disenchanting",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11174}},r=77,pq={4101}}
+DQTC.Data.quests[4104]={n="Salve via Mining",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11513}},r=77,pq={4101},sk={186,1}}
+DQTC.Data.quests[4105]={n="Salve via Gathering",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11514}},r=77,pq={4101},sk={182,1}}
+DQTC.Data.quests[4106]={n="Salve via Skinning",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11512}},r=77,pq={4101},sk={393,1}}
+DQTC.Data.quests[4107]={n="Salve via Disenchanting",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11174}},r=77,pq={4101},sk={333,1}}
 DQTC.Data.quests[4108]={n="Salve via Hunting",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11515}},r=77,pq={4103}}
-DQTC.Data.quests[4109]={n="Salve via Mining",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11513}},r=77,pq={4104}}
-DQTC.Data.quests[4110]={n="Salve via Gathering",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11514}},r=77,pq={4105}}
-DQTC.Data.quests[4111]={n="Salve via Skinning",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11512}},r=77,pq={4106}}
-DQTC.Data.quests[4112]={n="Salve via Disenchanting",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11174}},r=77,pq={4107}}
+DQTC.Data.quests[4109]={n="Salve via Mining",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11513}},r=77,pq={4104},sk={186,1}}
+DQTC.Data.quests[4110]={n="Salve via Gathering",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11514}},r=77,pq={4105},sk={182,1}}
+DQTC.Data.quests[4111]={n="Salve via Skinning",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11512}},r=77,pq={4106},sk={393,1}}
+DQTC.Data.quests[4112]={n="Salve via Disenchanting",l=55,rl=48,f=1,s={9528},e={9528},o={{t="item",i=11174}},r=77,pq={4107},sk={333,1}}
 DQTC.Data.quests[4113]={n="Corrupted Songflower",l=55,rl=48,f=0,s={},e={},o={{t="item",i=11516}}}
 DQTC.Data.quests[4114]={n="Corrupted Songflower",l=55,rl=48,f=0,s={},e={},o={{t="item",i=11516}}}
 DQTC.Data.quests[4115]={n="Corrupted Windblossom",l=55,rl=48,f=0,s={},e={},o={{t="item",i=11516}}}
@@ -2066,8 +2066,8 @@ DQTC.Data.quests[4145]={n="Larion and Muigin",l=52,rl=47,f=2,s={9118},e={9118},o
 DQTC.Data.quests[4146]={n="Zapper Fuel",l=52,rl=47,f=2,s={8496},e={9118},o={{t="item",i=11318}},r=178,pq={4147}}
 DQTC.Data.quests[4147]={n="Marvon's Workshop",l=52,rl=47,f=2,s={9118},e={8496},o={},r=178,pq={4145},nq=4146}
 DQTC.Data.quests[4148]={n="Bloodpetal Zapper",l=53,rl=47,f=2,s={9118},e={9118},o={{t="item",i=11315}},r=178,pq={4146}}
-DQTC.Data.quests[4161]={n="Recipe of the Kaldorei",l=7,rl=1,f=1,s={6286},e={6286},o={{t="item",i=5465}},r=77}
-DQTC.Data.quests[4181]={n="Goblin Engineering",l=47,rl=30,f=1,s={5518},e={8126},o={},r=77,ex={3526,3629,3630,3632,3633,3634,3635,3637}}
+DQTC.Data.quests[4161]={n="Recipe of the Kaldorei",l=7,rl=1,f=1,s={6286},e={6286},o={{t="item",i=5465}},r=77,sk={185,1}}
+DQTC.Data.quests[4181]={n="Goblin Engineering",l=47,rl=30,f=1,s={5518},e={8126},o={},r=77,ex={3526,3629,3630,3632,3633,3634,3635,3637},sk={202,200}}
 DQTC.Data.quests[4182]={n="Dragonkin Menace",l=54,rl=48,f=1,s={9562},e={9562},o={{t="monster",i=7047},{t="monster",i=7040},{t="monster",i=7044},{t="monster",i=7041}},r=77,nq=4183}
 DQTC.Data.quests[4183]={n="The True Masters",l=54,rl=48,f=1,s={9562},e={344},o={},r=77,pq={4182},nq=4184}
 DQTC.Data.quests[4184]={n="The True Masters",l=54,rl=48,f=1,s={344},e={1748},o={},r=77,pq={4183},nq=4185}
@@ -2343,23 +2343,23 @@ DQTC.Data.quests[5096]={n="Scarlet Diversions",l=53,rl=50,f=2,s={10837},e={10837
 DQTC.Data.quests[5097]={n="All Along the Watchtowers",l=56,rl=50,f=1,s={10838},e={10838},o={{t="monster",i=10902},{t="monster",i=10903},{t="monster",i=10904},{t="monster",i=10905}},r=77,pq={5092}}
 DQTC.Data.quests[5098]={n="All Along the Watchtowers",l=56,rl=50,f=2,s={10837},e={10837},o={{t="monster",i=10902},{t="monster",i=10903},{t="monster",i=10904},{t="monster",i=10905}},r=178,pq={5096}}
 DQTC.Data.quests[5102]={n="General Drakkisath's Demise",l=60,rl=55,f=1,s={9560},e={9560},o={{t="monster",i=10363}},r=77,pq={5089}}
-DQTC.Data.quests[5103]={n="Hot Fiery Death",l=60,rl=60,f=0,s={},e={10637},o={},nq=5124}
+DQTC.Data.quests[5103]={n="Hot Fiery Death",l=60,rl=60,f=0,s={},e={10637},o={},nq=5124,sk={164,275}}
 DQTC.Data.quests[5121]={n="High Chief Winterfall",l=59,rl=52,f=0,s={9298},e={9298},o={{t="monster",i=10738}},pq={5087}}
 DQTC.Data.quests[5122]={n="The Medallion of Faith",l=60,rl=55,f=0,s={10917},e={10917},o={{t="item",i=12845}}}
 DQTC.Data.quests[5123]={n="The Final Piece",l=59,rl=52,f=0,s={},e={9298},o={},pq={5087}}
 DQTC.Data.quests[5124]={n="Fiery Plate Gauntlets",l=60,rl=55,f=0,s={10637},e={10637},o={{t="item",i=12812},{t="item",i=12655},{t="item",i=7078},{t="item",i=7910}},pq={5103}}
 DQTC.Data.quests[5125]={n="Aurius' Reckoning",l=60,rl=55,f=0,s={10917},e={10917},o={},pq={5122}}
-DQTC.Data.quests[5126]={n="Lorax's Tale",l=60,rl=55,f=0,s={10918},e={10918},o={}}
-DQTC.Data.quests[5127]={n="The Demon Forge",l=60,rl=55,f=0,s={10918},e={10918},o={{t="item",i=12847},{t="item",i=12806}},pq={5126}}
+DQTC.Data.quests[5126]={n="Lorax's Tale",l=60,rl=55,f=0,s={10918},e={10918},o={},sk={164,285}}
+DQTC.Data.quests[5127]={n="The Demon Forge",l=60,rl=55,f=0,s={10918},e={10918},o={{t="item",i=12847},{t="item",i=12806}},pq={5126},sk={164,285}}
 DQTC.Data.quests[5128]={n="Words of the High Chief",l=59,rl=52,f=0,s={9298},e={10920},o={},pq={5123}}
-DQTC.Data.quests[5141]={n="Dragonscale Leatherworking",l=55,rl=40,f=1,s={7866},e={7866},o={{t="item",i=8203},{t="item",i=8204},{t="item",i=8165}},r=77,ex={5143,5144}}
+DQTC.Data.quests[5141]={n="Dragonscale Leatherworking",l=55,rl=40,f=1,s={7866},e={7866},o={{t="item",i=8203},{t="item",i=8204},{t="item",i=8165}},r=77,ex={5143,5144},sk={165,225}}
 DQTC.Data.quests[5142]={n="Little Pamela",l=55,rl=50,f=0,s={10927},e={10926},o={},ex={5601},nq=5149}
-DQTC.Data.quests[5143]={n="Tribal Leatherworking",l=55,rl=40,f=1,s={7870},e={7870},o={{t="item",i=8211},{t="item",i=8214}},r=77,ex={5141,5144}}
-DQTC.Data.quests[5144]={n="Elemental Leatherworking",l=55,rl=40,f=1,s={7868},e={7868},o={{t="item",i=7077},{t="item",i=7079},{t="item",i=7075},{t="item",i=7081}},r=77,ex={5141,5143}}
-DQTC.Data.quests[5145]={n="Dragonscale Leatherworking",l=55,rl=40,f=2,s={7867},e={7867},o={{t="item",i=8203},{t="item",i=8204},{t="item",i=8165}},r=178,ex={5146,5148}}
-DQTC.Data.quests[5146]={n="Elemental Leatherworking",l=55,rl=40,f=2,s={7869},e={7869},o={{t="item",i=7077},{t="item",i=7079},{t="item",i=7075},{t="item",i=7081}},r=178,ex={5145,5148}}
+DQTC.Data.quests[5143]={n="Tribal Leatherworking",l=55,rl=40,f=1,s={7870},e={7870},o={{t="item",i=8211},{t="item",i=8214}},r=77,ex={5141,5144},sk={165,225}}
+DQTC.Data.quests[5144]={n="Elemental Leatherworking",l=55,rl=40,f=1,s={7868},e={7868},o={{t="item",i=7077},{t="item",i=7079},{t="item",i=7075},{t="item",i=7081}},r=77,ex={5141,5143},sk={165,225}}
+DQTC.Data.quests[5145]={n="Dragonscale Leatherworking",l=55,rl=40,f=2,s={7867},e={7867},o={{t="item",i=8203},{t="item",i=8204},{t="item",i=8165}},r=178,ex={5146,5148},sk={165,225}}
+DQTC.Data.quests[5146]={n="Elemental Leatherworking",l=55,rl=40,f=2,s={7869},e={7869},o={{t="item",i=7077},{t="item",i=7079},{t="item",i=7075},{t="item",i=7081}},r=178,ex={5145,5148},sk={165,225}}
 DQTC.Data.quests[5147]={n="Wanted - Arnak Grimtotem",l=29,rl=25,f=2,s={},e={10537},o={{t="item",i=12884}},r=178}
-DQTC.Data.quests[5148]={n="Tribal Leatherworking",l=55,rl=40,f=2,s={7871},e={7871},o={{t="item",i=8211},{t="item",i=8214}},r=178,ex={5145,5146}}
+DQTC.Data.quests[5148]={n="Tribal Leatherworking",l=55,rl=40,f=2,s={7871},e={7871},o={{t="item",i=8211},{t="item",i=8214}},r=178,ex={5145,5146},sk={165,225}}
 DQTC.Data.quests[5149]={n="Pamela's Doll",l=55,rl=50,f=0,s={10926},e={10926},o={{t="item",i=12885}},pq={5142,5601}}
 DQTC.Data.quests[5150]={n="Dadanga is Hungry!",l=55,rl=47,f=0,s={9274},e={9274},o={{t="item",i=11315}}}
 DQTC.Data.quests[5151]={n="Hypercapacitor Gizmo",l=30,rl=24,f=2,s={10941},e={10941},o={{t="item",i=12946}},r=178}
@@ -2435,13 +2435,13 @@ DQTC.Data.quests[5264]={n="Lord Maxwell Tyrosus",l=60,rl=55,f=0,s={11039},e={110
 DQTC.Data.quests[5265]={n="The Argent Hold",l=60,rl=55,f=0,s={11034},e={},o={},pq={5264}}
 DQTC.Data.quests[5281]={n="The Restless Souls",l=60,rl=55,f=0,s={11038},e={11140},o={},nq=5282}
 DQTC.Data.quests[5282]={n="The Restless Souls",l=60,rl=55,f=0,s={11140},e={11140},o={{t="monster",i=11122}},pq={5281}}
-DQTC.Data.quests[5283]={n="The Art of the Armorsmith",l=40,rl=40,f=1,s={5164},e={5164},o={{t="item",i=7937},{t="item",i=7936},{t="item",i=7935}},r=77,ex={5284}}
-DQTC.Data.quests[5284]={n="The Way of the Weaponsmith",l=40,rl=40,f=1,s={11146},e={11146},o={{t="item",i=3853},{t="item",i=3855},{t="item",i=7941},{t="item",i=7945}},r=77,ex={5283}}
-DQTC.Data.quests[5301]={n="The Art of the Armorsmith",l=40,rl=40,f=2,s={11177},e={11177},o={{t="item",i=7937},{t="item",i=7936},{t="item",i=7935}},r=178,ex={5302}}
-DQTC.Data.quests[5302]={n="The Way of the Weaponsmith",l=40,rl=40,f=2,s={11178},e={11178},o={{t="item",i=3853},{t="item",i=3855},{t="item",i=7941},{t="item",i=7945}},r=178,ex={5301}}
-DQTC.Data.quests[5305]={n="Sweet Serenity",l=60,rl=50,f=0,s={11191},e={11191},o={{t="item",i=13351}}}
-DQTC.Data.quests[5306]={n="Snakestone of the Shadow Huntress",l=60,rl=50,f=0,s={11192},e={11192},o={{t="item",i=13352}}}
-DQTC.Data.quests[5307]={n="Corruption",l=60,rl=50,f=0,s={11193},e={11193},o={{t="item",i=13350}}}
+DQTC.Data.quests[5283]={n="The Art of the Armorsmith",l=40,rl=40,f=1,s={5164},e={5164},o={{t="item",i=7937},{t="item",i=7936},{t="item",i=7935}},r=77,ex={5284},sk={164,200}}
+DQTC.Data.quests[5284]={n="The Way of the Weaponsmith",l=40,rl=40,f=1,s={11146},e={11146},o={{t="item",i=3853},{t="item",i=3855},{t="item",i=7941},{t="item",i=7945}},r=77,ex={5283},sk={164,200}}
+DQTC.Data.quests[5301]={n="The Art of the Armorsmith",l=40,rl=40,f=2,s={11177},e={11177},o={{t="item",i=7937},{t="item",i=7936},{t="item",i=7935}},r=178,ex={5302},sk={164,200}}
+DQTC.Data.quests[5302]={n="The Way of the Weaponsmith",l=40,rl=40,f=2,s={11178},e={11178},o={{t="item",i=3853},{t="item",i=3855},{t="item",i=7941},{t="item",i=7945}},r=178,ex={5301},sk={164,200}}
+DQTC.Data.quests[5305]={n="Sweet Serenity",l=60,rl=50,f=0,s={11191},e={11191},o={{t="item",i=13351}},sk={164,250}}
+DQTC.Data.quests[5306]={n="Snakestone of the Shadow Huntress",l=60,rl=50,f=0,s={11192},e={11192},o={{t="item",i=13352}},sk={164,250}}
+DQTC.Data.quests[5307]={n="Corruption",l=60,rl=50,f=0,s={11193},e={11193},o={{t="item",i=13350}},sk={164,250}}
 DQTC.Data.quests[5321]={n="The Sleeper Has Awakened",l=20,rl=17,f=1,s={11218},e={11219},o={{t="item",i=13536}},r=77}
 DQTC.Data.quests[5341]={n="Barov Family Fortune",l=60,rl=52,f=2,s={11022},e={11022},o={{t="item",i=13471},{t="item",i=13448},{t="item",i=13450},{t="item",i=13451}},r=178,nq=5342}
 DQTC.Data.quests[5342]={n="The Last Barov",l=60,rl=52,f=2,s={11022},e={11022},o={{t="item",i=13469}},r=178,pq={5341}}
@@ -2595,15 +2595,15 @@ DQTC.Data.quests[5862]={n="Scarlet Subterfuge",l=60,rl=52,f=0,s={11872},e={1842}
 DQTC.Data.quests[5863]={n="The Dunemaul Compound",l=49,rl=44,f=0,s={11758},e={11758},o={{t="monster",i=5474},{t="monster",i=5472},{t="monster",i=12046}}}
 DQTC.Data.quests[5881]={n="Calling in the Reserves",l=28,rl=23,f=2,s={11860},e={12576},o={},r=178}
 DQTC.Data.quests[5882]={n="Salve via Hunting",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11515}},r=178,pq={4102}}
-DQTC.Data.quests[5883]={n="Salve via Mining",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11513}},r=178,pq={4102}}
-DQTC.Data.quests[5884]={n="Salve via Gathering",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11514}},r=178,pq={4102}}
-DQTC.Data.quests[5885]={n="Salve via Skinning",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11512}},r=178,pq={4102}}
-DQTC.Data.quests[5886]={n="Salve via Disenchanting",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11174}},r=178,pq={4102}}
+DQTC.Data.quests[5883]={n="Salve via Mining",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11513}},r=178,pq={4102},sk={186,1}}
+DQTC.Data.quests[5884]={n="Salve via Gathering",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11514}},r=178,pq={4102},sk={182,1}}
+DQTC.Data.quests[5885]={n="Salve via Skinning",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11512}},r=178,pq={4102},sk={393,1}}
+DQTC.Data.quests[5886]={n="Salve via Disenchanting",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11174}},r=178,pq={4102},sk={333,1}}
 DQTC.Data.quests[5887]={n="Salve via Hunting",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11515}},r=178,pq={5882}}
-DQTC.Data.quests[5888]={n="Salve via Mining",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11513}},r=178,pq={5883}}
-DQTC.Data.quests[5889]={n="Salve via Gathering",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11514}},r=178,pq={5884}}
-DQTC.Data.quests[5890]={n="Salve via Skinning",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11512}},r=178,pq={5885}}
-DQTC.Data.quests[5891]={n="Salve via Disenchanting",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11174}},r=178,pq={5886}}
+DQTC.Data.quests[5888]={n="Salve via Mining",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11513}},r=178,pq={5883},sk={186,1}}
+DQTC.Data.quests[5889]={n="Salve via Gathering",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11514}},r=178,pq={5884},sk={182,1}}
+DQTC.Data.quests[5890]={n="Salve via Skinning",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11512}},r=178,pq={5885},sk={393,1}}
+DQTC.Data.quests[5891]={n="Salve via Disenchanting",l=55,rl=48,f=2,s={9529},e={9529},o={{t="item",i=11174}},r=178,pq={5886},sk={333,1}}
 DQTC.Data.quests[5892]={n="Irondeep Supplies",l=60,rl=51,f=1,s={12096},e={12096},o={{t="item",i=17522}},r=77}
 DQTC.Data.quests[5893]={n="Coldtooth Supplies",l=60,rl=51,f=2,s={12097},e={12097},o={{t="item",i=17542}},r=178}
 DQTC.Data.quests[5901]={n="A Plague Upon Thee",l=55,rl=48,f=2,s={11615},e={11615},o={{t="item",i=15043}},r=178,nq=5902}
@@ -2642,7 +2642,7 @@ DQTC.Data.quests[6028]={n="The Everlook Report",l=52,rl=50,f=1,s={10431},e={1084
 DQTC.Data.quests[6029]={n="The Everlook Report",l=52,rl=50,f=2,s={10431},e={10839},o={},r=178}
 DQTC.Data.quests[6030]={n="Duke Nicholas Zverenhoff",l=52,rl=50,f=0,s={10431},e={11039},o={}}
 DQTC.Data.quests[6031]={n="Runecloth",l=55,rl=50,f=0,s={11557},e={11557},o={{t="item",i=14047}}}
-DQTC.Data.quests[6032]={n="Sacred Cloth",l=55,rl=50,f=0,s={11557},e={11557},o={{t="item",i=14342}}}
+DQTC.Data.quests[6032]={n="Sacred Cloth",l=55,rl=50,f=0,s={11557},e={11557},o={{t="item",i=14342}},sk={197,290}}
 DQTC.Data.quests[6041]={n="When Smokey Sings, I Get Violent",l=58,rl=54,f=0,s={11033},e={11033},o={{t="monster",i=12247}},pq={6026}}
 DQTC.Data.quests[6042]={n="Un-Life's Little Annoyances",l=58,rl=54,f=2,s={11878},e={11878},o={{t="monster",i=8601},{t="monster",i=8602}},r=178}
 DQTC.Data.quests[6061]={n="Taming the Beast",l=10,rl=10,f=2,s={3065},e={3065},o={},r=32,c=4,nq=6087}
@@ -2789,17 +2789,17 @@ DQTC.Data.quests[6603]={n="Trouble in Winterspring!",l=56,rl=52,f=0,s={11754},e=
 DQTC.Data.quests[6604]={n="Enraged Wildkin",l=59,rl=53,f=1,s={11755},e={10301},o={},r=77,nq=4861}
 DQTC.Data.quests[6605]={n="A Strange One",l=54,rl=49,f=2,s={11755},e={9996},o={},r=178,nq=4505}
 DQTC.Data.quests[6606]={n="A Little Luck",l=60,rl=55,f=0,s={11755},e={10307},o={},nq=969}
-DQTC.Data.quests[6607]={n="Nat Pagle, Angler Extreme",l=45,rl=35,f=0,s={12919},e={12919},o={{t="item",i=16967},{t="item",i=16970},{t="item",i=16968},{t="item",i=16969}}}
-DQTC.Data.quests[6608]={n="You Too Good.",l=45,rl=35,f=2,s={3332},e={12919},o={},r=178}
-DQTC.Data.quests[6609]={n="I Got Nothin' Left!",l=45,rl=35,f=1,s={5161},e={12919},o={},r=77}
-DQTC.Data.quests[6610]={n="Clamlette Surprise",l=45,rl=35,f=0,s={8125},e={8125},o={{t="item",i=12207},{t="item",i=7974},{t="item",i=8932}}}
-DQTC.Data.quests[6611]={n="To Gadgetzan You Go!",l=45,rl=35,f=2,s={3399},e={8125},o={},r=178,nq=6610}
-DQTC.Data.quests[6612]={n="I Know A Guy...",l=45,rl=35,f=1,s={5159},e={8125},o={},r=77,nq=6610}
+DQTC.Data.quests[6607]={n="Nat Pagle, Angler Extreme",l=45,rl=35,f=0,s={12919},e={12919},o={{t="item",i=16967},{t="item",i=16970},{t="item",i=16968},{t="item",i=16969}},sk={356,225}}
+DQTC.Data.quests[6608]={n="You Too Good.",l=45,rl=35,f=2,s={3332},e={12919},o={},r=178,sk={356,225}}
+DQTC.Data.quests[6609]={n="I Got Nothin' Left!",l=45,rl=35,f=1,s={5161},e={12919},o={},r=77,sk={356,225}}
+DQTC.Data.quests[6610]={n="Clamlette Surprise",l=45,rl=35,f=0,s={8125},e={8125},o={{t="item",i=12207},{t="item",i=7974},{t="item",i=8932}},sk={185,225}}
+DQTC.Data.quests[6611]={n="To Gadgetzan You Go!",l=45,rl=35,f=2,s={3399},e={8125},o={},r=178,nq=6610,sk={185,225}}
+DQTC.Data.quests[6612]={n="I Know A Guy...",l=45,rl=35,f=1,s={5159},e={8125},o={},r=77,nq=6610,sk={185,225}}
 DQTC.Data.quests[6621]={n="King of the Foulweald",l=26,rl=21,f=2,s={12757},e={12757},o={{t="item",i=16976}},r=178,pq={216}}
-DQTC.Data.quests[6622]={n="Triage",l=45,rl=35,f=2,s={12920},e={12920},o={},r=178}
-DQTC.Data.quests[6623]={n="Horde Trauma",l=45,rl=35,f=2,s={3373},e={12920},o={},r=178,nq=6622}
-DQTC.Data.quests[6624]={n="Triage",l=45,rl=35,f=1,s={12939},e={12939},o={},r=77}
-DQTC.Data.quests[6625]={n="Alliance Trauma",l=45,rl=35,f=1,s={5150},e={12939},o={},r=77,nq=6624}
+DQTC.Data.quests[6622]={n="Triage",l=45,rl=35,f=2,s={12920},e={12920},o={},r=178,sk={129,225}}
+DQTC.Data.quests[6623]={n="Horde Trauma",l=45,rl=35,f=2,s={3373},e={12920},o={},r=178,nq=6622,sk={129,225}}
+DQTC.Data.quests[6624]={n="Triage",l=45,rl=35,f=1,s={12939},e={12939},o={},r=77,sk={129,225}}
+DQTC.Data.quests[6625]={n="Alliance Trauma",l=45,rl=35,f=1,s={5150},e={12939},o={},r=77,nq=6624,sk={129,225}}
 DQTC.Data.quests[6626]={n="A Host of Evil",l=35,rl=28,f=0,s={12866},e={12866},o={{t="monster",i=7873},{t="monster",i=7874},{t="monster",i=7872}}}
 DQTC.Data.quests[6627]={n="Test of Lore",l=30,rl=25,f=2,s={4489},e={4489},o={},r=178,pq={1154},nq=1159}
 DQTC.Data.quests[6628]={n="Test of Lore",l=30,rl=25,f=2,s={4488},e={4488},o={},r=178,pq={1160},nq=1394}
@@ -2915,7 +2915,7 @@ DQTC.Data.quests[7281]={n="Brotherly Love",l=60,rl=51,f=0,s={13154},e={13154},o=
 DQTC.Data.quests[7282]={n="Brotherly Love",l=60,rl=51,f=0,s={13320},e={13320},o={{t="monster",i=13154}}}
 DQTC.Data.quests[7301]={n="Fallen Sky Lords",l=60,rl=51,f=1,s={13319},e={13319},o={{t="monster",i=14029},{t="monster",i=14031},{t="monster",i=14030}},r=77}
 DQTC.Data.quests[7302]={n="Fallen Sky Lords",l=60,rl=51,f=2,s={13153},e={13153},o={{t="monster",i=14026},{t="monster",i=14028},{t="monster",i=14027}},r=178}
-DQTC.Data.quests[7321]={n="Soothing Turtle Bisque",l=31,rl=28,f=2,s={2393},e={2393},o={{t="item",i=3712},{t="item",i=3713}},r=178}
+DQTC.Data.quests[7321]={n="Soothing Turtle Bisque",l=31,rl=28,f=2,s={2393},e={2393},o={{t="item",i=3712},{t="item",i=3713}},r=178,sk={185,1}}
 DQTC.Data.quests[7341]={n="A Fair Trade",l=60,rl=52,f=2,s={14182},e={14182},o={{t="item",i=15997}},r=178}
 DQTC.Data.quests[7342]={n="Arrows Are For Sissies",l=60,rl=52,f=1,s={14183},e={14183},o={{t="item",i=15997}},r=77}
 DQTC.Data.quests[7361]={n="Favor Amongst the Darkspear",l=60,rl=51,f=2,s={},e={},o={{t="item",i=18142}},r=178}
@@ -2957,11 +2957,11 @@ DQTC.Data.quests[7489]={n="Lethtendris's Web",l=57,rl=54,f=2,s={7776},e={7776},o
 DQTC.Data.quests[7490]={n="Victory for the Horde",l=60,rl=60,f=2,s={},e={4949},o={},r=178,nq=7491}
 DQTC.Data.quests[7491]={n="For All To See",l=60,rl=60,f=2,s={4949},e={14392},o={},r=178,pq={7490}}
 DQTC.Data.quests[7492]={n="Camp Mojache",l=57,rl=54,f=2,s={10880},e={7776},o={},r=178,nq=7489}
-DQTC.Data.quests[7493]={n="The Journey Has Just Begun",l=60,rl=60,f=2,s={14392},e={14392},o={},r=178,pq={7491}}
+DQTC.Data.quests[7493]={n="The Journey Has Just Begun",l=60,rl=60,f=2,s={14392},e={14392},o={},r=178,pq={7491},sk={165,300}}
 DQTC.Data.quests[7494]={n="Feathermoon Stronghold",l=57,rl=54,f=1,s={2198,10877,10878},e={7877},o={},r=77,nq=7488}
 DQTC.Data.quests[7495]={n="Victory for the Alliance",l=60,rl=50,f=1,s={},e={1748},o={},r=77,nq=7496}
 DQTC.Data.quests[7496]={n="Celebrating Good Times",l=60,rl=60,f=1,s={1748},e={14394},o={},r=77,pq={7495}}
-DQTC.Data.quests[7497]={n="The Journey Has Just Begun",l=60,rl=60,f=1,s={14394},e={14394},o={},r=77,pq={7496}}
+DQTC.Data.quests[7497]={n="The Journey Has Just Begun",l=60,rl=60,f=1,s={14394},e={14394},o={},r=77,pq={7496},sk={165,300}}
 DQTC.Data.quests[7498]={n="Garona: A Study on Stealth and Treachery",l=60,rl=54,f=0,s={},e={14383},o={},c=8}
 DQTC.Data.quests[7499]={n="Codex of Defense",l=60,rl=54,f=0,s={},e={14383},o={},c=1}
 DQTC.Data.quests[7500]={n="The Arcanist's Cookbook",l=60,rl=54,f=0,s={},e={14383},o={},c=128}
@@ -3013,17 +3013,17 @@ DQTC.Data.quests[7645]={n="Manna-Enriched Horse Feed",l=60,rl=60,f=1,s={2357},e=
 DQTC.Data.quests[7646]={n="The Divination Scryer",l=60,rl=60,f=1,s={928},e={928},o={{t="item",i=12800},{t="item",i=18335}},r=5,c=2,pq={7644},nq=7647}
 DQTC.Data.quests[7647]={n="Judgment and Redemption",l=60,rl=60,f=1,s={928},e={14568},o={{t="item",i=18799},{t="item",i=18792}},r=5,c=2,pq={7646}}
 DQTC.Data.quests[7648]={n="Grimand's Finest Work",l=60,rl=60,f=1,s={1416},e={928},o={},r=5,c=2,pq={7642}}
-DQTC.Data.quests[7649]={n="Enchanted Thorium Platemail: Volume I",l=60,rl=60,f=0,s={},e={14368},o={}}
-DQTC.Data.quests[7650]={n="Enchanted Thorium Platemail: Volume II",l=60,rl=60,f=0,s={},e={14368},o={}}
-DQTC.Data.quests[7651]={n="Enchanted Thorium Platemail: Volume III",l=60,rl=55,f=0,s={},e={14368},o={}}
-DQTC.Data.quests[7652]={n="A Blue Light Bargain",l=60,rl=50,f=0,s={14567},e={14567},o={}}
-DQTC.Data.quests[7653]={n="Imperial Plate Belt",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652}}
-DQTC.Data.quests[7654]={n="Imperial Plate Boots",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652}}
-DQTC.Data.quests[7655]={n="Imperial Plate Bracer",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652}}
-DQTC.Data.quests[7656]={n="Imperial Plate Chest",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652}}
-DQTC.Data.quests[7657]={n="Imperial Plate Helm",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652}}
-DQTC.Data.quests[7658]={n="Imperial Plate Leggings",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652}}
-DQTC.Data.quests[7659]={n="Imperial Plate Shoulders",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652}}
+DQTC.Data.quests[7649]={n="Enchanted Thorium Platemail: Volume I",l=60,rl=60,f=0,s={},e={14368},o={},sk={164,300}}
+DQTC.Data.quests[7650]={n="Enchanted Thorium Platemail: Volume II",l=60,rl=60,f=0,s={},e={14368},o={},sk={164,300}}
+DQTC.Data.quests[7651]={n="Enchanted Thorium Platemail: Volume III",l=60,rl=55,f=0,s={},e={14368},o={},sk={164,300}}
+DQTC.Data.quests[7652]={n="A Blue Light Bargain",l=60,rl=50,f=0,s={14567},e={14567},o={},sk={164,265}}
+DQTC.Data.quests[7653]={n="Imperial Plate Belt",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652},sk={164,265}}
+DQTC.Data.quests[7654]={n="Imperial Plate Boots",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652},sk={164,265}}
+DQTC.Data.quests[7655]={n="Imperial Plate Bracer",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652},sk={164,265}}
+DQTC.Data.quests[7656]={n="Imperial Plate Chest",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652},sk={164,265}}
+DQTC.Data.quests[7657]={n="Imperial Plate Helm",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652},sk={164,265}}
+DQTC.Data.quests[7658]={n="Imperial Plate Leggings",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652},sk={164,265}}
+DQTC.Data.quests[7659]={n="Imperial Plate Shoulders",l=60,rl=50,f=0,s={14567},e={14567},o={{t="item",i=12359}},pq={7652},sk={164,265}}
 DQTC.Data.quests[7660]={n="Wolf Swapping - Arctic Wolf",l=1,rl=60,f=2,s={3362},e={3362},o={{t="item",i=12351}},r=178}
 DQTC.Data.quests[7661]={n="Wolf Swapping - Red Wolf",l=1,rl=60,f=2,s={3362},e={3362},o={{t="item",i=12330}},r=178}
 DQTC.Data.quests[7662]={n="New Kodo - Teal",l=1,rl=60,f=2,s={3685},e={3685},o={{t="item",i=15293}},r=178}
@@ -3304,19 +3304,19 @@ DQTC.Data.quests[8189]={n="Presence of Sight",l=60,rl=58,f=0,s={15042},e={15042}
 DQTC.Data.quests[8190]={n="Hoodoo Hex",l=60,rl=58,f=0,s={15042},e={15042},o={{t="item",i=22637},{t="item",i=19819}}}
 DQTC.Data.quests[8191]={n="Prophetic Aura",l=60,rl=58,f=0,s={15042},e={15042},o={{t="item",i=22637},{t="item",i=19820}}}
 DQTC.Data.quests[8192]={n="Animist's Caress",l=60,rl=58,f=0,s={15042},e={15042},o={{t="item",i=22637},{t="item",i=19821}}}
-DQTC.Data.quests[8193]={n="Master Angler",l=1,rl=60,f=0,s={15077},e={15077},o={{t="item",i=19807}}}
-DQTC.Data.quests[8194]={n="Apprentice Angler",l=1,rl=10,f=0,s={15078},e={15078},o={{t="item",i=19807}}}
+DQTC.Data.quests[8193]={n="Master Angler",l=1,rl=60,f=0,s={15077},e={15077},o={{t="item",i=19807}},sk={356,0}}
+DQTC.Data.quests[8194]={n="Apprentice Angler",l=1,rl=10,f=0,s={15078},e={15078},o={{t="item",i=19807}},sk={356,1}}
 DQTC.Data.quests[8195]={n="Zulian, Razzashi, and Hakkari Coins",l=60,rl=58,f=0,s={15070},e={15070},o={{t="item",i=19698},{t="item",i=19699},{t="item",i=19700}}}
 DQTC.Data.quests[8196]={n="Essence Mangoes",l=60,rl=58,f=0,s={14921},e={14921},o={{t="item",i=19858}}}
 DQTC.Data.quests[8201]={n="A Collection of Heads",l=60,rl=58,f=0,s={14910},e={14910},o={{t="item",i=19880}}}
-DQTC.Data.quests[8221]={n="Rare Fish - Keefer's Angelfish",l=1,rl=1,f=0,s={15079},e={15079},o={{t="item",i=19805}}}
+DQTC.Data.quests[8221]={n="Rare Fish - Keefer's Angelfish",l=1,rl=1,f=0,s={15079},e={15079},o={{t="item",i=19805}},sk={356,0}}
 DQTC.Data.quests[8222]={n="Glowing Scorpid Blood",l=60,rl=40,f=0,s={14829},e={14829},o={{t="item",i=19933}}}
 DQTC.Data.quests[8223]={n="More Glowing Scorpid Blood",l=60,rl=40,f=0,s={14829},e={14829},o={{t="item",i=19933}}}
-DQTC.Data.quests[8224]={n="Rare Fish - Dezian Queenfish",l=1,rl=1,f=0,s={15079},e={15079},o={{t="item",i=19806}}}
-DQTC.Data.quests[8225]={n="Rare Fish - Brownell's Blue Striped Racer",l=1,rl=1,f=0,s={15079},e={15079},o={{t="item",i=19803}}}
+DQTC.Data.quests[8224]={n="Rare Fish - Dezian Queenfish",l=1,rl=1,f=0,s={15079},e={15079},o={{t="item",i=19806}},sk={356,0}}
+DQTC.Data.quests[8225]={n="Rare Fish - Brownell's Blue Striped Racer",l=1,rl=1,f=0,s={15079},e={15079},o={{t="item",i=19803}},sk={356,0}}
 DQTC.Data.quests[8227]={n="Nat's Measuring Tape",l=60,rl=58,f=0,s={},e={12919},o={}}
-DQTC.Data.quests[8228]={n="Could I get a Fishing Flier?",l=60,rl=55,f=2,s={15119},e={15119},o={},r=178}
-DQTC.Data.quests[8229]={n="Could I get a Fishing Flier?",l=60,rl=55,f=1,s={15116},e={15116},o={},r=77}
+DQTC.Data.quests[8228]={n="Could I get a Fishing Flier?",l=60,rl=55,f=2,s={15119},e={15119},o={},r=178,sk={356,0}}
+DQTC.Data.quests[8229]={n="Could I get a Fishing Flier?",l=60,rl=55,f=1,s={15116},e={15116},o={},r=77,sk={356,0}}
 DQTC.Data.quests[8231]={n="Wavethrashing",l=52,rl=50,f=0,s={8405},e={8405},o={{t="item",i=20087}},c=4,pq={8153},nq=8232}
 DQTC.Data.quests[8232]={n="The Green Drake",l=52,rl=50,f=0,s={8405},e={8405},o={{t="item",i=20019}},c=4,pq={8231}}
 DQTC.Data.quests[8233]={n="A Simple Request",l=52,rl=50,f=0,s={3328,4215,4583,5166,13283},e={6768},o={},c=8,nq=8234}
@@ -3385,17 +3385,17 @@ DQTC.Data.quests[8303]={n="Anachronos",l=60,rl=60,f=0,s={15180},e={15192},o={},p
 DQTC.Data.quests[8304]={n="Dearest Natalia",l=60,rl=60,f=0,s={15181},e={15181},o={{t="monster",i=15221},{t="monster",i=15222}},nq=8306}
 DQTC.Data.quests[8305]={n="Long Forgotten Memories",l=60,rl=60,f=0,s={15192},e={},o={},pq={8303},nq=8519}
 DQTC.Data.quests[8306]={n="Into The Maw of Madness",l=60,rl=58,f=0,s={15181},e={15181},o={{t="monster",i=15215}},pq={8304}}
-DQTC.Data.quests[8307]={n="Desert Recipe",l=57,rl=54,f=0,s={15174},e={},o={},nq=8313}
+DQTC.Data.quests[8307]={n="Desert Recipe",l=57,rl=54,f=0,s={15174},e={},o={},nq=8313,sk={185,285}}
 DQTC.Data.quests[8308]={n="Brann Bronzebeard's Lost Letter",l=60,rl=58,f=0,s={},e={15170},o={}}
 DQTC.Data.quests[8309]={n="Glyph Chasing",l=60,rl=58,f=0,s={15170},e={15170},o={{t="item",i=20455},{t="item",i=20454},{t="item",i=20456}},pq={8304}}
 DQTC.Data.quests[8310]={n="Breaking the Code",l=60,rl=58,f=0,s={15171},e={15171},o={{t="item",i=20457},{t="item",i=20458},{t="item",i=20459}},pq={8304}}
 DQTC.Data.quests[8311]={n="Hallow's End Treats for Jesper!",l=60,rl=10,f=1,s={15310},e={15310},o={{t="item",i=20492},{t="item",i=20494},{t="item",i=20490},{t="item",i=20496}},r=77}
 DQTC.Data.quests[8312]={n="Hallow's End Treats for Spoops!",l=60,rl=10,f=2,s={15309},e={15309},o={{t="item",i=20493},{t="item",i=20495},{t="item",i=20491},{t="item",i=20497}},r=178}
-DQTC.Data.quests[8313]={n="Sharing the Knowledge",l=57,rl=54,f=0,s={},e={15174},o={},pq={8307},nq=8317}
+DQTC.Data.quests[8313]={n="Sharing the Knowledge",l=57,rl=54,f=0,s={},e={15174},o={},pq={8307},nq=8317,sk={185,285}}
 DQTC.Data.quests[8314]={n="Unraveling the Mystery",l=60,rl=58,f=0,s={15170},e={15183},o={},pg={8309,8310},nq=8315}
 DQTC.Data.quests[8315]={n="The Calling",l=60,rl=58,f=0,s={15183},e={15183},o={{t="item",i=20465}},pq={8314}}
 DQTC.Data.quests[8316]={n="Armaments of War",l=60,rl=58,f=0,s={15183},e={15183},o={},c=1,pq={8315}}
-DQTC.Data.quests[8317]={n="Kitchen Assistance",l=57,rl=54,f=0,s={15174},e={15174},o={{t="item",i=20452}},pq={8313}}
+DQTC.Data.quests[8317]={n="Kitchen Assistance",l=57,rl=54,f=0,s={15174},e={15174},o={{t="item",i=20452}},pq={8313},sk={185,285}}
 DQTC.Data.quests[8318]={n="Secret Communication",l=60,rl=57,f=0,s={15306},e={15306},o={{t="item",i=20404}}}
 DQTC.Data.quests[8319]={n="Encrypted Twilight Texts",l=60,rl=57,f=0,s={15306},e={15306},o={{t="item",i=20404}},pq={8318}}
 DQTC.Data.quests[8320]={n="Twilight Geolords",l=60,rl=60,f=0,s={15270},e={15270},o={{t="monster",i=11881}},nq=8321}
@@ -3782,7 +3782,7 @@ DQTC.Data.quests[8759]={n="The Path of the Invoker",l=60,rl=60,f=0,s={15192},e={
 DQTC.Data.quests[8760]={n="The Path of the Invoker",l=60,rl=60,f=0,s={15192},e={15192},o={{t="item",i=21208}},pq={8759},ex={8750,8755}}
 DQTC.Data.quests[8761]={n="The Grand Invoker",l=60,rl=60,f=0,s={15192},e={15192},o={{t="item",i=21209}},pq={8760},ex={8751,8756}}
 DQTC.Data.quests[8762]={n="Metzen the Reindeer",l=60,rl=40,f=1,s={13433},e={13433},o={{t="monster",i=15664},{t="item",i=21211}},r=77}
-DQTC.Data.quests[8763]={n="The Hero of the Day",l=60,rl=40,f=1,s={13433},e={},o={{t="item",i=8150}},r=77,pq={8762}}
+DQTC.Data.quests[8763]={n="The Hero of the Day",l=60,rl=40,f=1,s={13433},e={},o={{t="item",i=8150}},r=77,pq={8762},sk={185,300}}
 DQTC.Data.quests[8764]={n="The Changing of Paths - Protector No More",l=60,rl=60,f=0,s={15192},e={15192},o={{t="item",i=21200},{t="item",i=20858},{t="item",i=20859},{t="item",i=20860}}}
 DQTC.Data.quests[8765]={n="The Changing of Paths - Invoker No More",l=60,rl=60,f=0,s={15192},e={15192},o={{t="item",i=21210},{t="item",i=20861},{t="item",i=20862},{t="item",i=20863}}}
 DQTC.Data.quests[8766]={n="The Changing of Paths - Conqueror No More",l=60,rl=60,f=0,s={15192},e={15192},o={{t="item",i=21205},{t="item",i=20864},{t="item",i=20865},{t="item",i=20858}}}
@@ -3817,8 +3817,8 @@ DQTC.Data.quests[8794]={n="The Horde Needs Your Help!",l=60,rl=10,f=2,s={15704},
 DQTC.Data.quests[8795]={n="The Alliance Needs Your Help!",l=60,rl=49,f=0,s={15707},e={15701},o={}}
 DQTC.Data.quests[8796]={n="The Alliance Needs Your Help!",l=60,rl=1,f=0,s={15708},e={15701},o={}}
 DQTC.Data.quests[8797]={n="The Alliance Needs Your Help!",l=60,rl=1,f=0,s={15709},e={15701},o={}}
-DQTC.Data.quests[8798]={n="A Yeti of Your Own",l=60,rl=55,f=0,s={10305},e={10305},o={},pq={5163}}
-DQTC.Data.quests[8799]={n="The Hero of the Day",l=60,rl=40,f=2,s={13418},e={},o={{t="item",i=8150}},r=178,pq={8746}}
+DQTC.Data.quests[8798]={n="A Yeti of Your Own",l=60,rl=55,f=0,s={10305},e={10305},o={},pq={5163},sk={202,1}}
+DQTC.Data.quests[8799]={n="The Hero of the Day",l=60,rl=40,f=2,s={13418},e={},o={{t="item",i=8150}},r=178,pq={8746},sk={185,300}}
 DQTC.Data.quests[8800]={n="Cenarion Battlegear",l=60,rl=60,f=0,s={15540},e={15176},o={}}
 DQTC.Data.quests[8801]={n="C'Thun's Legacy",l=60,rl=60,f=0,s={},e={15379},o={},nq=8802}
 DQTC.Data.quests[8802]={n="The Savior of Kalimdor",l=60,rl=60,f=0,s={15379},e={15192},o={},pq={8801}}
@@ -3888,7 +3888,7 @@ DQTC.Data.quests[8865]={n="Festive Lunar Pant Suits",l=60,rl=1,f=0,s={15864},e={
 DQTC.Data.quests[8866]={n="Bronzebeard the Elder",l=60,rl=1,f=0,s={15871},e={15871},o={}}
 DQTC.Data.quests[8867]={n="Lunar Fireworks",l=60,rl=1,f=0,s={15895},e={15895},o={{t="monster",i=15893},{t="monster",i=15894}},nq=8883}
 DQTC.Data.quests[8868]={n="Elune's Blessing",l=60,rl=40,f=0,s={15864},e={15864},o={}}
-DQTC.Data.quests[8869]={n="Sweet Serenity",l=60,rl=50,f=0,s={},e={},o={{t="item",i=13351}}}
+DQTC.Data.quests[8869]={n="Sweet Serenity",l=60,rl=50,f=0,s={},e={},o={{t="item",i=13351}},sk={164,0}}
 DQTC.Data.quests[8870]={n="The Lunar Festival",l=60,rl=1,f=1,s={15892},e={15895},o={},r=77,ex={8871,8872,8873,8874,8875},nq=8867}
 DQTC.Data.quests[8871]={n="The Lunar Festival",l=60,rl=1,f=1,s={15892},e={15895},o={},r=77,ex={8870,8872,8873,8874,8875},nq=8867}
 DQTC.Data.quests[8872]={n="The Lunar Festival",l=60,rl=1,f=1,s={15892},e={15895},o={},r=77,ex={8870,8871,8873,8874,8875},nq=8867}

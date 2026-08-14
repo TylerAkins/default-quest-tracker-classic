@@ -46,6 +46,7 @@ local completed = {} -- [questId] = true
 local offerable = {} -- [questId] = true (available ! candidates)
 local playerRaceMask = 0
 local playerClassMask = 0
+local playerProfessionSkills
 local built = false
 
 local function GetPlayerMasks()
@@ -53,6 +54,28 @@ local function GetPlayerMasks()
     local _, classFile = UnitClass("player")
     playerRaceMask = (raceFile and RACE_BITS[raceFile]) or 0
     playerClassMask = (classFile and CLASS_BITS[classFile]) or 0
+end
+
+local function ScanPlayerProfessions()
+    -- These APIs are present on supported Classic clients. Fail open if a
+    -- compatibility client does not expose them so we do not hide valid quests.
+    if not GetProfessions or not GetProfessionInfo then
+        playerProfessionSkills = nil
+        return
+    end
+
+    local professionIndexes = { GetProfessions() }
+    local skills = {}
+    for i = 1, 6 do
+        local professionIndex = professionIndexes[i]
+        if professionIndex then
+            local _, _, skillLevel, _, _, _, skillLineId = GetProfessionInfo(professionIndex)
+            if skillLineId and type(skillLevel) == "number" then
+                skills[skillLineId] = skillLevel
+            end
+        end
+    end
+    playerProfessionSkills = skills
 end
 
 local function ScanCompleted()
@@ -112,6 +135,17 @@ local function ClassOk(requiredClasses)
         return true
     end
     return bit_band(requiredClasses, playerClassMask) ~= 0
+end
+
+local function SkillOk(requiredSkill)
+    if not requiredSkill or not requiredSkill[1] then
+        return true
+    end
+    if playerProfessionSkills == nil then
+        return true
+    end
+    local skillLevel = playerProfessionSkills[requiredSkill[1]]
+    return skillLevel ~= nil and skillLevel >= (requiredSkill[2] or 0)
 end
 
 local function IsCompleted(questId)
@@ -191,10 +225,17 @@ local function IsDoable(questId, q)
     if not HolidayEvents:IsQuestAllowed(questId) then
         return false
     end
+    local aqWarEffortQuests = DQTC.Data and DQTC.Data.aqWarEffortQuests
+    if DQTC.Config:Get("hideAQWarEffortQuests") and aqWarEffortQuests and aqWarEffortQuests[questId] then
+        return false
+    end
     if not RaceOk(q.r) then
         return false
     end
     if not ClassOk(q.c) then
+        return false
+    end
+    if not SkillOk(q.sk) then
         return false
     end
     -- nextQuestInChain already done/in log → this breadcrumb is obsolete
@@ -234,6 +275,7 @@ end
 function QuestAvailability:Rebuild()
     Loader:ImportModule("HolidayEvents"):Refresh()
     GetPlayerMasks()
+    ScanPlayerProfessions()
     ScanCompleted()
     wipe(offerable)
     local quests = DQTC.Data and DQTC.Data.quests
@@ -255,6 +297,7 @@ end
 
 function QuestAvailability:RefreshOfferable()
     self:EnsureBuilt()
+    ScanPlayerProfessions()
     wipe(offerable)
     local quests = DQTC.Data and DQTC.Data.quests
     if not quests then

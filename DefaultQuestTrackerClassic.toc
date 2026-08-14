@@ -32,6 +32,7 @@ Database\Classic\ItemDrops.lua
 Database\Classic\ItemNames.lua
 Database\Classic\AreaMap.lua
 Database\Classic\EventQuests.lua
+Database\Classic\AQWarEffortQuests.lua
 Database\Classic\SoftPrereqs.lua
 Database\Wowhead\Init.lua
 Database\Wowhead\AreaMap.lua

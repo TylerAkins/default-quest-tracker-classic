@@ -79,6 +79,21 @@ function QuestTooltip:AddToTooltip(tooltip, npcId, force)
     return true
 end
 
+function QuestTooltip:Refresh()
+    if not GameTooltip or not GameTooltip:IsShown() then
+        return
+    end
+    local _, unit = GameTooltip:GetUnit()
+    if not unit then
+        return
+    end
+    GameTooltip._dqtcQuestLines = nil
+    lastGuid = nil
+    lastLineCount = 0
+    GameTooltip:ClearLines()
+    GameTooltip:SetUnit(unit)
+end
+
 local function ResolveNpcId(tooltip)
     local _, unit = tooltip:GetUnit()
     local guid = unit and UnitGUID(unit)

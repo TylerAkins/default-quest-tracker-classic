@@ -221,7 +221,8 @@ def fmt_quest(qid, q):
     # Questie 1-based keys → 0-based list indices after lua_to_python
     # name=1, startedBy=2, finishedBy=3, requiredLevel=4, questLevel=5,
     # requiredRaces=6, requiredClasses=7, objectives=10,
-    # preQuestGroup=12, preQuestSingle=13, exclusiveTo=16, nextQuestInChain=22
+    # preQuestGroup=12, preQuestSingle=13, exclusiveTo=16, requiredSkill=18,
+    # nextQuestInChain=22
     name = q[0] if len(q) > 0 else ""
     started = q[1] if len(q) > 1 else None
     finished = q[2] if len(q) > 2 else None
@@ -233,6 +234,7 @@ def fmt_quest(qid, q):
     pre_group = q[11] if len(q) > 11 else None
     pre_single = q[12] if len(q) > 12 else None
     exclusive = q[15] if len(q) > 15 else None
+    required_skill = q[17] if len(q) > 17 else None
     next_chain = q[21] if len(q) > 21 else None
 
     starters = []
@@ -295,6 +297,15 @@ def fmt_quest(qid, q):
         parts.append(f"r={race_mask}")
     if class_mask and class_mask != 0:
         parts.append(f"c={class_mask}")
+    if (
+        isinstance(required_skill, list)
+        and len(required_skill) >= 2
+        and isinstance(required_skill[0], int)
+        and isinstance(required_skill[1], int)
+        and required_skill[0] > 0
+        and required_skill[1] >= 0
+    ):
+        parts.append(f"sk={{{required_skill[0]},{required_skill[1]}}}")
     pq = fmt_id_list(pre_single)
     if pq != "{}":
         parts.append(f"pq={pq}")
