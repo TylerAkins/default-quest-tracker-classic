@@ -10,7 +10,6 @@ local AVAILABLE_ICON = "Interface\\GossipFrame\\AvailableQuestIcon"
 local COMPLETE_ICON = "Interface\\GossipFrame\\ActiveQuestIcon"
 local OBJECTIVE_ICON = "Interface\\QuestFrame\\UI-Quest-BulletPoint"
 local CIRCLE_MASK = "Interface\\CHARACTERFRAME\\TempPortraitAlphaMask"
-local SOLID_FILL = "Interface\\Buttons\\WHITE8X8"
 local FRIZ = "Fonts\\FRIZQT__.TTF"
 
 -- Empty rings from UI-QuestPoi-NumberIcons (Blizzard QuestUtils)
@@ -89,14 +88,26 @@ function PinArt:HideNumberLabel(pin)
     end
 end
 
---- Brown/gold circle identical to available-quest bangs, with a gold tracker number on top.
+function PinArt:SetNumericBadge(texture, num)
+    if not texture then
+        return
+    end
+    -- Gold numbered circles from UI-QuestPoi-NumberIcons (same art as retail map POIs)
+    texture:SetTexture(NUMBER_ICONS)
+    texture:SetTexCoord(self:CalculateNumericTexCoords(num, true))
+    texture:SetVertexColor(1, 1, 1, 1)
+    texture:Show()
+    ApplySnap(texture)
+end
+
+--- Retail numbered circle. Always use the gold atlas cells (brown cells are digits-only).
 function PinArt:SetupNumberedPoi(pin, questId, isSuperTracked, size)
     local DB = Loader:ImportModule("DB")
     local num = DB:GetQuestNumber(questId or 0)
     pin:SetSize(size, size)
-    SetRing(pin.Texture, isSuperTracked)
+    self:SetNumericBadge(pin.Texture, num)
     pin.Number:Hide()
-    SetNumberLabel(pin.NumberText, num, size)
+    self:HideNumberLabel(pin)
 end
 
 function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
@@ -134,7 +145,7 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
     ApplySnap(pin.Highlight)
 end
 
---- Soft round wash behind the POI. Kept small and circular on purpose.
+--- Soft round wash behind the POI. Mask + SetTexCoord is illegal on this client.
 function PinArt:SetupAreaHighlight(pin, kind, isSuperTracked, radius)
     self:EnsureLayers(pin)
     if not radius or radius <= 0 or not DQTC.Config:Get("showAreaHighlights") then
@@ -143,14 +154,14 @@ function PinArt:SetupAreaHighlight(pin, kind, isSuperTracked, radius)
         return
     end
     pin.radius = radius
-    pin.Highlight:SetTexture(SOLID_FILL)
-    pin.Highlight:SetTexCoord(0, 1, 0, 1)
+    -- Clear a leftover mask so recycled pins cannot throw on SetTexCoord
     if pin.Highlight.SetMask then
-        pin.Highlight:SetMask(CIRCLE_MASK)
-    else
-        pin.Highlight:SetTexture(CIRCLE_MASK)
+        pcall(function()
+            pin.Highlight:SetMask(nil)
+        end)
     end
-    -- Gold wash for objectives; slightly greener when the quest is ready to turn in
+    pin.Highlight:SetTexture(CIRCLE_MASK)
+    -- Circular mask texture already; do not SetTexCoord
     if kind == "turnin" then
         pin.Highlight:SetVertexColor(0.45, 0.95, 0.35, isSuperTracked and 0.28 or 0.20)
     else
@@ -227,14 +238,10 @@ function PinArt:PaintNameplate(frame, icon, kind, questId, size)
         end
         return
     end
-    SetRing(icon, true)
-    if frame then
-        if not frame.NumberText then
-            frame.NumberText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            frame.NumberText:SetPoint("CENTER", frame, "CENTER", 0, 0)
-        end
-        local DB = Loader:ImportModule("DB")
-        SetNumberLabel(frame.NumberText, DB:GetQuestNumber(questId or 0), size)
+    local DB = Loader:ImportModule("DB")
+    self:SetNumericBadge(icon, DB:GetQuestNumber(questId or 0))
+    if frame and frame.NumberText then
+        frame.NumberText:Hide()
     end
     ApplySnap(icon)
 end

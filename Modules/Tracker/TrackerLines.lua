@@ -21,6 +21,11 @@ local function CreateLine(parent, index)
     line.text:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
     line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
 
+    line.poi = line:CreateTexture(nil, "ARTWORK")
+    line.poi:SetSize(16, 16)
+    line.poi:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
+    line.poi:Hide()
+
     line:Hide()
     line.questId = nil
     line.kind = nil -- header | quest | objective
@@ -102,6 +107,8 @@ function TrackerLines:Reset()
         line.questId = nil
         line.kind = nil
         line.text:SetText("")
+        line._indent = nil
+        TrackerLines:ClearPoi(line)
     end
     used = 0
 end
@@ -120,15 +127,62 @@ function TrackerLines:GetUsedCount()
     return used
 end
 
+local POI_SIZE = 16
+local POI_PAD = 4
+
+function TrackerLines:ClearPoi(line)
+    if line.poi then
+        line.poi:Hide()
+    end
+    line._hasPoi = false
+    line.text:ClearAllPoints()
+    line.text:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
+    line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
+end
+
+function TrackerLines:IndentAsObjective(line)
+    self:ClearPoi(line)
+    line._indent = POI_SIZE + POI_PAD
+    line.text:ClearAllPoints()
+    line.text:SetPoint("TOPLEFT", line, "TOPLEFT", line._indent, 0)
+    line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
+end
+
+function TrackerLines:SetQuestPoi(line, questId)
+    if not line.poi then
+        return
+    end
+    local PinArt = Loader:ImportModule("PinArt")
+    local DB = Loader:ImportModule("DB")
+    PinArt:SetNumericBadge(line.poi, DB:GetQuestNumber(questId))
+    line.poi:ClearAllPoints()
+    line.poi:SetSize(POI_SIZE, POI_SIZE)
+    line.poi:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
+    line.poi:Show()
+    line._hasPoi = true
+    line.text:ClearAllPoints()
+    line.text:SetPoint("TOPLEFT", line, "TOPLEFT", POI_SIZE + POI_PAD, 1)
+    line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 1)
+end
+
 --- Size the line to wrapped text width.
 function TrackerLines:FitLine(line, width)
     width = width or (self.parent and self.parent:GetWidth()) or 235
     line:SetWidth(width)
-    line.text:SetWidth(width)
+    local indent = 0
+    if line._hasPoi then
+        indent = POI_SIZE + POI_PAD
+    elseif line._indent then
+        indent = line._indent
+    end
+    line.text:SetWidth(math.max(20, width - indent))
     -- Force layout so GetStringHeight is accurate
     local h = line.text:GetStringHeight()
     if not h or h < 1 then
         h = (line.kind == "objective") and 13 or 14
+    end
+    if line._hasPoi then
+        h = math.max(h, POI_SIZE)
     end
     line:SetHeight(h + 2)
     return line:GetHeight()
