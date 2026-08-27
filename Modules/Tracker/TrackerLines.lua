@@ -22,7 +22,7 @@ local function CreateLine(parent, index)
     line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
 
     line.poiFrame = CreateFrame("Button", nil, line)
-    line.poiFrame:SetSize(22, 22)
+    line.poiFrame:SetSize(18, 18)
     line.poiFrame:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
     line.poiFrame:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     line.poiFrame:EnableMouse(true)
@@ -144,7 +144,10 @@ function TrackerLines:GetUsedCount()
     return used
 end
 
-local POI_SIZE = 22
+-- The 18px hit frame keeps the quest row compact. PinArt draws Blizzard's
+-- 27px POI around its center, overlapping the indented objective space just
+-- like the default tracker instead of forcing a tall blank row.
+local POI_SIZE = 18
 local POI_PAD = 4
 
 function TrackerLines:ClearPoi(line)
@@ -189,8 +192,8 @@ function TrackerLines:SetQuestPoi(line, questId, isEmphasized, isTurnin)
     line.poiFrame:Show()
     line._hasPoi = true
     line.text:ClearAllPoints()
-    line.text:SetPoint("TOPLEFT", line, "TOPLEFT", POI_SIZE + POI_PAD, 2)
-    line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 2)
+    line.text:SetPoint("TOPLEFT", line, "TOPLEFT", POI_SIZE + POI_PAD, 0)
+    line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
 end
 
 --- Size the line to wrapped text width.
@@ -208,9 +211,6 @@ function TrackerLines:FitLine(line, width)
     local h = line.text:GetStringHeight()
     if not h or h < 1 then
         h = (line.kind == "objective") and 13 or 14
-    end
-    if line._hasPoi then
-        h = math.max(h, POI_SIZE)
     end
     line:SetHeight(h + 2)
     return line:GetHeight()

@@ -2,6 +2,13 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.9] - 2026-08-27
+
+### Fixed
+
+- Blizzard POI textures are no longer enlarged beyond their native 32px source, removing the pixelated map/tracker appearance
+- Tracker circles are vertically centered on the quest title and no longer force an oversized blank row before objectives
+
 ## [1.1.8] - 2026-08-27
 
 ### Changed
