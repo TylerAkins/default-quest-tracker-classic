@@ -4,7 +4,7 @@
 
 **Original DQTC code** (tracker UI, options, markers, tooltips, GPS bridge, etc.) is written for this addon. Shared ideas (unlimited tracker, map pins, numbered POIs) are normal. Do **not** copy other addons’ source, icons, or branding.
 
-`Media/*.tga` are original circular fill/ring/atlas textures. QuestHelper drew numbered map dots from its own `Art/Icons.tga` atlas and a hover glow; this addon follows that idea (circular pins with the digit in the art + hover area) without shipping QuestHelper art.
+`Media/*.tga` are original objective-area fill/outline textures. Numbered pins use Blizzard's bundled `UI-QuestPoi-NumberIcons`, composed with the same coordinates and 20px-button/32px-art sizing as `QuestPOINumericTemplate`. QuestHelper's own art is not shipped.
 
 ## License
 

@@ -2,6 +2,14 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.8] - 2026-08-27
+
+### Changed
+
+- Replaced the generated numbered badges with Blizzard's actual retail quest POI layers, texture coordinates, colors, and 20px-button/32px-art sizing
+- Turn-ins now use Blizzard's world-map quest icon inside the same standard POI ring
+- Removed the generated numbered atlas and badge textures
+
 ## [1.1.7] - 2026-08-27
 
 ### Fixed

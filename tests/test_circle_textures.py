@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Guard: pin art TGAs must be circular with a visible gold rim and baked digits."""
+"""Guard: custom objective-area TGAs must remain circular."""
 
 from __future__ import annotations
 
@@ -32,22 +32,12 @@ def test_circle_textures() -> None:
     assert px(raw, w, 0, 0)[3] == 0
     assert px(raw, w, w // 2, h // 2)[3] > 240
 
-    atlas = ROOT / "PoiAtlas.tga"
-    w, h, raw = read_tga(atlas)
-    assert w == h == 256
-    # Cell 0 (idle "1"): transparent corner of the atlas, gold on the top of the disc
+    outline = ROOT / "ThinRing.tga"
+    w, h, raw = read_tga(outline)
+    assert w == h == 128
     assert px(raw, w, 0, 0)[3] == 0
-    cr, cg, cb, ca = px(raw, w, 10, 16)
-    assert ca > 200 and cr + cg + cb < 220, (cr, cg, cb, ca)
-    rr, rg, rb, ra = px(raw, w, 16, 1)
-    assert ra > 40 and rr > 140 and rg > 80, (rr, rg, rb, ra)
-
-    badge = ROOT / "PoiBadge.tga"
-    w, h, raw = read_tga(badge)
-    assert w == h == 32
-    assert px(raw, w, 0, 0)[3] == 0
-    cr, cg, cb, ca = px(raw, w, w // 2, h // 2)
-    assert ca > 200 and cr + cg + cb < 200, (cr, cg, cb, ca)
+    assert px(raw, w, w // 2, h // 2)[3] == 0
+    assert px(raw, w, w // 2, 2)[3] > 100
 
 
 if __name__ == "__main__":
