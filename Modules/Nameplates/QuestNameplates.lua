@@ -55,7 +55,8 @@ function QuestNameplates:UpdateUnit(unitToken)
     end
 
     local DB = Loader:ImportModule("DB")
-    local kind = DB:GetNpcIconType(npcId)
+    local info = DB._npcIndex and DB._npcIndex[npcId]
+    local kind = info and info.kind or DB:GetNpcIconType(npcId)
     if not kind then
         ReleaseFrame(guid)
         return
@@ -86,8 +87,7 @@ function QuestNameplates:UpdateUnit(unitToken)
     end
 
     local PinArt = Loader:ImportModule("PinArt")
-    f.icon:SetTexture(PinArt:GetNameplateIcon(kind))
-    f.icon:SetTexCoord(0, 1, 0, 1)
+    PinArt:PaintNameplateTexture(f.icon, kind, info and info.questId)
     f:Show()
 end
 

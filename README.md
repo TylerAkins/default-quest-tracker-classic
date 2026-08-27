@@ -1,6 +1,6 @@
 # Default Quest Tracker Classic
 
-Unlimited quest tracker for **WoW Classic Era** with a Blizzard-style look, plus map/minimap markers and nameplate quest icons.
+Unlimited quest tracker for **WoW Classic Era** with a Blizzard-style look, numbered Dugi-style map areas, and nameplate quest icons.
 
 **Questie is not required.** This addon ships its own slim quest/spawn database derived from Questie Classic (see [Credits](#credits--license)).
 
@@ -31,10 +31,11 @@ Install and update through the [CurseForge](https://www.curseforge.com/) app onc
 
 - Track more than Blizzard’s usual watch limit
 - Default position under the minimap; unlock/drag to move; reset in options
-- Map and minimap markers (`!` / `?` for available and turn-ins; dots for objectives)
-- Item-drop objectives resolve to mob spawn pins
-- Available quests, objectives, and turn-ins (each toggleable)
-- Nameplate icons and unit tooltip quest lines
+- Numbered `(1) (2) (3)` quest tracker matching world-map and minimap POIs
+- Dugi-style **area highlights** for objectives and turn-ins (clustered from the full spawn database)
+- `!` pins for available quest givers (toggleable)
+- Item-drop objectives resolve to clustered hunting grounds
+- Nameplate numbers and unit tooltip quest lines
 - Clickable Questie chat links open the matching active quest in the quest log
 - Right-click: Send to GPS, copy Wowhead URL, untrack, focus
 - Options via `/dqtc`

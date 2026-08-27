@@ -206,6 +206,16 @@ local function SortQuestIds(ids)
     end)
 end
 
+function TrackerFrame:SortQuestIds(ids)
+    SortQuestIds(ids)
+    return ids
+end
+
+function TrackerFrame:GetSortedTrackedQuestIds()
+    local WatchState = Loader:ImportModule("WatchState")
+    return self:SortQuestIds(WatchState:GetTrackedQuestIds())
+end
+
 function TrackerFrame:Update()
     self:Initialize()
     local frame = self.frame
@@ -241,6 +251,7 @@ function TrackerFrame:Update()
             local hideCompleted = DQTC.Config:Get("hideCompletedObjectives")
             local showLevel = DQTC.Config:Get("showQuestLevel")
             local focusId = DQTC.Config:GetChar("superTrackedQuestId")
+            local DB = Loader:ImportModule("DB")
 
             for _, questId in ipairs(tracked) do
                 local quest = QuestLogCache:GetQuest(questId)
@@ -252,6 +263,7 @@ function TrackerFrame:Update()
                     if showLevel and quest.level and quest.level > 0 then
                         title = string.format("[%d] %s", quest.level, title)
                     end
+                    title = string.format("(%d) %s", DB:GetQuestNumber(questId), title)
                     qLine.text:SetText(title)
                     StyleTitle(qLine.text)
                     local r, g, b = DifficultyColor(quest.level)

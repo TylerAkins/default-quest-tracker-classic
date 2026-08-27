@@ -21,6 +21,7 @@ local defaults = {
         hideAQWarEffortQuests = true,
         showObjectives = true,
         showTurnins = true,
+        showAreaHighlights = true,
         showTrivial = false,
         showWorldMap = true,
         showMinimap = true,
