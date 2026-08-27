@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.13] - 2026-08-27
+
+### Fixed
+
+- Objective counts like `0/10` stay together when the line wraps. Classic's FontString still breaks on `/` even with space-only wrap enabled, so the tracker now inserts line breaks at spaces itself.
+
 ## [1.1.12] - 2026-08-27
 
 ### Fixed
