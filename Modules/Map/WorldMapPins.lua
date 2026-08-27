@@ -102,7 +102,6 @@ local function ReleaseIcon(icon)
     end
     if icon.NumberText then
         icon.NumberText:Hide()
-        icon.NumberText:SetText("")
     end
     pinPool[#pinPool + 1] = icon
 end

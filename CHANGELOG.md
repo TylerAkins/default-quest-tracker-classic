@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.7] - 2026-08-27
+
+### Fixed
+
+- `FontString:SetText(): Font not set` on numbered pins (atlas path hid the label before a font was assigned)
+
 ## [1.1.6] - 2026-08-27
 
 ### Fixed

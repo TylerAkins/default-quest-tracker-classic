@@ -157,8 +157,10 @@ function PinArt:EnsureLayers(pin)
         pin.Number:SetSize(18, 18)
     end
     if not pin.NumberText then
-        pin.NumberText = pin:CreateFontString(nil, "OVERLAY")
+        pin.NumberText = pin:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        pin.NumberText:SetFont(FRIZ, 12, "OUTLINE")
         pin.NumberText:SetPoint("CENTER", pin, "CENTER", 0, -1)
+        pin.NumberText:Hide()
     end
     if pin.texture and pin.texture ~= pin.Texture then
         pin.texture:Hide()
@@ -168,7 +170,6 @@ end
 function PinArt:HideNumberLabel(pin)
     if pin.NumberText then
         pin.NumberText:Hide()
-        pin.NumberText:SetText("")
     end
 end
 
