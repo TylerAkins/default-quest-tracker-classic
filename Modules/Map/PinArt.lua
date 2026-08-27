@@ -58,9 +58,16 @@ local function SetNumberLabel(fs, num, size)
 end
 
 function PinArt:EnsureLayers(pin)
+    if not pin.HighlightBorder then
+        pin.HighlightBorder = pin:CreateTexture(nil, "BACKGROUND")
+        pin.HighlightBorder:SetPoint("CENTER")
+        pin.HighlightBorder:SetDrawLayer("BACKGROUND", 0)
+        pin.HighlightBorder:Hide()
+    end
     if not pin.Highlight then
         pin.Highlight = pin:CreateTexture(nil, "BACKGROUND")
         pin.Highlight:SetPoint("CENTER")
+        pin.Highlight:SetDrawLayer("BACKGROUND", 1)
         pin.Highlight:Hide()
     end
     if not pin.Texture then
@@ -127,6 +134,9 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
         if pin.Highlight then
             pin.Highlight:Hide()
         end
+        if pin.HighlightBorder then
+            pin.HighlightBorder:Hide()
+        end
         if not pin.Texture:GetTexture() then
             pin.Texture:SetTexture(AVAILABLE_ICON)
             pin.Texture:SetTexCoord(0, 1, 0, 1)
@@ -135,9 +145,11 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
     else
         self:SetupNumberedPoi(pin, questId, isSuperTracked, size)
         self:SetupAreaHighlight(pin, kind, isSuperTracked, data.radius)
-        -- Area wash stays hidden until the numbered pin (or tracker number) is hovered
         if pin.Highlight then
             pin.Highlight:Hide()
+        end
+        if pin.HighlightBorder then
+            pin.HighlightBorder:Hide()
         end
     end
 
@@ -152,25 +164,32 @@ function PinArt:SetupAreaHighlight(pin, kind, isSuperTracked, radius)
     if not radius or radius <= 0 or not DQTC.Config:Get("showAreaHighlights") then
         pin.radius = nil
         pin.Highlight:Hide()
+        if pin.HighlightBorder then
+            pin.HighlightBorder:Hide()
+        end
         return
     end
     pin.radius = radius
-    -- Clear a leftover mask so recycled pins cannot throw on SetTexCoord
     if pin.Highlight.SetMask then
         pcall(function()
             pin.Highlight:SetMask(nil)
         end)
     end
-    pin.Highlight:SetTexture(CIRCLE_MASK)
-    -- Circular mask texture already; do not SetTexCoord
-    if kind == "turnin" then
-        pin.Highlight:SetVertexColor(0.45, 0.95, 0.35, isSuperTracked and 0.28 or 0.20)
-    else
-        pin.Highlight:SetVertexColor(1.0, 0.84, 0.18, isSuperTracked and 0.28 or 0.18)
+    if pin.HighlightBorder.SetMask then
+        pcall(function()
+            pin.HighlightBorder:SetMask(nil)
+        end)
     end
+    pin.Highlight:SetTexture(CIRCLE_MASK)
+    pin.HighlightBorder:SetTexture(CIRCLE_MASK)
+    -- Light blue fill + thin black outline
+    pin.Highlight:SetVertexColor(0.62, 0.84, 1.0, isSuperTracked and 0.28 or 0.20)
+    pin.HighlightBorder:SetVertexColor(0, 0, 0, 0.90)
     pin.Highlight:Hide()
+    pin.HighlightBorder:Hide()
     local fallback = math.max(52, math.min(radius * 5, 120))
-    pin.Highlight:SetSize(fallback, fallback)
+    pin.HighlightBorder:SetSize(fallback, fallback)
+    pin.Highlight:SetSize(math.max(1, fallback - 3), math.max(1, fallback - 3))
 end
 
 function PinArt:ShowAreaHighlight(pin)
@@ -182,11 +201,17 @@ function PinArt:ShowAreaHighlight(pin)
     end
     self:UpdateAreaHighlightSize(pin)
     pin.Highlight:Show()
+    if pin.HighlightBorder then
+        pin.HighlightBorder:Show()
+    end
 end
 
 function PinArt:HideAreaHighlight(pin)
     if pin and pin.Highlight then
         pin.Highlight:Hide()
+    end
+    if pin and pin.HighlightBorder then
+        pin.HighlightBorder:Hide()
     end
 end
 
@@ -228,8 +253,11 @@ function PinArt:UpdateAreaHighlightSize(pin)
     elseif diameter > 140 then
         diameter = 140
     end
-    -- Always circular — stretching to map aspect made huge ovals
-    pin.Highlight:SetSize(diameter, diameter)
+    local fill = math.max(1, diameter - 3)
+    pin.Highlight:SetSize(fill, fill)
+    if pin.HighlightBorder then
+        pin.HighlightBorder:SetSize(diameter, diameter)
+    end
 end
 
 function PinArt:GetNameplateIcon(kind)

@@ -8,6 +8,7 @@ All notable changes to Default Quest Tracker Classic are documented here.
 
 - Numbered pins use the same brown/gold circle as available `!` / `?` markers, with a gold digit
 - Objective area wash is hidden until you hover the numbered pin (map or tracker)
+- Hover wash is a light transparent blue circle with a thin black outline
 
 ## [1.1.2] - 2026-08-27
 

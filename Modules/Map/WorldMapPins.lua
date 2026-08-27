@@ -92,6 +92,9 @@ local function ReleaseIcon(icon)
     if icon.Highlight then
         icon.Highlight:Hide()
     end
+    if icon.HighlightBorder then
+        icon.HighlightBorder:Hide()
+    end
     if icon.NumberText then
         icon.NumberText:Hide()
         icon.NumberText:SetText("")
