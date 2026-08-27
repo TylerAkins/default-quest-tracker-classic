@@ -16,7 +16,9 @@ local function CreateLine(parent, index)
     line.text = line:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     line.text:SetJustifyH("LEFT")
     line.text:SetJustifyV("TOP")
-    line.text:SetWordWrap(true)
+    -- Auto-wrap is off: Classic still breaks on "/" even with SetNonSpaceWrap(false).
+    -- FitLine inserts newlines at spaces so counts like "0/10" stay together.
+    line.text:SetWordWrap(false)
     line.text:SetNonSpaceWrap(false)
     line.text:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
     line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
@@ -87,7 +89,7 @@ local function CreateLine(parent, index)
     line:SetScript("OnEnter", function(self)
         if self.kind == "quest" and self.questId then
             GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-            GameTooltip:SetText(self.text:GetText() or "", nil, nil, nil, nil, true)
+            GameTooltip:SetText(self._rawText or self.text:GetText() or "", nil, nil, nil, nil, true)
             GameTooltip:AddLine("Left-click: focus  |  Shift-click: untrack  |  Right-click: menu", 0.7, 0.7, 0.7, true)
             GameTooltip:Show()
         elseif self.kind == "header" then
@@ -124,6 +126,7 @@ function TrackerLines:Reset()
         line.questId = nil
         line.kind = nil
         line.text:SetText("")
+        line._rawText = nil
         line._indent = nil
         TrackerLines:ClearPoi(line)
     end
@@ -150,6 +153,13 @@ end
 local POI_SIZE = 18
 local POI_ART_SIZE = 27
 local POI_PAD = 2
+
+local function MeasureUnbounded(fs, s)
+    -- Measure unconstrained so SetWidth doesn't clip GetStringWidth.
+    fs:SetWidth(10000)
+    fs:SetText(s)
+    return fs:GetStringWidth() or 0
+end
 
 function TrackerLines:ClearPoi(line)
     if line.poiFrame then
@@ -197,6 +207,58 @@ function TrackerLines:SetQuestPoi(line, questId, isEmphasized, isTurnin)
     line.poiFrame:Show()
 end
 
+function TrackerLines:ApplyWrapFlags(fs)
+    -- Do not let FontString auto-wrap. Classic treats "/" as a break, which
+    -- splits "0/10" so "10" sits alone on the next line.
+    fs:SetWordWrap(false)
+    fs:SetNonSpaceWrap(false)
+end
+
+function TrackerLines:SetLineText(line, text)
+    line._rawText = text or ""
+    line.text:SetText(line._rawText)
+end
+
+--- Insert newlines at spaces only. Keep in sync with tests/test_wrap_at_spaces.py.
+function TrackerLines.WrapAtSpaces(text, width, measure)
+    if not text or text == "" then
+        return text or ""
+    end
+    if measure(text) <= width then
+        return text
+    end
+    local lines = {}
+    local rest = text
+    while rest ~= "" do
+        if measure(rest) <= width then
+            lines[#lines + 1] = rest
+            break
+        end
+        local bestEnd = nil
+        local searchFrom = 1
+        while true do
+            local spaceAt = rest:find(" ", searchFrom, true)
+            if not spaceAt then
+                break
+            end
+            local candidate = rest:sub(1, spaceAt - 1)
+            if candidate ~= "" and measure(candidate) <= width then
+                bestEnd = spaceAt
+                searchFrom = spaceAt + 1
+            else
+                break
+            end
+        end
+        if not bestEnd then
+            lines[#lines + 1] = rest
+            break
+        end
+        lines[#lines + 1] = rest:sub(1, bestEnd - 1)
+        rest = rest:sub(bestEnd + 1):gsub("^ +", "")
+    end
+    return table.concat(lines, "\n")
+end
+
 --- Size the line to wrapped text width.
 function TrackerLines:FitLine(line, width)
     width = width or (self.parent and self.parent:GetWidth()) or 235
@@ -207,11 +269,40 @@ function TrackerLines:FitLine(line, width)
     elseif line._indent then
         indent = line._indent
     end
-    line.text:SetWidth(math.max(20, width - indent))
-    -- Force layout so GetStringHeight is accurate
-    local h = line.text:GetStringHeight()
-    if not h or h < 1 then
-        h = (line.kind == "objective") and 13 or 14
+    local textWidth = math.max(20, width - indent)
+    self:ApplyWrapFlags(line.text)
+
+    local raw = line._rawText
+    local wrapped = raw
+    if raw and raw ~= "" then
+        local measured = MeasureUnbounded(line.text, raw)
+        -- GetStringWidth can return 0 before a font is fully applied; don't
+        -- force a single clipped line in that case.
+        if measured > 0 then
+            wrapped = self.WrapAtSpaces(raw, textWidth, function(s)
+                return MeasureUnbounded(line.text, s)
+            end)
+        end
+        line.text:SetText(wrapped)
+    end
+    line.text:SetWidth(textWidth)
+
+    -- Force layout so GetStringHeight is accurate. WordWrap is off, so also
+    -- size from explicit newlines in case GetStringHeight ignores them.
+    local h = line.text:GetStringHeight() or 0
+    local lineCount = 1
+    if wrapped and wrapped ~= "" then
+        for _ in wrapped:gmatch("\n") do
+            lineCount = lineCount + 1
+        end
+    end
+    local _, fontSize = line.text:GetFont()
+    if not fontSize or fontSize < 1 then
+        fontSize = (line.kind == "objective") and 13 or 14
+    end
+    h = math.max(h, fontSize * lineCount)
+    if h < 1 then
+        h = fontSize
     end
     line:SetHeight(h + 2)
     return line:GetHeight()

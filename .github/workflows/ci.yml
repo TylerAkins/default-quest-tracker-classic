@@ -26,6 +26,7 @@ jobs:
             exit 1
           fi
           python3 tests/test_circle_textures.py
+          python3 tests/test_wrap_at_spaces.py
 
       - name: Dry-run package
         uses: BigWigsMods/packager@v2

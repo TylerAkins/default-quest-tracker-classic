@@ -130,16 +130,25 @@ local function DifficultyColor(level)
     return c.r, c.g, c.b
 end
 
+local function ApplyWrapFlags(fs)
+    -- SetFontObject copies wrap flags from the font object; Classic auto-wrap
+    -- also breaks on "/", which splits "0/10". FitLine wraps at spaces instead.
+    fs:SetWordWrap(false)
+    fs:SetNonSpaceWrap(false)
+end
+
 local function StyleTitle(fs)
     fs:SetFontObject(GameFontNormal)
     fs:SetShadowColor(0, 0, 0, 1)
     fs:SetShadowOffset(1, -1)
+    ApplyWrapFlags(fs)
 end
 
 local function StyleObjective(fs)
     fs:SetFontObject(GameFontHighlight)
     fs:SetShadowColor(0, 0, 0, 1)
     fs:SetShadowOffset(1, -1)
+    ApplyWrapFlags(fs)
 end
 
 local function SortQuestIds(ids)
@@ -243,7 +252,7 @@ function TrackerFrame:Update()
         header.kind = "header"
         header.questId = nil
         local count = #tracked
-        header.text:SetText(string.format("%s (%d)", L["QUESTS"], count))
+        TrackerLines:SetLineText(header, string.format("%s (%d)", L["QUESTS"], count))
         header.text:SetTextColor(1, 0.82, 0)
         StyleTitle(header.text)
 
@@ -262,7 +271,7 @@ function TrackerFrame:Update()
                     if showLevel and quest.level and quest.level > 0 then
                         title = string.format("[%d] %s", quest.level, title)
                     end
-                    qLine.text:SetText(title)
+                    TrackerLines:SetLineText(qLine, title)
                     TrackerLines:SetQuestPoi(qLine, questId, focusId == questId, quest.isComplete == 1)
                     StyleTitle(qLine.text)
                     local r, g, b = DifficultyColor(quest.level)
@@ -278,7 +287,7 @@ function TrackerFrame:Update()
                             local oLine = TrackerLines:Acquire()
                             oLine.kind = "objective"
                             oLine.questId = questId
-                            oLine.text:SetText("- " .. (obj.text or ""))
+                            TrackerLines:SetLineText(oLine, "- " .. (obj.text or ""))
                             TrackerLines:IndentAsObjective(oLine)
                             StyleObjective(oLine.text)
                             if obj.finished or quest.isComplete == 1 then
@@ -294,7 +303,7 @@ function TrackerFrame:Update()
                         local oLine = TrackerLines:Acquire()
                         oLine.kind = "objective"
                         oLine.questId = questId
-                        oLine.text:SetText("- " .. (QUEST_WATCH_QUEST_READY or "Ready for turn-in"))
+                        TrackerLines:SetLineText(oLine, "- " .. (QUEST_WATCH_QUEST_READY or "Ready for turn-in"))
                         TrackerLines:IndentAsObjective(oLine)
                         StyleObjective(oLine.text)
                         oLine.text:SetTextColor(0, 1, 0)
