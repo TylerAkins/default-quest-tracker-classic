@@ -87,7 +87,7 @@ function QuestNameplates:UpdateUnit(unitToken)
     end
 
     local PinArt = Loader:ImportModule("PinArt")
-    PinArt:PaintNameplateTexture(f.icon, kind, info and info.questId)
+    PinArt:PaintNameplate(f, f.icon, kind, info and info.questId, 16 * scale)
     f:Show()
 end
 

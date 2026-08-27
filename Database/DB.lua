@@ -381,10 +381,10 @@ function DB:ClusterSpawns(spawns, gap)
                     r = d
                 end
             end
-            -- Padding so the blob covers the hunting ground; floor so a single NPC still glows.
-            r = math.max(7, r * 1.3 + 2)
-            if r > 32 then
-                r = 32
+            -- Modest circle so the numbered POI stays the focus.
+            r = math.max(4, r * 1.05 + 1)
+            if r > 12 then
+                r = 12
             end
             local sample = g.points[1]
             clusters[#clusters + 1] = {

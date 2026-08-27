@@ -90,6 +90,10 @@ local function ReleaseIcon(icon)
     if icon.Highlight then
         icon.Highlight:Hide()
     end
+    if icon.NumberText then
+        icon.NumberText:Hide()
+        icon.NumberText:SetText("")
+    end
     pinPool[#pinPool + 1] = icon
 end
 
