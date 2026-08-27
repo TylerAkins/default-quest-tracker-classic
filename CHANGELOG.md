@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.12] - 2026-08-27
+
+### Fixed
+
+- Objective text wraps on spaces only, so counts like `0/10` stay on one line
+
 ## [1.1.11] - 2026-08-27
 
 ### Changed
