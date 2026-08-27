@@ -334,36 +334,135 @@ function DB:RebuildNpcIndex()
     return index
 end
 
+-- Group nearby spawn points into numbered areas (centroid + radius in map %).
+-- Points farther than `gap` map-percent from a cluster center start a new area.
+function DB:ClusterSpawns(spawns, gap)
+    gap = gap or 18
+    local gapSq = gap * gap
+    local byMap = {}
+    for _, sp in ipairs(spawns or {}) do
+        if sp and sp.uiMapId and sp.x ~= nil and sp.y ~= nil then
+            local list = byMap[sp.uiMapId]
+            if not list then
+                list = {}
+                byMap[sp.uiMapId] = list
+            end
+            list[#list + 1] = sp
+        end
+    end
+
+    local clusters = {}
+    for uiMapId, points in pairs(byMap) do
+        local groups = {}
+        for _, p in ipairs(points) do
+            local best, bestD
+            for _, g in ipairs(groups) do
+                local dx, dy = p.x - g.cx, p.y - g.cy
+                local d = dx * dx + dy * dy
+                if d <= gapSq and (not bestD or d < bestD) then
+                    best, bestD = g, d
+                end
+            end
+            if best then
+                best.points[#best.points + 1] = p
+                local n = #best.points
+                best.cx = best.cx + (p.x - best.cx) / n
+                best.cy = best.cy + (p.y - best.cy) / n
+            else
+                groups[#groups + 1] = { cx = p.x, cy = p.y, points = { p } }
+            end
+        end
+        for _, g in ipairs(groups) do
+            local r = 0
+            for _, p in ipairs(g.points) do
+                local dx, dy = p.x - g.cx, p.y - g.cy
+                local d = math.sqrt(dx * dx + dy * dy)
+                if d > r then
+                    r = d
+                end
+            end
+            -- Padding so the blob covers the hunting ground; floor so a single NPC still glows.
+            r = math.max(7, r * 1.3 + 2)
+            if r > 32 then
+                r = 32
+            end
+            local sample = g.points[1]
+            clusters[#clusters + 1] = {
+                uiMapId = uiMapId,
+                x = g.cx,
+                y = g.cy,
+                radius = r,
+                kind = sample.kind,
+                questId = sample.questId,
+                count = #g.points,
+            }
+        end
+    end
+    return clusters
+end
+
 function DB:GetBestWaypointSpawn(questId)
     local QuestLogCache = Loader:ImportModule("QuestLogCache")
     local quest = QuestLogCache:GetQuest(questId)
+    local spawns
     if quest and quest.isComplete == 1 then
-        local turnins = self:GetTurninSpawns(questId)
-        if turnins[1] then
-            return turnins[1]
+        spawns = self:GetTurninSpawns(questId)
+    else
+        spawns = self:GetObjectiveSpawns(questId)
+        if not spawns[1] then
+            spawns = self:GetTurninSpawns(questId)
         end
     end
-    local objectives = self:GetObjectiveSpawns(questId)
-    if objectives[1] then
-        return objectives[1]
+    if not spawns or not spawns[1] then
+        return nil
     end
-    -- Talk/deliver with no kill objectives: GPS may still point at the ender
-    local turnins = self:GetTurninSpawns(questId)
-    return turnins[1]
+    local clusters = self:ClusterSpawns(spawns)
+    if not clusters[1] then
+        return spawns[1]
+    end
+    local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+    local px, py
+    if pmap and C_Map.GetPlayerMapPosition then
+        local pos = C_Map.GetPlayerMapPosition(pmap, "player")
+        if pos then
+            px, py = pos:GetXY()
+            if px then
+                px, py = px * 100, py * 100
+            end
+        end
+    end
+    local best, bestD
+    for _, c in ipairs(clusters) do
+        local d = 999999
+        if px and py and pmap and c.uiMapId == pmap then
+            local dx, dy = (c.x or 0) - px, (c.y or 0) - py
+            d = dx * dx + dy * dy
+        elseif pmap and c.uiMapId ~= pmap then
+            d = 888888
+        end
+        if not bestD or d < bestD then
+            best, bestD = c, d
+        end
+    end
+    return best or clusters[1]
+end
+
+--- Numbers match tracker order: (1), (2), (3) …
+function DB:AssignQuestNumbers(orderedIds)
+    self._questNumbers = {}
+    for i, questId in ipairs(orderedIds or {}) do
+        if questId then
+            self._questNumbers[questId] = ((i - 1) % 50) + 1
+        end
+    end
 end
 
 function DB:GetQuestNumber(questId)
     self._questNumbers = self._questNumbers or {}
-    if self._questNumbers[questId] then
+    if questId and self._questNumbers[questId] then
         return self._questNumbers[questId]
     end
-    local n = 0
-    for _ in pairs(self._questNumbers) do
-        n = n + 1
-    end
-    n = (n % 50) + 1
-    self._questNumbers[questId] = n
-    return n
+    return 1
 end
 
 function DB:GetQuestLevel(questId)

@@ -89,7 +89,8 @@ local function StyleIcon(icon, data)
     local PinArt = Loader:ImportModule("PinArt")
     local scale = (DQTC.Config:Get("minimapScale") or 1) * 18
     local super = data.questId and data.questId == DQTC.Config:GetChar("superTrackedQuestId")
-    PinArt:SetupPin(icon, data.kind or "objective", data.questId, super, scale)
+    -- Minimap stays as a numbered POI; area blobs only belong on the world map
+    PinArt:SetupPin(icon, data.kind or "objective", data.questId, super, scale, { radius = nil })
     icon:Show()
 end
 

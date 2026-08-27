@@ -19,6 +19,7 @@ local TOGGLES = {
     { key = "hideAQWarEffortQuests", label = "HIDE_AQ_WAR_EFFORT" },
     { key = "showObjectives", label = "SHOW_OBJECTIVES" },
     { key = "showTurnins", label = "SHOW_TURNINS" },
+    { key = "showAreaHighlights", label = "SHOW_AREA_HIGHLIGHTS" },
     { key = "showTrivial", label = "SHOW_TRIVIAL" },
     { key = "showWorldMap", label = "SHOW_WORLDMAP" },
     { key = "showMinimap", label = "SHOW_MINIMAP" },

@@ -80,19 +80,26 @@ function MarkerController:Refresh()
         end
     end
 
-    -- Log quest objectives + turn-ins
-    for questId, quest in pairs(QuestLogCache:GetQuests()) do
-        if quest.isComplete == 1 then
-            if DQTC.Config:Get("showTurnins") then
-                for _, sp in ipairs(DB:GetTurninSpawns(questId)) do
-                    Add(sp, DB:FormatMapPinTooltip(questId, "(Turn-in)"))
+    -- Tracked quests: one numbered area per spawn cluster (not a pin on every mob)
+    local TrackerFrame = Loader:ImportModule("TrackerFrame")
+    for _, questId in ipairs(TrackerFrame:GetSortedTrackedQuestIds()) do
+        local quest = QuestLogCache:GetQuest(questId)
+        if quest then
+            if quest.isComplete == 1 then
+                if DQTC.Config:Get("showTurnins") then
+                    local num = DB:GetQuestNumber(questId)
+                    local tip = DB:FormatMapPinTooltip(questId, string.format("(%d) Turn-in", num))
+                    for _, cluster in ipairs(DB:ClusterSpawns(DB:GetTurninSpawns(questId))) do
+                        Add(cluster, tip)
+                    end
                 end
-            end
-        else
-            -- Incomplete: objectives only — never show complete (?) until isComplete == 1
-            if DQTC.Config:Get("showObjectives") then
-                for _, sp in ipairs(DB:GetObjectiveSpawns(questId)) do
-                    Add(sp, DB:FormatMapPinTooltip(questId))
+            else
+                if DQTC.Config:Get("showObjectives") then
+                    local num = DB:GetQuestNumber(questId)
+                    local tip = DB:FormatMapPinTooltip(questId, string.format("(%d)", num))
+                    for _, cluster in ipairs(DB:ClusterSpawns(DB:GetObjectiveSpawns(questId))) do
+                        Add(cluster, tip)
+                    end
                 end
             end
         end

@@ -86,6 +86,10 @@ local function ReleaseIcon(icon)
     icon.uiMapId = nil
     icon.x = nil
     icon.y = nil
+    icon.radius = nil
+    if icon.Highlight then
+        icon.Highlight:Hide()
+    end
     pinPool[#pinPool + 1] = icon
 end
 
@@ -93,7 +97,7 @@ local function StyleIcon(icon, data)
     local PinArt = Loader:ImportModule("PinArt")
     local scale = (DQTC.Config:Get("mapScale") or 1) * 24
     local super = data.questId and data.questId == DQTC.Config:GetChar("superTrackedQuestId")
-    PinArt:SetupPin(icon, data.kind or "objective", data.questId, super, scale)
+    PinArt:SetupPin(icon, data.kind or "objective", data.questId, super, scale, data)
     icon:Show()
 end
 
@@ -148,6 +152,7 @@ function WorldMapPins:AddPin(data, tooltip)
         y = data.y,
         kind = data.kind,
         questId = data.questId,
+        radius = data.radius,
         tooltip = tooltip,
     }
     return true
@@ -210,7 +215,20 @@ function WorldMapPins:Paint()
     else
         lastError = nil
     end
+    self:ResizeHighlights()
+    if C_Timer and C_Timer.After then
+        C_Timer.After(0, function()
+            self:ResizeHighlights()
+        end)
+    end
     return painted
+end
+
+function WorldMapPins:ResizeHighlights()
+    local PinArt = Loader:ImportModule("PinArt")
+    for _, icon in ipairs(active) do
+        PinArt:UpdateAreaHighlightSize(icon)
+    end
 end
 
 function WorldMapPins:HookMap()
@@ -253,6 +271,19 @@ function WorldMapPins:HookMap()
                     C_Timer.After(0, RefreshForViewedMap)
                 end)
             end)
+        end
+        local function ResizeSoon()
+            C_Timer.After(0, function()
+                WorldMapPins:ResizeHighlights()
+            end)
+        end
+        if WorldMapFrame.ScrollContainer then
+            if WorldMapFrame.ScrollContainer.HookScript then
+                WorldMapFrame.ScrollContainer:HookScript("OnSizeChanged", ResizeSoon)
+            end
+            if WorldMapFrame.ScrollContainer.SetCanvasScale then
+                hooksecurefunc(WorldMapFrame.ScrollContainer, "SetCanvasScale", ResizeSoon)
+            end
         end
     end
 end

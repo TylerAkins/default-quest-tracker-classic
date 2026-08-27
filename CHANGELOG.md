@@ -2,6 +2,20 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.0] - 2026-08-27
+
+### Changed
+
+- Map markers no longer place a pin on every spawn like Questie
+- Tracked quests now highlight clustered objective/turn-in **areas** with matching **(1) (2) (3)** numbers
+- Quest tracker titles show `(1) (2) (3)` in the same order as those map numbers
+- Nameplates for tracked objectives/turn-ins use the same numbered POI
+- GPS waypoints use the nearest clustered area instead of the first raw spawn
+
+### Added
+
+- Option to toggle world-map area highlights (`Highlight objective areas on the world map`)
+
 ## [1.0.3] - 2026-08-13
 
 ### Fixed

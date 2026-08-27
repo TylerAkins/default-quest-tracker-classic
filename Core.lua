@@ -18,6 +18,8 @@ local function RefreshAll(opts)
     if opts.refreshOfferable then
         QuestAvailability:RefreshOfferable()
     end
+    local DB = Loader:ImportModule("DB")
+    DB:AssignQuestNumbers(TrackerFrame:GetSortedTrackedQuestIds())
     WatchState:HideBlizzardTracker()
     TrackerFrame:Update()
     MarkerController:Refresh()
