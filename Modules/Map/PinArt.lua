@@ -9,30 +9,27 @@ local PinArt = Loader:CreateModule("PinArt")
 local MEDIA = "Interface\\AddOns\\" .. ADDON_NAME .. "\\Media\\"
 local FILLED_CIRCLE = MEDIA .. "FilledCircle"
 local THIN_RING = MEDIA .. "ThinRing"
-local POI_ATLAS = MEDIA .. "PoiAtlas"
-local POI_BADGE = MEDIA .. "PoiBadge"
-local POI_BADGE_ACTIVE = MEDIA .. "PoiBadgeActive"
-local ATLAS_COLS = 8
 
--- Same atlas the available-quest bangs use: brown/gold ring + overlay
+-- Blizzard's own retail quest POI art and layout (QuestPOI.xml / QuestPOI.lua).
 local NUMBER_ICONS = "Interface\\WorldMap\\UI-QuestPoi-NumberIcons"
+local WORLD_MAP_QUEST_ICON = "Interface\\WorldMap\\UI-WorldMap-QuestIcon"
 local AVAILABLE_ICON = "Interface\\GossipFrame\\AvailableQuestIcon"
 local COMPLETE_ICON = "Interface\\GossipFrame\\ActiveQuestIcon"
 local OBJECTIVE_ICON = "Interface\\QuestFrame\\UI-Quest-BulletPoint"
-local FRIZ = "Fonts\\FRIZQT__.TTF"
 
--- Empty rings from UI-QuestPoi-NumberIcons (Blizzard QuestUtils)
+local QUEST_POI_ICON_SIZE = 0.125
+local QUEST_POI_ICONS_PER_ROW = 8
+local NUMBER_YELLOW_OFFSET = 0.5
+local NUMBER_BLACK_OFFSET = 0
 local RING_SELECTED = { 0.500, 0.625, 0.375, 0.5 }
-local RING_NORMAL = { 0.875, 1, 0.375, 0.5 }
+local RING_NORMAL = { 0.875, 1, 0.875, 1 }
 
-function PinArt:CalculateNumericTexCoords(index, yellow)
-    local QUEST_POI_ICONS_PER_ROW = 8
-    local QUEST_POI_ICON_SIZE = 256 / QUEST_POI_ICONS_PER_ROW
-    local color = yellow and 0 or (QUEST_POI_ICON_SIZE * 4)
-    local iconIndex = math.max((index or 1) - 1, 0) % 50
-    local yOffset = color + math.floor(iconIndex / QUEST_POI_ICONS_PER_ROW) * QUEST_POI_ICON_SIZE
+function PinArt:CalculateNumericTexCoords(index, selected)
+    local iconIndex = math.max((tonumber(index) or 1) - 1, 0)
+    local colorOffset = selected and NUMBER_BLACK_OFFSET or NUMBER_YELLOW_OFFSET
+    local yOffset = colorOffset + math.floor(iconIndex / QUEST_POI_ICONS_PER_ROW) * QUEST_POI_ICON_SIZE
     local xOffset = (iconIndex % QUEST_POI_ICONS_PER_ROW) * QUEST_POI_ICON_SIZE
-    return xOffset / 256, (xOffset + QUEST_POI_ICON_SIZE) / 256, yOffset / 256, (yOffset + QUEST_POI_ICON_SIZE) / 256
+    return xOffset, xOffset + QUEST_POI_ICON_SIZE, yOffset, yOffset + QUEST_POI_ICON_SIZE
 end
 
 local function ApplySnap(tex)
@@ -50,53 +47,12 @@ local function ClearMask(tex)
     end
 end
 
-local function PaintBadge(tex, path)
-    ClearMask(tex)
-    tex:SetTexture(path)
-    tex:SetTexCoord(0, 1, 0, 1)
-    tex:SetBlendMode("BLEND")
-    tex:SetVertexColor(1, 1, 1, 1)
-    tex:Show()
-    ApplySnap(tex)
-end
-
 local function PaintDisc(tex, path, r, g, b, a)
     ClearMask(tex)
     tex:SetTexture(path)
     tex:SetTexCoord(0, 1, 0, 1)
     tex:SetBlendMode("BLEND")
     tex:SetVertexColor(r, g, b, a or 1)
-    tex:Show()
-    ApplySnap(tex)
-end
-
---- Idle 1-20: 0-19; idle ?: 20; active 1-20: 21-40; active ?: 41
-local function AtlasIndex(kind, num, active)
-    if kind == "turnin" then
-        return active and 41 or 20
-    end
-    local n = tonumber(num) or 1
-    if n < 1 then
-        n = 1
-    end
-    if n > 20 then
-        return nil
-    end
-    if active then
-        return 20 + n
-    end
-    return n - 1
-end
-
-local function SetAtlasCell(tex, index)
-    local col = index % ATLAS_COLS
-    local row = math.floor(index / ATLAS_COLS)
-    local s = 1 / ATLAS_COLS
-    ClearMask(tex)
-    tex:SetTexture(POI_ATLAS)
-    tex:SetTexCoord(col * s, (col + 1) * s, row * s, (row + 1) * s)
-    tex:SetBlendMode("BLEND")
-    tex:SetVertexColor(1, 1, 1, 1)
     tex:Show()
     ApplySnap(tex)
 end
@@ -108,24 +64,6 @@ local function SetRing(texture, selected)
     texture:SetTexCoord(c[1], c[2], c[3], c[4])
     texture:SetVertexColor(1, 1, 1, 1)
     texture:Show()
-end
-
-local function SetNumberLabel(fs, num, size, r, g, b)
-    if not fs then
-        return
-    end
-    num = tonumber(num) or 1
-    local fontSize = math.max(11, math.floor(size * (num >= 10 and 0.42 or 0.56) + 0.5))
-    fs:SetFont(FRIZ, fontSize, "OUTLINE")
-    fs:SetText(tostring(num))
-    fs:SetTextColor(r or 1, g or 0.82, b or 0)
-    fs:SetShadowColor(0, 0, 0, 0)
-    fs:SetShadowOffset(0, 0)
-    fs:SetJustifyH("CENTER")
-    fs:SetJustifyV("MIDDLE")
-    fs:SetWidth(size)
-    fs:SetHeight(size)
-    fs:Show()
 end
 
 function PinArt:EnsureLayers(pin)
@@ -156,12 +94,6 @@ function PinArt:EnsureLayers(pin)
         pin.Number:SetPoint("CENTER")
         pin.Number:SetSize(18, 18)
     end
-    if not pin.NumberText then
-        pin.NumberText = pin:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        pin.NumberText:SetFont(FRIZ, 12, "OUTLINE")
-        pin.NumberText:SetPoint("CENTER", pin, "CENTER", 0, -1)
-        pin.NumberText:Hide()
-    end
     if pin.texture and pin.texture ~= pin.Texture then
         pin.texture:Hide()
     end
@@ -173,7 +105,7 @@ function PinArt:HideNumberLabel(pin)
     end
 end
 
---- Numbered disc from PoiAtlas (digit baked in, gold rim baked in).
+--- Exact Blizzard QuestPOINumericTemplate composition: 20px button, 32px art.
 function PinArt:SetupNumberedPoi(pin, questId, isEmphasized, size, kind)
     local DB = Loader:ImportModule("DB")
     local num = DB:GetQuestNumber(questId or 0)
@@ -184,31 +116,35 @@ function PinArt:SetupNumberedPoi(pin, questId, isEmphasized, size, kind)
     pin._poiKind = kind
     self:EnsureLayers(pin)
 
-    if pin.PinRing then
-        pin.PinRing:Hide()
-    end
+    local artSize = size * 1.6
+    pin.PinRing:ClearAllPoints()
+    pin.PinRing:SetPoint("CENTER")
+    pin.PinRing:SetSize(artSize, artSize)
+    SetRing(pin.PinRing, isEmphasized)
+
     pin.Texture:ClearAllPoints()
     pin.Texture:SetPoint("CENTER")
-    pin.Texture:SetSize(size, size)
-    pin.Number:Hide()
+    pin.Texture:SetSize(artSize, artSize)
+    pin.Texture:Hide()
+    self:HideNumberLabel(pin)
 
-    local index = AtlasIndex(kind, num, isEmphasized)
-    if index ~= nil then
-        SetAtlasCell(pin.Texture, index)
+    pin.Number:ClearAllPoints()
+    pin.Number:SetPoint("CENTER")
+    if kind == "turnin" then
+        pin.Number:SetTexture(WORLD_MAP_QUEST_ICON)
+        pin.Number:SetTexCoord(0, 0.5, 0, 0.5)
+        pin.Number:SetSize(size * 1.2, size * 1.2)
+        pin.Number:SetVertexColor(1, 1, 1, 1)
+        pin.Number:Show()
         self:HideNumberLabel(pin)
         return
     end
 
-    PaintBadge(pin.Texture, isEmphasized and POI_BADGE_ACTIVE or POI_BADGE)
-    local r, g, b
-    if isEmphasized then
-        r, g, b = 0.08, 0.06, 0.04
-    else
-        r, g, b = 1.0, 0.86, 0.22
-    end
-    SetNumberLabel(pin.NumberText, num, size, r, g, b)
-    pin.NumberText:ClearAllPoints()
-    pin.NumberText:SetPoint("CENTER", pin, "CENTER", 0, -1)
+    pin.Number:SetTexture(NUMBER_ICONS)
+    pin.Number:SetTexCoord(self:CalculateNumericTexCoords(num, isEmphasized))
+    pin.Number:SetSize(artSize, artSize)
+    pin.Number:SetVertexColor(1, 1, 1, 1)
+    pin.Number:Show()
 end
 
 function PinArt:SetPinEmphasis(pin, emphasized)
@@ -222,7 +158,10 @@ function PinArt:SetNumericBadge(texture, num)
     if not texture then
         return
     end
-    PaintBadge(texture, POI_BADGE)
+    texture:SetTexture(NUMBER_ICONS)
+    texture:SetTexCoord(self:CalculateNumericTexCoords(num, false))
+    texture:SetVertexColor(1, 1, 1, 1)
+    texture:Show()
 end
 
 function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
