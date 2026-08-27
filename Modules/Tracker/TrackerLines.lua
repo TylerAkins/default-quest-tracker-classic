@@ -16,9 +16,9 @@ local function CreateLine(parent, index)
     line.text = line:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     line.text:SetJustifyH("LEFT")
     line.text:SetJustifyV("TOP")
-    -- Auto-wrap is off: Classic still breaks on "/" even with SetNonSpaceWrap(false).
-    -- FitLine inserts newlines at spaces so counts like "0/10" stay together.
-    line.text:SetWordWrap(false)
+    -- WordWrap must stay on: Classic ellipsizes ("...") when it is off.
+    -- FitLine still inserts newlines at spaces so counts like "0/10" stay together.
+    line.text:SetWordWrap(true)
     line.text:SetNonSpaceWrap(false)
     line.text:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
     line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
@@ -116,6 +116,7 @@ end
 function TrackerLines:Initialize(parent)
     self.parent = parent
     used = 0
+    EnsureMeasureFS()
 end
 
 function TrackerLines:Reset()
@@ -153,12 +154,46 @@ end
 local POI_SIZE = 18
 local POI_ART_SIZE = 27
 local POI_PAD = 2
+-- Wrap a few pixels early so leftover FontString auto-wrap cannot split "0/10".
+local WRAP_SLACK = 4
 
-local function MeasureUnbounded(fs, s)
-    -- Measure unconstrained so SetWidth doesn't clip GetStringWidth.
-    fs:SetWidth(10000)
-    fs:SetText(s)
-    return fs:GetStringWidth() or 0
+local measureHolder
+local measureFS
+
+local function EnsureMeasureFS()
+    if measureFS then
+        return
+    end
+    measureHolder = CreateFrame("Frame", nil, UIParent)
+    measureHolder:SetSize(1, 1)
+    measureHolder:SetPoint("TOPLEFT", UIParent, "TOPLEFT", -4000, 4000)
+    measureHolder:SetAlpha(0)
+    measureHolder:Show()
+    measureFS = measureHolder:CreateFontString(nil, "ARTWORK")
+    measureFS:SetJustifyH("LEFT")
+    measureFS:SetWordWrap(false)
+    measureFS:SetNonSpaceWrap(false)
+    measureFS:SetPoint("TOPLEFT", measureHolder, "TOPLEFT", 0, 0)
+    measureFS:SetWidth(20000)
+end
+
+local function MeasureString(sourceFS, s)
+    -- Tracker lines are anchored LEFT+RIGHT, so SetWidth on them is ignored and
+    -- GetStringWidth returns the frame width (everything "fits" → ellipsis).
+    -- Measure on a FontString that has no right anchor.
+    EnsureMeasureFS()
+    local fontObject = sourceFS.GetFontObject and sourceFS:GetFontObject()
+    if fontObject then
+        measureFS:SetFontObject(fontObject)
+    else
+        local font, size, flags = sourceFS:GetFont()
+        if font then
+            measureFS:SetFont(font, size or 12, flags)
+        end
+    end
+    measureFS:SetWidth(20000)
+    measureFS:SetText(s or "")
+    return measureFS:GetStringWidth() or 0
 end
 
 function TrackerLines:ClearPoi(line)
@@ -208,9 +243,9 @@ function TrackerLines:SetQuestPoi(line, questId, isEmphasized, isTurnin)
 end
 
 function TrackerLines:ApplyWrapFlags(fs)
-    -- Do not let FontString auto-wrap. Classic treats "/" as a break, which
-    -- splits "0/10" so "10" sits alone on the next line.
-    fs:SetWordWrap(false)
+    -- Keep wrap on so long objectives become a second line, not "...".
+    -- FitLine inserts breaks at spaces so Classic cannot split "0/10" on "/".
+    fs:SetWordWrap(true)
     fs:SetNonSpaceWrap(false)
 end
 
@@ -271,24 +306,20 @@ function TrackerLines:FitLine(line, width)
     end
     local textWidth = math.max(20, width - indent)
     self:ApplyWrapFlags(line.text)
+    line.text:SetWidth(textWidth)
 
     local raw = line._rawText
     local wrapped = raw
     if raw and raw ~= "" then
-        local measured = MeasureUnbounded(line.text, raw)
-        -- GetStringWidth can return 0 before a font is fully applied; don't
-        -- force a single clipped line in that case.
+        local measured = MeasureString(line.text, raw)
         if measured > 0 then
-            wrapped = self.WrapAtSpaces(raw, textWidth, function(s)
-                return MeasureUnbounded(line.text, s)
+            wrapped = self.WrapAtSpaces(raw, math.max(20, textWidth - WRAP_SLACK), function(s)
+                return MeasureString(line.text, s)
             end)
         end
         line.text:SetText(wrapped)
     end
-    line.text:SetWidth(textWidth)
 
-    -- Force layout so GetStringHeight is accurate. WordWrap is off, so also
-    -- size from explicit newlines in case GetStringHeight ignores them.
     local h = line.text:GetStringHeight() or 0
     local lineCount = 1
     if wrapped and wrapped ~= "" then
