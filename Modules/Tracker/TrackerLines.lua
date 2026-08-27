@@ -17,7 +17,7 @@ local function CreateLine(parent, index)
     line.text:SetJustifyH("LEFT")
     line.text:SetJustifyV("TOP")
     line.text:SetWordWrap(true)
-    line.text:SetNonSpaceWrap(true)
+    line.text:SetNonSpaceWrap(false)
     line.text:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
     line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
 
