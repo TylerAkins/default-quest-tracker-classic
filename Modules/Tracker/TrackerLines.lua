@@ -168,15 +168,20 @@ function TrackerLines:IndentAsObjective(line)
     line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
 end
 
-function TrackerLines:SetQuestPoi(line, questId)
+function TrackerLines:SetQuestPoi(line, questId, isEmphasized, isTurnin)
     if not line.poiFrame then
         return
     end
     local PinArt = Loader:ImportModule("PinArt")
     PinArt:EnsureLayers(line.poiFrame)
-    PinArt:SetupNumberedPoi(line.poiFrame, questId, false, POI_SIZE)
+    line.poiFrame.questId = questId
+    line.poiFrame.kind = isTurnin and "turnin" or "objective"
+    PinArt:SetupNumberedPoi(line.poiFrame, questId, isEmphasized, POI_SIZE, line.poiFrame.kind)
     if line.poiFrame.Highlight then
         line.poiFrame.Highlight:Hide()
+    end
+    if line.poiFrame.HighlightBorder then
+        line.poiFrame.HighlightBorder:Hide()
     end
     line.poiFrame:ClearAllPoints()
     line.poiFrame:SetSize(POI_SIZE, POI_SIZE)

@@ -2,6 +2,14 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.4] - 2026-08-27
+
+### Changed
+
+- Numbered pins are flat discs like retail: dark + gold number idle, yellow + black number when focused or hovered
+- Turn-ins use a `?` in the same circle
+- Hover wash is a lighter icy blue with a thinner black outline
+
 ## [1.1.3] - 2026-08-27
 
 ### Changed
