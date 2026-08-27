@@ -24,6 +24,7 @@ CurseForge publishing is planned; until then, GitHub Releases are the install pa
 - Default position under the minimap; unlock/drag to move; reset in options
 - Tracker titles numbered `(1) (2) (3)`, matching world map and minimap POIs
 - Objective and turn-in **areas** clustered from the spawn database (not a pin on every mob)
+- Hover a numbered pin (map or tracker) for a light-blue transparent circle with a thin black outline
 - `!` pins for available quest givers (toggleable)
 - Nameplate numbers and unit tooltip quest lines
 - Clickable Questie chat links open the matching quest in your log

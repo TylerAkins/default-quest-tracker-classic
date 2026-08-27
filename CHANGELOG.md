@@ -2,6 +2,13 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.5] - 2026-08-27
+
+### Fixed
+
+- Numbered pins and hover wash are real circles again (gold rim, gold/black digit, light-blue area with a thin black outline)
+- Stopped using `TempPortraitAlphaMask` as a fill texture, which drew a square box over the number
+
 ## [1.1.4] - 2026-08-27
 
 ### Changed

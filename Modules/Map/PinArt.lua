@@ -4,12 +4,18 @@ local Loader = DQTC.Loader
 
 local PinArt = Loader:CreateModule("PinArt")
 
+-- Circular fills/rings we ship. Do not use TempPortraitAlphaMask as a texture:
+-- that file is a mask (circular alpha, square RGB) and draws as a numbered box.
+local MEDIA = "Interface\\AddOns\\" .. ADDON_NAME .. "\\Media\\"
+local FILLED_CIRCLE = MEDIA .. "FilledCircle"
+local PIN_RING = MEDIA .. "PinRing"
+local THIN_RING = MEDIA .. "ThinRing"
+
 -- Same atlas the available-quest bangs use: brown/gold ring + overlay
 local NUMBER_ICONS = "Interface\\WorldMap\\UI-QuestPoi-NumberIcons"
 local AVAILABLE_ICON = "Interface\\GossipFrame\\AvailableQuestIcon"
 local COMPLETE_ICON = "Interface\\GossipFrame\\ActiveQuestIcon"
 local OBJECTIVE_ICON = "Interface\\QuestFrame\\UI-Quest-BulletPoint"
-local CIRCLE_MASK = "Interface\\CHARACTERFRAME\\TempPortraitAlphaMask"
 local FRIZ = "Fonts\\FRIZQT__.TTF"
 
 -- Empty rings from UI-QuestPoi-NumberIcons (Blizzard QuestUtils)
@@ -33,14 +39,27 @@ local function ApplySnap(tex)
     end
 end
 
-local function PaintCircle(tex, r, g, b, a)
-    tex:SetTexture(CIRCLE_MASK)
+local function ClearMask(tex)
+    if tex and tex.SetMask then
+        pcall(function()
+            tex:SetMask("")
+        end)
+    end
+end
+
+--- White circular TGA, tinted. Corners stay transparent.
+local function PaintDisc(tex, path, r, g, b, a)
+    ClearMask(tex)
+    tex:SetTexture(path)
+    tex:SetTexCoord(0, 1, 0, 1)
+    tex:SetBlendMode("BLEND")
     tex:SetVertexColor(r, g, b, a or 1)
     tex:Show()
     ApplySnap(tex)
 end
 
 local function SetRing(texture, selected)
+    ClearMask(texture)
     texture:SetTexture(NUMBER_ICONS)
     local c = selected and RING_SELECTED or RING_NORMAL
     texture:SetTexCoord(c[1], c[2], c[3], c[4])
@@ -108,7 +127,7 @@ function PinArt:HideNumberLabel(pin)
     end
 end
 
---- Flat numbered disc: idle = maroon + gold digit; focused/hover = yellow + black digit; turn-in = ?
+--- Numbered disc: dark + gold digit idle; yellow + black digit focused; turn-in = ?
 function PinArt:SetupNumberedPoi(pin, questId, isEmphasized, size, kind)
     local DB = Loader:ImportModule("DB")
     local num = DB:GetQuestNumber(questId or 0)
@@ -127,12 +146,12 @@ function PinArt:SetupNumberedPoi(pin, questId, isEmphasized, size, kind)
     end
     pin.Texture:ClearAllPoints()
     pin.Texture:SetPoint("CENTER")
-    pin.Texture:SetSize(math.max(1, size - 3), math.max(1, size - 3))
+    pin.Texture:SetSize(size, size)
 
     if kind == "turnin" then
-        PaintCircle(pin.Texture, 0.17, 0.06, 0.04, 1)
+        PaintDisc(pin.Texture, FILLED_CIRCLE, 0.17, 0.06, 0.04, 1)
         if pin.PinRing then
-            PaintCircle(pin.PinRing, 1.0, 0.84, 0.18, 1)
+            PaintDisc(pin.PinRing, PIN_RING, 1.0, 0.84, 0.18, 1)
         end
         pin.Number:SetTexture(COMPLETE_ICON)
         pin.Number:SetTexCoord(0, 1, 0, 1)
@@ -144,18 +163,15 @@ function PinArt:SetupNumberedPoi(pin, questId, isEmphasized, size, kind)
 
     pin.Number:Hide()
     if isEmphasized then
-        -- Active pin: yellow disc, black number (retail selected POI)
-        PaintCircle(pin.Texture, 1.0, 0.86, 0.12, 1)
+        PaintDisc(pin.Texture, FILLED_CIRCLE, 1.0, 0.86, 0.12, 1)
         if pin.PinRing then
-            PaintCircle(pin.PinRing, 0.08, 0.06, 0.02, 0.95)
+            PaintDisc(pin.PinRing, PIN_RING, 0.08, 0.06, 0.02, 0.95)
         end
-        pin.Texture:SetSize(math.max(1, size - 2), math.max(1, size - 2))
         SetNumberLabel(pin.NumberText, num, size, 0.08, 0.06, 0.04)
     else
-        -- Idle pin: dark disc, gold rim, gold number
-        PaintCircle(pin.Texture, 0.16, 0.06, 0.04, 1)
+        PaintDisc(pin.Texture, FILLED_CIRCLE, 0.16, 0.06, 0.04, 1)
         if pin.PinRing then
-            PaintCircle(pin.PinRing, 0.95, 0.78, 0.18, 1)
+            PaintDisc(pin.PinRing, PIN_RING, 0.95, 0.78, 0.18, 1)
         end
         SetNumberLabel(pin.NumberText, num, size, 1.0, 0.84, 0.18)
     end
@@ -172,7 +188,7 @@ function PinArt:SetNumericBadge(texture, num)
     if not texture then
         return
     end
-    PaintCircle(texture, 0.16, 0.06, 0.04, 1)
+    PaintDisc(texture, FILLED_CIRCLE, 0.16, 0.06, 0.04, 1)
 end
 
 function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
@@ -224,7 +240,7 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
     ApplySnap(pin.Highlight)
 end
 
---- Soft round wash behind the POI. Mask + SetTexCoord is illegal on this client.
+--- Hover-only light-blue wash (QuestHelper-style area, retail icy blob) + thin black rim.
 function PinArt:SetupAreaHighlight(pin, kind, isSuperTracked, radius)
     self:EnsureLayers(pin)
     if not radius or radius <= 0 or not DQTC.Config:Get("showAreaHighlights") then
@@ -236,26 +252,13 @@ function PinArt:SetupAreaHighlight(pin, kind, isSuperTracked, radius)
         return
     end
     pin.radius = radius
-    if pin.Highlight.SetMask then
-        pcall(function()
-            pin.Highlight:SetMask(nil)
-        end)
-    end
-    if pin.HighlightBorder.SetMask then
-        pcall(function()
-            pin.HighlightBorder:SetMask(nil)
-        end)
-    end
-    pin.Highlight:SetTexture(CIRCLE_MASK)
-    pin.HighlightBorder:SetTexture(CIRCLE_MASK)
-    -- Icy light-blue wash (QuestHelper / retail objective blob) + 2px black edge
-    pin.Highlight:SetVertexColor(0.78, 0.90, 1.0, 0.16)
-    pin.HighlightBorder:SetVertexColor(0, 0, 0, 0.80)
+    PaintDisc(pin.Highlight, FILLED_CIRCLE, 0.72, 0.90, 1.0, 0.22)
+    PaintDisc(pin.HighlightBorder, THIN_RING, 0, 0, 0, 0.85)
     pin.Highlight:Hide()
     pin.HighlightBorder:Hide()
     local fallback = math.max(52, math.min(radius * 5, 120))
     pin.HighlightBorder:SetSize(fallback, fallback)
-    pin.Highlight:SetSize(math.max(1, fallback - 2), math.max(1, fallback - 2))
+    pin.Highlight:SetSize(fallback, fallback)
 end
 
 function PinArt:ShowAreaHighlight(pin)
@@ -319,8 +322,7 @@ function PinArt:UpdateAreaHighlightSize(pin)
     elseif diameter > 140 then
         diameter = 140
     end
-    local fill = math.max(1, diameter - 2)
-    pin.Highlight:SetSize(fill, fill)
+    pin.Highlight:SetSize(diameter, diameter)
     if pin.HighlightBorder then
         pin.HighlightBorder:SetSize(diameter, diameter)
     end
@@ -337,26 +339,23 @@ function PinArt:GetNameplateIcon(kind)
 end
 
 function PinArt:PaintNameplate(frame, icon, kind, questId, size)
-    if not icon then
-        return
-    end
-    size = size or 16
-    icon:SetVertexColor(1, 1, 1, 1)
-    if kind == "available" then
-        icon:SetTexture(AVAILABLE_ICON)
-        icon:SetTexCoord(0, 1, 0, 1)
-        if frame and frame.NumberText then
-            frame.NumberText:Hide()
+    if not frame then
+        if icon then
+            SetRing(icon, false)
+            icon:Show()
         end
         return
     end
-    if not frame then
-        SetRing(icon, false)
+    size = size or 16
+    self:EnsureLayers(frame)
+    if icon and icon ~= frame.Texture then
+        icon:Hide()
+    end
+    if kind == "available" then
+        self:SetupPin(frame, "available", questId, false, size, {})
         return
     end
-    frame.Texture = frame.Texture or icon
-    self:EnsureLayers(frame)
-    self:SetupNumberedPoi(frame, questId, false, size)
+    self:SetupNumberedPoi(frame, questId, false, size, kind)
     if frame.Highlight then
         frame.Highlight:Hide()
     end
@@ -371,7 +370,9 @@ function PinArt:SetupNameplate(frame, kind, questId, size)
     self:EnsureLayers(frame)
     size = size or 24
     frame:SetSize(size, size)
-    frame.Number:Hide()
+    if frame.Number then
+        frame.Number:Hide()
+    end
     if frame.Highlight then
         frame.Highlight:Hide()
     end
