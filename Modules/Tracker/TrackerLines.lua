@@ -149,7 +149,7 @@ end
 -- next quest's circle (quests with no objectives, e.g. Find Bingles).
 local POI_SIZE = 18
 local POI_ART_SIZE = 27
-local POI_PAD = 4
+local POI_PAD = 2
 
 function TrackerLines:ClearPoi(line)
     if line.poiFrame then
@@ -193,7 +193,7 @@ function TrackerLines:SetQuestPoi(line, questId, isEmphasized, isTurnin)
     line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
     line.poiFrame:ClearAllPoints()
     line.poiFrame:SetSize(POI_SIZE, POI_SIZE)
-    line.poiFrame:SetPoint("RIGHT", line.text, "LEFT", -POI_PAD, 0)
+    line.poiFrame:SetPoint("RIGHT", line.text, "LEFT", -POI_PAD, -1)
     line.poiFrame:Show()
 end
 
@@ -233,7 +233,7 @@ function TrackerLines:LayoutFromTop(startY, spacing)
             local nextIsOwnObjective = nxt and nxt.kind == "objective" and nxt.questId == line.questId
             if not nextIsOwnObjective then
                 -- Leave room for the overflowing 27px circle before the next quest.
-                gap = gap + math.max(0, math.ceil((POI_ART_SIZE - line:GetHeight()) / 2) + 4)
+                gap = gap + math.max(0, math.ceil((POI_ART_SIZE - line:GetHeight()) / 2) + 1)
             end
         end
         y = y - line:GetHeight() - gap
