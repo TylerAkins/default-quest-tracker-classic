@@ -254,7 +254,10 @@ function TrackerLines:SetLineText(line, text)
 end
 
 --- Insert newlines at spaces only. Keep in sync with tests/test_wrap_at_spaces.py.
-function TrackerLines.WrapAtSpaces(text, width, measure)
+-- hang is prepended to continuation lines (e.g. "  " so wrapped objectives
+-- line up with the text after "- ").
+function TrackerLines.WrapAtSpaces(text, width, measure, hang)
+    hang = hang or ""
     if not text or text == "" then
         return text or ""
     end
@@ -263,9 +266,14 @@ function TrackerLines.WrapAtSpaces(text, width, measure)
     end
     local lines = {}
     local rest = text
+    local first = true
     while rest ~= "" do
-        if measure(rest) <= width then
-            lines[#lines + 1] = rest
+        local prefix = ""
+        if not first then
+            prefix = hang
+        end
+        if measure(prefix .. rest) <= width then
+            lines[#lines + 1] = prefix .. rest
             break
         end
         local bestEnd = nil
@@ -276,7 +284,7 @@ function TrackerLines.WrapAtSpaces(text, width, measure)
                 break
             end
             local candidate = rest:sub(1, spaceAt - 1)
-            if candidate ~= "" and measure(candidate) <= width then
+            if candidate ~= "" and measure(prefix .. candidate) <= width then
                 bestEnd = spaceAt
                 searchFrom = spaceAt + 1
             else
@@ -284,11 +292,12 @@ function TrackerLines.WrapAtSpaces(text, width, measure)
             end
         end
         if not bestEnd then
-            lines[#lines + 1] = rest
+            lines[#lines + 1] = prefix .. rest
             break
         end
-        lines[#lines + 1] = rest:sub(1, bestEnd - 1)
+        lines[#lines + 1] = prefix .. rest:sub(1, bestEnd - 1)
         rest = rest:sub(bestEnd + 1):gsub("^ +", "")
+        first = false
     end
     return table.concat(lines, "\n")
 end
@@ -312,9 +321,13 @@ function TrackerLines:FitLine(line, width)
     if raw and raw ~= "" then
         local measured = MeasureString(line.text, raw)
         if measured > 0 then
+            local hang = ""
+            if raw:sub(1, 2) == "- " then
+                hang = "  "
+            end
             wrapped = self.WrapAtSpaces(raw, math.max(20, textWidth - WRAP_SLACK), function(s)
                 return MeasureString(line.text, s)
-            end)
+            end, hang)
         end
         line.text:SetText(wrapped)
     end

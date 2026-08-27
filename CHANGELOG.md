@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.16] - 2026-08-27
+
+### Changed
+
+- Wrapped objective lines indent by the width of `- `, so a continuation like `0/10` lines up under the objective text instead of under the dash
+
 ## [1.1.15] - 2026-08-27
 
 ### Fixed
