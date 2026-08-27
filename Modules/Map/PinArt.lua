@@ -8,8 +8,11 @@ local PinArt = Loader:CreateModule("PinArt")
 -- that file is a mask (circular alpha, square RGB) and draws as a numbered box.
 local MEDIA = "Interface\\AddOns\\" .. ADDON_NAME .. "\\Media\\"
 local FILLED_CIRCLE = MEDIA .. "FilledCircle"
-local PIN_RING = MEDIA .. "PinRing"
 local THIN_RING = MEDIA .. "ThinRing"
+local POI_ATLAS = MEDIA .. "PoiAtlas"
+local POI_BADGE = MEDIA .. "PoiBadge"
+local POI_BADGE_ACTIVE = MEDIA .. "PoiBadgeActive"
+local ATLAS_COLS = 8
 
 -- Same atlas the available-quest bangs use: brown/gold ring + overlay
 local NUMBER_ICONS = "Interface\\WorldMap\\UI-QuestPoi-NumberIcons"
@@ -47,13 +50,53 @@ local function ClearMask(tex)
     end
 end
 
---- White circular TGA, tinted. Corners stay transparent.
+local function PaintBadge(tex, path)
+    ClearMask(tex)
+    tex:SetTexture(path)
+    tex:SetTexCoord(0, 1, 0, 1)
+    tex:SetBlendMode("BLEND")
+    tex:SetVertexColor(1, 1, 1, 1)
+    tex:Show()
+    ApplySnap(tex)
+end
+
 local function PaintDisc(tex, path, r, g, b, a)
     ClearMask(tex)
     tex:SetTexture(path)
     tex:SetTexCoord(0, 1, 0, 1)
     tex:SetBlendMode("BLEND")
     tex:SetVertexColor(r, g, b, a or 1)
+    tex:Show()
+    ApplySnap(tex)
+end
+
+--- Idle 1-20: 0-19; idle ?: 20; active 1-20: 21-40; active ?: 41
+local function AtlasIndex(kind, num, active)
+    if kind == "turnin" then
+        return active and 41 or 20
+    end
+    local n = tonumber(num) or 1
+    if n < 1 then
+        n = 1
+    end
+    if n > 20 then
+        return nil
+    end
+    if active then
+        return 20 + n
+    end
+    return n - 1
+end
+
+local function SetAtlasCell(tex, index)
+    local col = index % ATLAS_COLS
+    local row = math.floor(index / ATLAS_COLS)
+    local s = 1 / ATLAS_COLS
+    ClearMask(tex)
+    tex:SetTexture(POI_ATLAS)
+    tex:SetTexCoord(col * s, (col + 1) * s, row * s, (row + 1) * s)
+    tex:SetBlendMode("BLEND")
+    tex:SetVertexColor(1, 1, 1, 1)
     tex:Show()
     ApplySnap(tex)
 end
@@ -72,14 +115,16 @@ local function SetNumberLabel(fs, num, size, r, g, b)
         return
     end
     num = tonumber(num) or 1
-    local fontSize = math.max(9, size * (num >= 10 and 0.40 or 0.52))
-    fs:SetFont(FRIZ, fontSize, "")
+    local fontSize = math.max(11, math.floor(size * (num >= 10 and 0.42 or 0.56) + 0.5))
+    fs:SetFont(FRIZ, fontSize, "OUTLINE")
     fs:SetText(tostring(num))
     fs:SetTextColor(r or 1, g or 0.82, b or 0)
-    fs:SetShadowColor(0, 0, 0, 0.9)
-    fs:SetShadowOffset(1, -1)
+    fs:SetShadowColor(0, 0, 0, 0)
+    fs:SetShadowOffset(0, 0)
     fs:SetJustifyH("CENTER")
     fs:SetJustifyV("MIDDLE")
+    fs:SetWidth(size)
+    fs:SetHeight(size)
     fs:Show()
 end
 
@@ -112,8 +157,8 @@ function PinArt:EnsureLayers(pin)
         pin.Number:SetSize(18, 18)
     end
     if not pin.NumberText then
-        pin.NumberText = pin:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        pin.NumberText:SetPoint("CENTER", pin, "CENTER", 0, 0)
+        pin.NumberText = pin:CreateFontString(nil, "OVERLAY")
+        pin.NumberText:SetPoint("CENTER", pin, "CENTER", 0, -1)
     end
     if pin.texture and pin.texture ~= pin.Texture then
         pin.texture:Hide()
@@ -127,7 +172,7 @@ function PinArt:HideNumberLabel(pin)
     end
 end
 
---- Numbered disc: dark + gold digit idle; yellow + black digit focused; turn-in = ?
+--- Numbered disc from PoiAtlas (digit baked in, gold rim baked in).
 function PinArt:SetupNumberedPoi(pin, questId, isEmphasized, size, kind)
     local DB = Loader:ImportModule("DB")
     local num = DB:GetQuestNumber(questId or 0)
@@ -139,42 +184,30 @@ function PinArt:SetupNumberedPoi(pin, questId, isEmphasized, size, kind)
     self:EnsureLayers(pin)
 
     if pin.PinRing then
-        pin.PinRing:ClearAllPoints()
-        pin.PinRing:SetPoint("CENTER")
-        pin.PinRing:SetSize(size, size)
-        pin.PinRing:Show()
+        pin.PinRing:Hide()
     end
     pin.Texture:ClearAllPoints()
     pin.Texture:SetPoint("CENTER")
     pin.Texture:SetSize(size, size)
+    pin.Number:Hide()
 
-    if kind == "turnin" then
-        PaintDisc(pin.Texture, FILLED_CIRCLE, 0.17, 0.06, 0.04, 1)
-        if pin.PinRing then
-            PaintDisc(pin.PinRing, PIN_RING, 1.0, 0.84, 0.18, 1)
-        end
-        pin.Number:SetTexture(COMPLETE_ICON)
-        pin.Number:SetTexCoord(0, 1, 0, 1)
-        pin.Number:SetSize(size * 0.52, size * 0.52)
-        pin.Number:Show()
+    local index = AtlasIndex(kind, num, isEmphasized)
+    if index ~= nil then
+        SetAtlasCell(pin.Texture, index)
         self:HideNumberLabel(pin)
         return
     end
 
-    pin.Number:Hide()
+    PaintBadge(pin.Texture, isEmphasized and POI_BADGE_ACTIVE or POI_BADGE)
+    local r, g, b
     if isEmphasized then
-        PaintDisc(pin.Texture, FILLED_CIRCLE, 1.0, 0.86, 0.12, 1)
-        if pin.PinRing then
-            PaintDisc(pin.PinRing, PIN_RING, 0.08, 0.06, 0.02, 0.95)
-        end
-        SetNumberLabel(pin.NumberText, num, size, 0.08, 0.06, 0.04)
+        r, g, b = 0.08, 0.06, 0.04
     else
-        PaintDisc(pin.Texture, FILLED_CIRCLE, 0.16, 0.06, 0.04, 1)
-        if pin.PinRing then
-            PaintDisc(pin.PinRing, PIN_RING, 0.95, 0.78, 0.18, 1)
-        end
-        SetNumberLabel(pin.NumberText, num, size, 1.0, 0.84, 0.18)
+        r, g, b = 1.0, 0.86, 0.22
     end
+    SetNumberLabel(pin.NumberText, num, size, r, g, b)
+    pin.NumberText:ClearAllPoints()
+    pin.NumberText:SetPoint("CENTER", pin, "CENTER", 0, -1)
 end
 
 function PinArt:SetPinEmphasis(pin, emphasized)
@@ -188,7 +221,7 @@ function PinArt:SetNumericBadge(texture, num)
     if not texture then
         return
     end
-    PaintDisc(texture, FILLED_CIRCLE, 0.16, 0.06, 0.04, 1)
+    PaintBadge(texture, POI_BADGE)
 end
 
 function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
