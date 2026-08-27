@@ -2,6 +2,13 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.2] - 2026-08-27
+
+### Fixed
+
+- Area highlights no longer error with `Cannot set tex coords when texture has mask`
+- Tracked quests use retail numbered-circle POIs on the tracker (not `(1)` text) and the same atlas on the map
+
 ## [1.1.1] - 2026-08-27
 
 ### Fixed
