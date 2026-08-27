@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.11] - 2026-08-27
+
+### Changed
+
+- Tightened the tracker gap between numbered circles and titles, and the extra space after quests with no objectives
+
 ## [1.1.10] - 2026-08-27
 
 ### Fixed
