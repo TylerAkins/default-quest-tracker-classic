@@ -46,9 +46,9 @@ local function ClusterSpawns(spawns, gap)
                     r = d
                 end
             end
-            r = math.max(7, r * 1.3 + 2)
-            if r > 32 then
-                r = 32
+            r = math.max(4, r * 1.05 + 1)
+            if r > 12 then
+                r = 12
             end
             local sample = g.points[1]
             clusters[#clusters + 1] = {
@@ -79,7 +79,7 @@ local tight = ClusterSpawns({
 })
 assertEq(#tight, 1, "tight cluster count")
 assertEq(tight[1].count, 3, "tight cluster members")
-assert(tight[1].radius >= 7)
+assert(tight[1].radius >= 4)
 
 -- Far camps stay as two areas
 local split = ClusterSpawns({

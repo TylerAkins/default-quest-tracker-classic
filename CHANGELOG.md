@@ -2,6 +2,13 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.1] - 2026-08-27
+
+### Fixed
+
+- Numbered map pins use the same brown/gold circle as available-quest bangs, with a gold digit on top (no floating black numbers)
+- Area highlights are a small round wash behind the POI instead of a large stretched oval
+
 ## [1.1.0] - 2026-08-27
 
 ### Changed

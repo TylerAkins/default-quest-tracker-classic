@@ -82,6 +82,10 @@ local function ReleaseIcon(icon)
     icon.uiMapId = nil
     icon.x = nil
     icon.y = nil
+    if icon.NumberText then
+        icon.NumberText:Hide()
+        icon.NumberText:SetText("")
+    end
     pinPool[#pinPool + 1] = icon
 end
 

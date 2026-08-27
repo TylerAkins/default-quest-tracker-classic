@@ -4,12 +4,18 @@ local Loader = DQTC.Loader
 
 local PinArt = Loader:CreateModule("PinArt")
 
--- Quest POI atlas: numbered rings for tracked quests; ! / ? for available / leftover fallbacks
+-- Same atlas the available-quest bangs use: brown/gold ring + overlay
 local NUMBER_ICONS = "Interface\\WorldMap\\UI-QuestPoi-NumberIcons"
 local AVAILABLE_ICON = "Interface\\GossipFrame\\AvailableQuestIcon"
 local COMPLETE_ICON = "Interface\\GossipFrame\\ActiveQuestIcon"
 local OBJECTIVE_ICON = "Interface\\QuestFrame\\UI-Quest-BulletPoint"
-local AREA_HIGHLIGHT = "Interface\\CHARACTERFRAME\\TempPortraitAlphaMask"
+local CIRCLE_MASK = "Interface\\CHARACTERFRAME\\TempPortraitAlphaMask"
+local SOLID_FILL = "Interface\\Buttons\\WHITE8X8"
+local FRIZ = "Fonts\\FRIZQT__.TTF"
+
+-- Empty rings from UI-QuestPoi-NumberIcons (Blizzard QuestUtils)
+local RING_SELECTED = { 0.500, 0.625, 0.375, 0.5 }
+local RING_NORMAL = { 0.875, 1, 0.375, 0.5 }
 
 function PinArt:CalculateNumericTexCoords(index, yellow)
     local QUEST_POI_ICONS_PER_ROW = 8
@@ -21,12 +27,41 @@ function PinArt:CalculateNumericTexCoords(index, yellow)
     return xOffset / 256, (xOffset + QUEST_POI_ICON_SIZE) / 256, yOffset / 256, (yOffset + QUEST_POI_ICON_SIZE) / 256
 end
 
--- Ensure pin has the layered textures PinArt expects
+local function ApplySnap(tex)
+    if tex and tex.SetSnapToPixelGrid then
+        tex:SetSnapToPixelGrid(false)
+        tex:SetTexelSnappingBias(0)
+    end
+end
+
+local function SetRing(texture, selected)
+    texture:SetTexture(NUMBER_ICONS)
+    local c = selected and RING_SELECTED or RING_NORMAL
+    texture:SetTexCoord(c[1], c[2], c[3], c[4])
+    texture:SetVertexColor(1, 1, 1, 1)
+    texture:Show()
+end
+
+local function SetNumberLabel(fs, num, size)
+    if not fs then
+        return
+    end
+    num = tonumber(num) or 1
+    local fontSize = math.max(9, size * (num >= 10 and 0.38 or 0.48))
+    fs:SetFont(FRIZ, fontSize, "")
+    fs:SetText(tostring(num))
+    fs:SetTextColor(1, 0.82, 0)
+    fs:SetShadowColor(0, 0, 0, 0.85)
+    fs:SetShadowOffset(1, -1)
+    fs:SetJustifyH("CENTER")
+    fs:SetJustifyV("MIDDLE")
+    fs:Show()
+end
+
 function PinArt:EnsureLayers(pin)
     if not pin.Highlight then
         pin.Highlight = pin:CreateTexture(nil, "BACKGROUND")
         pin.Highlight:SetPoint("CENTER")
-        pin.Highlight:SetTexture(AREA_HIGHLIGHT)
         pin.Highlight:Hide()
     end
     if not pin.Texture then
@@ -38,28 +73,30 @@ function PinArt:EnsureLayers(pin)
         pin.Number:SetPoint("CENTER")
         pin.Number:SetSize(18, 18)
     end
-    -- Hide legacy single texture if present
+    if not pin.NumberText then
+        pin.NumberText = pin:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        pin.NumberText:SetPoint("CENTER", pin, "CENTER", 0, 0)
+    end
     if pin.texture and pin.texture ~= pin.Texture then
         pin.texture:Hide()
     end
 end
 
-local function ApplySnap(tex)
-    if tex and tex.SetSnapToPixelGrid then
-        tex:SetSnapToPixelGrid(false)
-        tex:SetTexelSnappingBias(0)
+function PinArt:HideNumberLabel(pin)
+    if pin.NumberText then
+        pin.NumberText:Hide()
+        pin.NumberText:SetText("")
     end
 end
 
+--- Brown/gold circle identical to available-quest bangs, with a gold tracker number on top.
 function PinArt:SetupNumberedPoi(pin, questId, isSuperTracked, size)
     local DB = Loader:ImportModule("DB")
     local num = DB:GetQuestNumber(questId or 0)
     pin:SetSize(size, size)
-    pin.Texture:Show()
-    pin.Texture:SetTexture(NUMBER_ICONS)
-    pin.Texture:SetTexCoord(self:CalculateNumericTexCoords(num, isSuperTracked))
-    pin.Texture:SetVertexColor(1, 1, 1, 1)
+    SetRing(pin.Texture, isSuperTracked)
     pin.Number:Hide()
+    SetNumberLabel(pin.NumberText, num, size)
 end
 
 function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
@@ -72,18 +109,13 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
     pin.radius = nil
 
     if kind == "available" then
-        -- Untracked offers stay as bangs; they are not tracker steps
         pin:SetSize(size, size)
-        pin.Texture:SetTexture(NUMBER_ICONS)
-        if isSuperTracked then
-            pin.Texture:SetTexCoord(0.500, 0.625, 0.375, 0.5)
-        else
-            pin.Texture:SetTexCoord(0.875, 1, 0.375, 0.5)
-        end
+        SetRing(pin.Texture, isSuperTracked)
         pin.Number:SetTexture(AVAILABLE_ICON)
         pin.Number:SetTexCoord(0, 1, 0, 1)
         pin.Number:SetSize(size * 0.55, size * 0.55)
         pin.Number:Show()
+        self:HideNumberLabel(pin)
         if pin.Highlight then
             pin.Highlight:Hide()
         end
@@ -93,8 +125,7 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
             pin.Number:Hide()
         end
     else
-        -- Tracked objectives / turn-ins: numbered POI matching the tracker (1) (2) (3)
-        self:SetupNumberedPoi(pin, questId, isSuperTracked or kind == "turnin", size)
+        self:SetupNumberedPoi(pin, questId, isSuperTracked, size)
         self:SetupAreaHighlight(pin, kind, isSuperTracked, data.radius)
     end
 
@@ -103,7 +134,7 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
     ApplySnap(pin.Highlight)
 end
 
---- Geographic blob behind a numbered pin. `radius` is map-percent (same units as spawn x/y).
+--- Soft round wash behind the POI. Kept small and circular on purpose.
 function PinArt:SetupAreaHighlight(pin, kind, isSuperTracked, radius)
     self:EnsureLayers(pin)
     if not radius or radius <= 0 or not DQTC.Config:Get("showAreaHighlights") then
@@ -112,23 +143,21 @@ function PinArt:SetupAreaHighlight(pin, kind, isSuperTracked, radius)
         return
     end
     pin.radius = radius
-    pin.Highlight:SetTexture(AREA_HIGHLIGHT)
-    pin.Highlight:Show()
-    if kind == "turnin" then
-        if isSuperTracked then
-            pin.Highlight:SetVertexColor(0.35, 1, 0.35, 0.45)
-        else
-            pin.Highlight:SetVertexColor(0.25, 0.95, 0.30, 0.35)
-        end
+    pin.Highlight:SetTexture(SOLID_FILL)
+    pin.Highlight:SetTexCoord(0, 1, 0, 1)
+    if pin.Highlight.SetMask then
+        pin.Highlight:SetMask(CIRCLE_MASK)
     else
-        if isSuperTracked then
-            pin.Highlight:SetVertexColor(1, 0.92, 0.20, 0.48)
-        else
-            pin.Highlight:SetVertexColor(1, 0.78, 0.12, 0.36)
-        end
+        pin.Highlight:SetTexture(CIRCLE_MASK)
     end
-    -- Fallback size until the world map reports canvas pixels (minimap / unopened map)
-    local fallback = math.max(40, radius * 6)
+    -- Gold wash for objectives; slightly greener when the quest is ready to turn in
+    if kind == "turnin" then
+        pin.Highlight:SetVertexColor(0.45, 0.95, 0.35, isSuperTracked and 0.28 or 0.20)
+    else
+        pin.Highlight:SetVertexColor(1.0, 0.84, 0.18, isSuperTracked and 0.28 or 0.18)
+    end
+    pin.Highlight:Show()
+    local fallback = math.max(52, math.min(radius * 5, 120))
     pin.Highlight:SetSize(fallback, fallback)
 end
 
@@ -137,30 +166,23 @@ function PinArt:GetMapPixelsPerPercent()
     if not map or not map:IsShown() then
         return nil
     end
-    local width, height
+    local width
     if map.GetCanvasSize then
-        width, height = map:GetCanvasSize()
+        width = map:GetCanvasSize()
     end
     if (not width or width <= 0) and map.ScrollContainer then
         local canvas = map.ScrollContainer.GetCanvas and map.ScrollContainer:GetCanvas()
         if canvas then
-            width, height = canvas:GetWidth(), canvas:GetHeight()
+            width = canvas:GetWidth()
         else
-            width, height = map.ScrollContainer:GetWidth(), map.ScrollContainer:GetHeight()
+            width = map.ScrollContainer:GetWidth()
         end
     end
     if not width or width <= 0 then
-        width, height = map:GetWidth(), map:GetHeight()
+        width = map:GetWidth()
     end
-    local scale = 1
-    if map.GetCanvasScale then
-        scale = map:GetCanvasScale() or 1
-    elseif map.ScrollContainer and map.ScrollContainer.GetCanvasScale then
-        scale = map.ScrollContainer:GetCanvasScale() or 1
-    end
-    -- Canvas size is typically unscaled map pixels; multiply by zoom so the blob covers geography.
     if width and width > 0 then
-        return (width * scale) / 100, (height * scale) / 100
+        return width / 100
     end
     return nil
 end
@@ -169,18 +191,16 @@ function PinArt:UpdateAreaHighlightSize(pin)
     if not pin or not pin.Highlight or not pin.radius then
         return
     end
-    local px, py = self:GetMapPixelsPerPercent()
-    if not px then
-        return
+    local px = self:GetMapPixelsPerPercent()
+    local visual = math.min(pin.radius, 11) * 0.7
+    local diameter = visual * 2 * (px or 7)
+    if diameter < 52 then
+        diameter = 52
+    elseif diameter > 140 then
+        diameter = 140
     end
-    local diameter = pin.radius * 2 * px
-    -- Keep the blob round using X scale; clamp so it stays usable at extreme zooms
-    if diameter < 28 then
-        diameter = 28
-    elseif diameter > 900 then
-        diameter = 900
-    end
-    pin.Highlight:SetSize(diameter, diameter * ((py and px > 0) and (py / px) or 1))
+    -- Always circular — stretching to map aspect made huge ovals
+    pin.Highlight:SetSize(diameter, diameter)
 end
 
 function PinArt:GetNameplateIcon(kind)
@@ -193,25 +213,37 @@ function PinArt:GetNameplateIcon(kind)
     return OBJECTIVE_ICON
 end
 
-function PinArt:PaintNameplateTexture(texture, kind, questId)
-    if not texture then
+function PinArt:PaintNameplate(frame, icon, kind, questId, size)
+    if not icon then
         return
     end
-    texture:SetVertexColor(1, 1, 1, 1)
+    size = size or 16
+    icon:SetVertexColor(1, 1, 1, 1)
     if kind == "available" then
-        texture:SetTexture(AVAILABLE_ICON)
-        texture:SetTexCoord(0, 1, 0, 1)
+        icon:SetTexture(AVAILABLE_ICON)
+        icon:SetTexCoord(0, 1, 0, 1)
+        if frame and frame.NumberText then
+            frame.NumberText:Hide()
+        end
         return
     end
-    -- Tracked objectives and turn-ins use the same (1) (2) (3) as the tracker
-    texture:SetTexture(NUMBER_ICONS)
-    local DB = Loader:ImportModule("DB")
-    local num = DB:GetQuestNumber(questId or 0)
-    texture:SetTexCoord(self:CalculateNumericTexCoords(num, true))
-    ApplySnap(texture)
+    SetRing(icon, true)
+    if frame then
+        if not frame.NumberText then
+            frame.NumberText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            frame.NumberText:SetPoint("CENTER", frame, "CENTER", 0, 0)
+        end
+        local DB = Loader:ImportModule("DB")
+        SetNumberLabel(frame.NumberText, DB:GetQuestNumber(questId or 0), size)
+    end
+    ApplySnap(icon)
 end
 
---- Nameplates need simpler art than map pins — one clear glyph, no stacked layers.
+function PinArt:PaintNameplateTexture(texture, kind, questId)
+    self:PaintNameplate(nil, texture, kind, questId, 16)
+end
+
+--- Nameplates: same ring + gold number as map pins.
 function PinArt:SetupNameplate(frame, kind, questId, size)
     self:EnsureLayers(frame)
     size = size or 24
@@ -223,5 +255,5 @@ function PinArt:SetupNameplate(frame, kind, questId, size)
     frame.Texture:Show()
     frame.Texture:ClearAllPoints()
     frame.Texture:SetAllPoints(frame)
-    self:PaintNameplateTexture(frame.Texture, kind, questId)
+    self:PaintNameplate(frame, frame.Texture, kind, questId, size)
 end
