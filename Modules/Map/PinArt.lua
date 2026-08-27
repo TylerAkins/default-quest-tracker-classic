@@ -116,7 +116,9 @@ function PinArt:SetupNumberedPoi(pin, questId, isEmphasized, size, kind)
     pin._poiKind = kind
     self:EnsureLayers(pin)
 
-    local artSize = size * 1.6
+    -- Do not upscale Blizzard's 32px source. The old 35-38px rendering was
+    -- visibly pixelated; smaller contexts get a clean integer downscale.
+    local artSize = math.min(32, math.max(24, math.floor(size * 1.5 + 0.5)))
     pin.PinRing:ClearAllPoints()
     pin.PinRing:SetPoint("CENTER")
     pin.PinRing:SetSize(artSize, artSize)
