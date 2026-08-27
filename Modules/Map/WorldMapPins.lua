@@ -44,7 +44,9 @@ local function AcquireIcon()
     icon:SetSize(22, 22)
     icon:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     icon:SetScript("OnEnter", function(self)
-        Loader:ImportModule("PinArt"):ShowAreaHighlight(self)
+        local PinArt = Loader:ImportModule("PinArt")
+        PinArt:SetPinEmphasis(self, true)
+        PinArt:ShowAreaHighlight(self)
         if self.tooltip then
             GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
             GameTooltip:SetText(self.tooltip)
@@ -57,7 +59,10 @@ local function AcquireIcon()
     end)
     icon:SetScript("OnLeave", function(self)
         GameTooltip:Hide()
-        Loader:ImportModule("PinArt"):HideAreaHighlight(self)
+        local PinArt = Loader:ImportModule("PinArt")
+        local super = self.questId and self.questId == DQTC.Config:GetChar("superTrackedQuestId")
+        PinArt:SetPinEmphasis(self, super)
+        PinArt:HideAreaHighlight(self)
     end)
     icon:SetScript("OnClick", function(self, button)
         if button == "RightButton" then
@@ -242,10 +247,15 @@ end
 
 function WorldMapPins:SetHoverQuest(questId)
     local PinArt = Loader:ImportModule("PinArt")
+    local superId = DQTC.Config:GetChar("superTrackedQuestId")
     for _, icon in ipairs(active) do
-        if questId and icon.questId == questId and icon.kind ~= "available" then
+        if icon.kind == "available" then
+            -- bangs stay as-is
+        elseif questId and icon.questId == questId then
+            PinArt:SetPinEmphasis(icon, true)
             PinArt:ShowAreaHighlight(icon)
         else
+            PinArt:SetPinEmphasis(icon, icon.questId == superId)
             PinArt:HideAreaHighlight(icon)
         end
     end
@@ -253,7 +263,11 @@ end
 
 function WorldMapPins:ClearHoverQuest()
     local PinArt = Loader:ImportModule("PinArt")
+    local superId = DQTC.Config:GetChar("superTrackedQuestId")
     for _, icon in ipairs(active) do
+        if icon.kind ~= "available" then
+            PinArt:SetPinEmphasis(icon, icon.questId == superId)
+        end
         PinArt:HideAreaHighlight(icon)
     end
 end

@@ -263,7 +263,7 @@ function TrackerFrame:Update()
                         title = string.format("[%d] %s", quest.level, title)
                     end
                     qLine.text:SetText(title)
-                    TrackerLines:SetQuestPoi(qLine, questId)
+                    TrackerLines:SetQuestPoi(qLine, questId, focusId == questId, quest.isComplete == 1)
                     StyleTitle(qLine.text)
                     local r, g, b = DifficultyColor(quest.level)
                     if focusId == questId then

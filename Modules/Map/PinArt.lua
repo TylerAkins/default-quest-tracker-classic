@@ -33,6 +33,13 @@ local function ApplySnap(tex)
     end
 end
 
+local function PaintCircle(tex, r, g, b, a)
+    tex:SetTexture(CIRCLE_MASK)
+    tex:SetVertexColor(r, g, b, a or 1)
+    tex:Show()
+    ApplySnap(tex)
+end
+
 local function SetRing(texture, selected)
     texture:SetTexture(NUMBER_ICONS)
     local c = selected and RING_SELECTED or RING_NORMAL
@@ -41,16 +48,16 @@ local function SetRing(texture, selected)
     texture:Show()
 end
 
-local function SetNumberLabel(fs, num, size)
+local function SetNumberLabel(fs, num, size, r, g, b)
     if not fs then
         return
     end
     num = tonumber(num) or 1
-    local fontSize = math.max(9, size * (num >= 10 and 0.38 or 0.48))
+    local fontSize = math.max(9, size * (num >= 10 and 0.40 or 0.52))
     fs:SetFont(FRIZ, fontSize, "")
     fs:SetText(tostring(num))
-    fs:SetTextColor(1, 0.82, 0)
-    fs:SetShadowColor(0, 0, 0, 0.85)
+    fs:SetTextColor(r or 1, g or 0.82, b or 0)
+    fs:SetShadowColor(0, 0, 0, 0.9)
     fs:SetShadowOffset(1, -1)
     fs:SetJustifyH("CENTER")
     fs:SetJustifyV("MIDDLE")
@@ -70,9 +77,15 @@ function PinArt:EnsureLayers(pin)
         pin.Highlight:SetDrawLayer("BACKGROUND", 1)
         pin.Highlight:Hide()
     end
+    if not pin.PinRing then
+        pin.PinRing = pin:CreateTexture(nil, "ARTWORK")
+        pin.PinRing:SetPoint("CENTER")
+        pin.PinRing:SetDrawLayer("ARTWORK", 0)
+    end
     if not pin.Texture then
         pin.Texture = pin:CreateTexture(nil, "ARTWORK")
-        pin.Texture:SetAllPoints(pin)
+        pin.Texture:SetDrawLayer("ARTWORK", 1)
+        pin.Texture:SetPoint("CENTER")
     end
     if not pin.Number then
         pin.Number = pin:CreateTexture(nil, "OVERLAY")
@@ -95,23 +108,71 @@ function PinArt:HideNumberLabel(pin)
     end
 end
 
---- Same brown/gold ring as ! / ?, with a gold digit instead of a bang.
-function PinArt:SetupNumberedPoi(pin, questId, isSuperTracked, size)
+--- Flat numbered disc: idle = maroon + gold digit; focused/hover = yellow + black digit; turn-in = ?
+function PinArt:SetupNumberedPoi(pin, questId, isEmphasized, size, kind)
     local DB = Loader:ImportModule("DB")
     local num = DB:GetQuestNumber(questId or 0)
     size = size or 22
+    kind = kind or "objective"
     pin:SetSize(size, size)
-    SetRing(pin.Texture, isSuperTracked)
+    pin._poiSize = size
+    pin._poiKind = kind
+    self:EnsureLayers(pin)
+
+    if pin.PinRing then
+        pin.PinRing:ClearAllPoints()
+        pin.PinRing:SetPoint("CENTER")
+        pin.PinRing:SetSize(size, size)
+        pin.PinRing:Show()
+    end
+    pin.Texture:ClearAllPoints()
+    pin.Texture:SetPoint("CENTER")
+    pin.Texture:SetSize(math.max(1, size - 3), math.max(1, size - 3))
+
+    if kind == "turnin" then
+        PaintCircle(pin.Texture, 0.17, 0.06, 0.04, 1)
+        if pin.PinRing then
+            PaintCircle(pin.PinRing, 1.0, 0.84, 0.18, 1)
+        end
+        pin.Number:SetTexture(COMPLETE_ICON)
+        pin.Number:SetTexCoord(0, 1, 0, 1)
+        pin.Number:SetSize(size * 0.52, size * 0.52)
+        pin.Number:Show()
+        self:HideNumberLabel(pin)
+        return
+    end
+
     pin.Number:Hide()
-    SetNumberLabel(pin.NumberText, num, size)
+    if isEmphasized then
+        -- Active pin: yellow disc, black number (retail selected POI)
+        PaintCircle(pin.Texture, 1.0, 0.86, 0.12, 1)
+        if pin.PinRing then
+            PaintCircle(pin.PinRing, 0.08, 0.06, 0.02, 0.95)
+        end
+        pin.Texture:SetSize(math.max(1, size - 2), math.max(1, size - 2))
+        SetNumberLabel(pin.NumberText, num, size, 0.08, 0.06, 0.04)
+    else
+        -- Idle pin: dark disc, gold rim, gold number
+        PaintCircle(pin.Texture, 0.16, 0.06, 0.04, 1)
+        if pin.PinRing then
+            PaintCircle(pin.PinRing, 0.95, 0.78, 0.18, 1)
+        end
+        SetNumberLabel(pin.NumberText, num, size, 1.0, 0.84, 0.18)
+    end
+end
+
+function PinArt:SetPinEmphasis(pin, emphasized)
+    if not pin or pin.kind == "available" then
+        return
+    end
+    self:SetupNumberedPoi(pin, pin.questId, emphasized, pin._poiSize or 22, pin.kind or pin._poiKind)
 end
 
 function PinArt:SetNumericBadge(texture, num)
-    -- Tracker/nameplate single-texture fallback: still the empty ring (digit is a FontString).
     if not texture then
         return
     end
-    SetRing(texture, false)
+    PaintCircle(texture, 0.16, 0.06, 0.04, 1)
 end
 
 function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
@@ -125,6 +186,11 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
 
     if kind == "available" then
         pin:SetSize(size, size)
+        if pin.PinRing then
+            pin.PinRing:Hide()
+        end
+        pin.Texture:ClearAllPoints()
+        pin.Texture:SetAllPoints(pin)
         SetRing(pin.Texture, isSuperTracked)
         pin.Number:SetTexture(AVAILABLE_ICON)
         pin.Number:SetTexCoord(0, 1, 0, 1)
@@ -143,7 +209,7 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
             pin.Number:Hide()
         end
     else
-        self:SetupNumberedPoi(pin, questId, isSuperTracked, size)
+        self:SetupNumberedPoi(pin, questId, isSuperTracked, size, kind)
         self:SetupAreaHighlight(pin, kind, isSuperTracked, data.radius)
         if pin.Highlight then
             pin.Highlight:Hide()
@@ -182,14 +248,14 @@ function PinArt:SetupAreaHighlight(pin, kind, isSuperTracked, radius)
     end
     pin.Highlight:SetTexture(CIRCLE_MASK)
     pin.HighlightBorder:SetTexture(CIRCLE_MASK)
-    -- Light blue fill + thin black outline
-    pin.Highlight:SetVertexColor(0.62, 0.84, 1.0, isSuperTracked and 0.28 or 0.20)
-    pin.HighlightBorder:SetVertexColor(0, 0, 0, 0.90)
+    -- Icy light-blue wash (QuestHelper / retail objective blob) + 2px black edge
+    pin.Highlight:SetVertexColor(0.78, 0.90, 1.0, 0.16)
+    pin.HighlightBorder:SetVertexColor(0, 0, 0, 0.80)
     pin.Highlight:Hide()
     pin.HighlightBorder:Hide()
     local fallback = math.max(52, math.min(radius * 5, 120))
     pin.HighlightBorder:SetSize(fallback, fallback)
-    pin.Highlight:SetSize(math.max(1, fallback - 3), math.max(1, fallback - 3))
+    pin.Highlight:SetSize(math.max(1, fallback - 2), math.max(1, fallback - 2))
 end
 
 function PinArt:ShowAreaHighlight(pin)
@@ -253,7 +319,7 @@ function PinArt:UpdateAreaHighlightSize(pin)
     elseif diameter > 140 then
         diameter = 140
     end
-    local fill = math.max(1, diameter - 3)
+    local fill = math.max(1, diameter - 2)
     pin.Highlight:SetSize(fill, fill)
     if pin.HighlightBorder then
         pin.HighlightBorder:SetSize(diameter, diameter)
