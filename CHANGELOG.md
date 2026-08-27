@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.14] - 2026-08-27
+
+### Fixed
+
+- Long objectives wrap to a new line again instead of truncating with `...`. Counts like `0/10` still stay together.
+
 ## [1.1.13] - 2026-08-27
 
 ### Fixed

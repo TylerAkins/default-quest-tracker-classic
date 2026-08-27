@@ -131,9 +131,9 @@ local function DifficultyColor(level)
 end
 
 local function ApplyWrapFlags(fs)
-    -- SetFontObject copies wrap flags from the font object; Classic auto-wrap
-    -- also breaks on "/", which splits "0/10". FitLine wraps at spaces instead.
-    fs:SetWordWrap(false)
+    -- SetFontObject copies wrap flags from the font object. WordWrap must stay
+    -- on (off = ellipsis). FitLine still inserts breaks at spaces.
+    fs:SetWordWrap(true)
     fs:SetNonSpaceWrap(false)
 end
 
