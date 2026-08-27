@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.15] - 2026-08-27
+
+### Fixed
+
+- Tracker no longer errors on load (`attempt to call a nil value` in `TrackerLines:Initialize`)
+
 ## [1.1.14] - 2026-08-27
 
 ### Fixed

@@ -116,7 +116,6 @@ end
 function TrackerLines:Initialize(parent)
     self.parent = parent
     used = 0
-    EnsureMeasureFS()
 end
 
 function TrackerLines:Reset()
