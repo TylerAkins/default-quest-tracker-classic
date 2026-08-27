@@ -2,6 +2,13 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.6] - 2026-08-27
+
+### Fixed
+
+- Tracker/map numbers are baked into a circular gold-rimmed atlas (QuestHelper-style), so the gold ring is visible and the `1` is centered
+- Idle pins are no longer a flat muddy disc: the fill was drawing on top of the ring
+
 ## [1.1.5] - 2026-08-27
 
 ### Fixed
