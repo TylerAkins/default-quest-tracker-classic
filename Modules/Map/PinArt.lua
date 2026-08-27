@@ -88,26 +88,23 @@ function PinArt:HideNumberLabel(pin)
     end
 end
 
-function PinArt:SetNumericBadge(texture, num)
-    if not texture then
-        return
-    end
-    -- Gold numbered circles from UI-QuestPoi-NumberIcons (same art as retail map POIs)
-    texture:SetTexture(NUMBER_ICONS)
-    texture:SetTexCoord(self:CalculateNumericTexCoords(num, true))
-    texture:SetVertexColor(1, 1, 1, 1)
-    texture:Show()
-    ApplySnap(texture)
-end
-
---- Retail numbered circle. Always use the gold atlas cells (brown cells are digits-only).
+--- Same brown/gold ring as ! / ?, with a gold digit instead of a bang.
 function PinArt:SetupNumberedPoi(pin, questId, isSuperTracked, size)
     local DB = Loader:ImportModule("DB")
     local num = DB:GetQuestNumber(questId or 0)
+    size = size or 22
     pin:SetSize(size, size)
-    self:SetNumericBadge(pin.Texture, num)
+    SetRing(pin.Texture, isSuperTracked)
     pin.Number:Hide()
-    self:HideNumberLabel(pin)
+    SetNumberLabel(pin.NumberText, num, size)
+end
+
+function PinArt:SetNumericBadge(texture, num)
+    -- Tracker/nameplate single-texture fallback: still the empty ring (digit is a FontString).
+    if not texture then
+        return
+    end
+    SetRing(texture, false)
 end
 
 function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
@@ -138,6 +135,10 @@ function PinArt:SetupPin(pin, kind, questId, isSuperTracked, size, data)
     else
         self:SetupNumberedPoi(pin, questId, isSuperTracked, size)
         self:SetupAreaHighlight(pin, kind, isSuperTracked, data.radius)
+        -- Area wash stays hidden until the numbered pin (or tracker number) is hovered
+        if pin.Highlight then
+            pin.Highlight:Hide()
+        end
     end
 
     ApplySnap(pin.Texture)
@@ -167,9 +168,26 @@ function PinArt:SetupAreaHighlight(pin, kind, isSuperTracked, radius)
     else
         pin.Highlight:SetVertexColor(1.0, 0.84, 0.18, isSuperTracked and 0.28 or 0.18)
     end
-    pin.Highlight:Show()
+    pin.Highlight:Hide()
     local fallback = math.max(52, math.min(radius * 5, 120))
     pin.Highlight:SetSize(fallback, fallback)
+end
+
+function PinArt:ShowAreaHighlight(pin)
+    if not pin or not pin.Highlight or not pin.radius then
+        return
+    end
+    if not DQTC.Config:Get("showAreaHighlights") then
+        return
+    end
+    self:UpdateAreaHighlightSize(pin)
+    pin.Highlight:Show()
+end
+
+function PinArt:HideAreaHighlight(pin)
+    if pin and pin.Highlight then
+        pin.Highlight:Hide()
+    end
 end
 
 function PinArt:GetMapPixelsPerPercent()
@@ -238,12 +256,16 @@ function PinArt:PaintNameplate(frame, icon, kind, questId, size)
         end
         return
     end
-    local DB = Loader:ImportModule("DB")
-    self:SetNumericBadge(icon, DB:GetQuestNumber(questId or 0))
-    if frame and frame.NumberText then
-        frame.NumberText:Hide()
+    if not frame then
+        SetRing(icon, false)
+        return
     end
-    ApplySnap(icon)
+    frame.Texture = frame.Texture or icon
+    self:EnsureLayers(frame)
+    self:SetupNumberedPoi(frame, questId, false, size)
+    if frame.Highlight then
+        frame.Highlight:Hide()
+    end
 end
 
 function PinArt:PaintNameplateTexture(texture, kind, questId)

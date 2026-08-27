@@ -21,10 +21,27 @@ local function CreateLine(parent, index)
     line.text:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
     line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
 
-    line.poi = line:CreateTexture(nil, "ARTWORK")
-    line.poi:SetSize(16, 16)
-    line.poi:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
-    line.poi:Hide()
+    line.poiFrame = CreateFrame("Button", nil, line)
+    line.poiFrame:SetSize(22, 22)
+    line.poiFrame:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
+    line.poiFrame:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    line.poiFrame:EnableMouse(true)
+    line.poiFrame:Hide()
+    line.poiFrame:SetScript("OnEnter", function(self)
+        local parent = self:GetParent()
+        if parent and parent.questId then
+            Loader:ImportModule("WorldMapPins"):SetHoverQuest(parent.questId)
+        end
+    end)
+    line.poiFrame:SetScript("OnLeave", function()
+        Loader:ImportModule("WorldMapPins"):ClearHoverQuest()
+    end)
+    line.poiFrame:SetScript("OnClick", function(self, button)
+        local parent = self:GetParent()
+        if parent and parent:GetScript("OnClick") then
+            parent:GetScript("OnClick")(parent, button)
+        end
+    end)
 
     line:Hide()
     line.questId = nil
@@ -127,10 +144,13 @@ function TrackerLines:GetUsedCount()
     return used
 end
 
-local POI_SIZE = 16
+local POI_SIZE = 22
 local POI_PAD = 4
 
 function TrackerLines:ClearPoi(line)
+    if line.poiFrame then
+        line.poiFrame:Hide()
+    end
     if line.poi then
         line.poi:Hide()
     end
@@ -149,20 +169,23 @@ function TrackerLines:IndentAsObjective(line)
 end
 
 function TrackerLines:SetQuestPoi(line, questId)
-    if not line.poi then
+    if not line.poiFrame then
         return
     end
     local PinArt = Loader:ImportModule("PinArt")
-    local DB = Loader:ImportModule("DB")
-    PinArt:SetNumericBadge(line.poi, DB:GetQuestNumber(questId))
-    line.poi:ClearAllPoints()
-    line.poi:SetSize(POI_SIZE, POI_SIZE)
-    line.poi:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
-    line.poi:Show()
+    PinArt:EnsureLayers(line.poiFrame)
+    PinArt:SetupNumberedPoi(line.poiFrame, questId, false, POI_SIZE)
+    if line.poiFrame.Highlight then
+        line.poiFrame.Highlight:Hide()
+    end
+    line.poiFrame:ClearAllPoints()
+    line.poiFrame:SetSize(POI_SIZE, POI_SIZE)
+    line.poiFrame:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
+    line.poiFrame:Show()
     line._hasPoi = true
     line.text:ClearAllPoints()
-    line.text:SetPoint("TOPLEFT", line, "TOPLEFT", POI_SIZE + POI_PAD, 1)
-    line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 1)
+    line.text:SetPoint("TOPLEFT", line, "TOPLEFT", POI_SIZE + POI_PAD, 2)
+    line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 2)
 end
 
 --- Size the line to wrapped text width.

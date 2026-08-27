@@ -44,6 +44,7 @@ local function AcquireIcon()
     icon:SetSize(22, 22)
     icon:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     icon:SetScript("OnEnter", function(self)
+        Loader:ImportModule("PinArt"):ShowAreaHighlight(self)
         if self.tooltip then
             GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
             GameTooltip:SetText(self.tooltip)
@@ -54,8 +55,9 @@ local function AcquireIcon()
             GameTooltip:Show()
         end
     end)
-    icon:SetScript("OnLeave", function()
+    icon:SetScript("OnLeave", function(self)
         GameTooltip:Hide()
+        Loader:ImportModule("PinArt"):HideAreaHighlight(self)
     end)
     icon:SetScript("OnClick", function(self, button)
         if button == "RightButton" then
@@ -232,6 +234,24 @@ function WorldMapPins:ResizeHighlights()
     local PinArt = Loader:ImportModule("PinArt")
     for _, icon in ipairs(active) do
         PinArt:UpdateAreaHighlightSize(icon)
+    end
+end
+
+function WorldMapPins:SetHoverQuest(questId)
+    local PinArt = Loader:ImportModule("PinArt")
+    for _, icon in ipairs(active) do
+        if questId and icon.questId == questId and icon.kind ~= "available" then
+            PinArt:ShowAreaHighlight(icon)
+        else
+            PinArt:HideAreaHighlight(icon)
+        end
+    end
+end
+
+function WorldMapPins:ClearHoverQuest()
+    local PinArt = Loader:ImportModule("PinArt")
+    for _, icon in ipairs(active) do
+        PinArt:HideAreaHighlight(icon)
     end
 end
 
