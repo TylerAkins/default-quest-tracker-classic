@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.1.10] - 2026-08-27
+
+### Fixed
+
+- Quests with no listed objectives (e.g. Find Bingles) no longer pack into the next quest's numbered circle
+
 ## [1.1.9] - 2026-08-27
 
 ### Fixed

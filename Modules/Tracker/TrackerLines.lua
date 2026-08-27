@@ -144,10 +144,11 @@ function TrackerLines:GetUsedCount()
     return used
 end
 
--- The 18px hit frame keeps the quest row compact. PinArt draws Blizzard's
--- 27px POI around its center, overlapping the indented objective space just
--- like the default tracker instead of forcing a tall blank row.
+-- 18px hit frame; PinArt draws a 27px Blizzard POI around its center.
+-- Artwork is allowed to overlap following *objective* indent, but not the
+-- next quest's circle (quests with no objectives, e.g. Find Bingles).
 local POI_SIZE = 18
+local POI_ART_SIZE = 27
 local POI_PAD = 4
 
 function TrackerLines:ClearPoi(line)
@@ -186,14 +187,14 @@ function TrackerLines:SetQuestPoi(line, questId, isEmphasized, isTurnin)
     if line.poiFrame.HighlightBorder then
         line.poiFrame.HighlightBorder:Hide()
     end
-    line.poiFrame:ClearAllPoints()
-    line.poiFrame:SetSize(POI_SIZE, POI_SIZE)
-    line.poiFrame:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
-    line.poiFrame:Show()
     line._hasPoi = true
     line.text:ClearAllPoints()
     line.text:SetPoint("TOPLEFT", line, "TOPLEFT", POI_SIZE + POI_PAD, 0)
     line.text:SetPoint("TOPRIGHT", line, "TOPRIGHT", 0, 0)
+    line.poiFrame:ClearAllPoints()
+    line.poiFrame:SetSize(POI_SIZE, POI_SIZE)
+    line.poiFrame:SetPoint("RIGHT", line.text, "LEFT", -POI_PAD, 0)
+    line.poiFrame:Show()
 end
 
 --- Size the line to wrapped text width.
@@ -226,7 +227,16 @@ function TrackerLines:LayoutFromTop(startY, spacing)
         line:ClearAllPoints()
         line:SetPoint("TOPLEFT", self.parent, "TOPLEFT", 0, y)
         line:SetPoint("TOPRIGHT", self.parent, "TOPRIGHT", 0, y)
-        y = y - line:GetHeight() - spacing
+        local gap = spacing
+        if line._hasPoi then
+            local nxt = pool[i + 1]
+            local nextIsOwnObjective = nxt and nxt.kind == "objective" and nxt.questId == line.questId
+            if not nextIsOwnObjective then
+                -- Leave room for the overflowing 27px circle before the next quest.
+                gap = gap + math.max(0, math.ceil((POI_ART_SIZE - line:GetHeight()) / 2) + 4)
+            end
+        end
+        y = y - line:GetHeight() - gap
     end
     return -y
 end
