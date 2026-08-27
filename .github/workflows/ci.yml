@@ -25,6 +25,7 @@ jobs:
             echo "tools/.wowhead_cache must not be present in the repository"
             exit 1
           fi
+          python3 tests/test_circle_textures.py
 
       - name: Dry-run package
         uses: BigWigsMods/packager@v2
