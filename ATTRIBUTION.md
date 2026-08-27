@@ -2,7 +2,7 @@
 
 ## What is original vs third-party
 
-**Original DQTC code** (tracker UI, options, markers, tooltips, GPS bridge, etc.) is written for this addon. Shared ideas (unlimited tracker, map pins) are normal. Do **not** copy Questie/Dugi/Zygor source, icons, or branding.
+**Original DQTC code** (tracker UI, options, markers, tooltips, GPS bridge, etc.) is written for this addon. Shared ideas (unlimited tracker, map pins, numbered POIs) are normal. Do **not** copy other addons’ source, icons, or branding.
 
 ## License
 

@@ -1,6 +1,6 @@
 ## Interface: 11508, 11509
 ## Title: Default Quest Tracker Classic
-## Notes: Unlimited Classic Era quest tracker with numbered Dugi-style map areas.
+## Notes: Unlimited Classic Era quest tracker with numbered map areas and nameplate icons.
 ## Author: DefaultQuestTrackerClassic
 ## Version: 1.1.0
 ## X-License: GPL-3.0-or-later

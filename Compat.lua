@@ -12,12 +12,6 @@ function Compat.IsQuestieLoaded()
         or false
 end
 
-function Compat.IsDugiLoaded()
-    return (C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("DugisGuideViewerZ"))
-        or (IsAddOnLoaded and IsAddOnLoaded("DugisGuideViewerZ"))
-        or (_G.DugisGuideViewer ~= nil)
-end
-
 function Compat.GetCreatureIdFromGUID(guid)
     if not guid then
         return nil

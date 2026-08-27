@@ -1,6 +1,6 @@
 # CurseForge description (paste into project page)
 
-**Default Quest Tracker Classic** is an unlimited quest tracker for WoW Classic Era with a Blizzard-style look, numbered Dugi-style map areas, and nameplate icons.
+**Default Quest Tracker Classic** is an unlimited quest tracker for WoW Classic Era with a Blizzard-style look, numbered map areas, and nameplate icons.
 
 **Questie is not required.** This addon ships a slim quest/spawn database derived from Questie Classic community data.
 

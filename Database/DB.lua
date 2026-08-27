@@ -334,7 +334,7 @@ function DB:RebuildNpcIndex()
     return index
 end
 
--- Group nearby spawn points into Dugi-style areas (centroid + radius in map %).
+-- Group nearby spawn points into numbered areas (centroid + radius in map %).
 -- Points farther than `gap` map-percent from a cluster center start a new area.
 function DB:ClusterSpawns(spawns, gap)
     gap = gap or 18
