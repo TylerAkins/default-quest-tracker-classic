@@ -1,18 +1,26 @@
 # CurseForge description (paste into project page)
 
-**Default Quest Tracker Classic** is an unlimited quest tracker for WoW Classic Era with a Blizzard-style look, numbered map areas, and nameplate icons.
+Paste everything below this line into the CurseForge long description.
 
-**Questie is not required.** This addon ships a slim quest/spawn database derived from Questie Classic community data.
+---
 
-**Install:** CurseForge app (this page) once published, or [GitHub Releases](https://github.com/TylerAkins/default-quest-tracker-classic/releases).
+**Default Quest Tracker Classic** is a quest tracker for WoW Classic Era with a Blizzard-style look, numbered map areas, and nameplate icons.
+
+## Commands
+
+- `/dqtc` — open options
+- `/dqtc lock` — lock tracker position
+- `/dqtc unlock` — unlock tracker position (then drag to move)
+- `/dqtc reset` — reset the tracker to the default position
+- `/dqtc refresh` — force a full refresh
+- `/dqtc testpin` — place a test pin on your position
+- `/dqtc markers` — enable markers and print diagnostics
+- `/dqtc tooltip [npcId]` — print tooltip lines for an NPC
+
+`/defaultquesttracker` works as an alias for `/dqtc`.
 
 ## Credits
 
-- **Questie** — quest/spawn database source  
-  GitHub: https://github.com/Questie/Questie  
-  CurseForge: https://www.curseforge.com/wow/addons/questie  
-- **HereBeDragons** (Nevcairiel) — embedded map pin library  
-  https://www.wowace.com/projects/herebedragons  
-- Optional: **TomTom** for Send-to-GPS  
-
-License: **GPLv3**. Source: https://github.com/TylerAkins/default-quest-tracker-classic
+- **[Questie](https://www.curseforge.com/wow/addons/questie)** — quest/spawn database source
+- **[HereBeDragons](https://www.curseforge.com/wow/addons/herebedragons)** (Nevcairiel)
+- Optional: **[TomTom](https://www.curseforge.com/wow/addons/tomtom)** for Send-to-GPS
