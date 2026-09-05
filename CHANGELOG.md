@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.2.1] - 2026-09-05
+
+### Fixed
+
+- **Hide completed objectives** now works in Classic Era: completion is detected from quest log progress text when the API `finished` flag is missing or stale, and the ready-for-turn-in line is hidden when the option is enabled
+
 ## [1.2.0] - 2026-09-05
 
 ### Added
