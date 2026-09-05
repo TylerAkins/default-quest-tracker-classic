@@ -138,7 +138,7 @@ def test_lua_helpers_and_option_exist() -> None:
     assert "collapsedZones = {}" in config
     assert 'L["ORGANIZE_BY_ZONE"]' in loc
     toc = (ROOT / "DefaultQuestTrackerClassic.toc").read_text(encoding="utf-8")
-    assert "## Version: 1.2.0" in toc
+    assert "## Version: 1.2.1" in toc
 
 
 def main() -> None:
