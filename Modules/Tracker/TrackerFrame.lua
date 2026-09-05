@@ -404,7 +404,7 @@ function TrackerFrame:Update()
                     end
                 end
 
-                if not showedObjective and quest.isComplete == 1 then
+                if not showedObjective and quest.isComplete == 1 and not hideCompleted then
                     local oLine = TrackerLines:Acquire()
                     oLine.kind = "objective"
                     oLine.questId = questId
