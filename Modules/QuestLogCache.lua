@@ -7,22 +7,54 @@ local QuestLogCache = Loader:CreateModule("QuestLogCache")
 local quests = {} -- [questId] = questData
 local ordered = {}
 
+local function ParseObjectiveProgress(text)
+    if not text then
+        return nil, nil
+    end
+    local _, _, current, required = string.find(text, "(%d+)%s*/%s*(%d+)")
+    return tonumber(current), tonumber(required)
+end
+
+--- Keep in sync with tests/test_objective_finished.py
+local function ObjectiveIsFinished(done, text, numFulfilled, numRequired)
+    if done then
+        return true
+    end
+    local current = numFulfilled
+    local required = numRequired
+    if current == nil or required == nil then
+        current, required = ParseObjectiveProgress(text)
+    end
+    if current and required and required > 0 and current >= required then
+        return true
+    end
+    return false
+end
+
 local function ParseObjectives(questLogIndex)
+    SelectQuestLogEntry(questLogIndex)
     local objectives = {}
-    local num = GetNumQuestLeaderBoards(questLogIndex) or 0
+    local num = GetNumQuestLeaderBoards() or GetNumQuestLeaderBoards(questLogIndex) or 0
     for i = 1, num do
-        local text, objectiveType, finished, numFulfilled, numRequired
-        -- Classic Era accepts (objIndex, questLogIndex); fall back to selected entry
-        text, objectiveType, finished, numFulfilled, numRequired = GetQuestLogLeaderBoard(i, questLogIndex)
+        local text, objectiveType, finished, numFulfilled, numRequired =
+            GetQuestLogLeaderBoard(i, questLogIndex)
         if not text then
-            SelectQuestLogEntry(questLogIndex)
             text, objectiveType, finished, numFulfilled, numRequired = GetQuestLogLeaderBoard(i)
+        end
+        if (numFulfilled == nil or numRequired == nil) and text then
+            local parsedCurrent, parsedRequired = ParseObjectiveProgress(text)
+            if numFulfilled == nil then
+                numFulfilled = parsedCurrent
+            end
+            if numRequired == nil then
+                numRequired = parsedRequired
+            end
         end
         objectives[#objectives + 1] = {
             index = i,
             text = text,
             type = objectiveType,
-            finished = finished and true or false,
+            finished = ObjectiveIsFinished(finished, text, numFulfilled, numRequired),
             numFulfilled = numFulfilled,
             numRequired = numRequired,
         }
