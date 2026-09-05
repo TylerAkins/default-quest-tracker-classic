@@ -47,14 +47,15 @@ local function CreateLine(parent, index)
 
     line:Hide()
     line.questId = nil
-    line.kind = nil -- header | quest | objective
+    line.kind = nil -- header | zone | quest | objective
+    line.zone = nil
 
     line:SetScript("OnClick", function(self, button)
         local TrackerMenu = Loader:ImportModule("TrackerMenu")
         if button == "RightButton" then
             if self.kind == "quest" and self.questId then
                 TrackerMenu:OpenForQuest(self.questId)
-            elseif self.kind == "header" then
+            elseif self.kind == "header" or self.kind == "zone" then
                 TrackerMenu:OpenForHeader()
             end
             return
@@ -74,6 +75,8 @@ local function CreateLine(parent, index)
                 end
                 DQTC:RefreshAll()
             end
+        elseif self.kind == "zone" and self.zone then
+            Loader:ImportModule("TrackerFrame"):ToggleZoneCollapsed(self.zone)
         elseif self.kind == "header" then
             local collapsed = not DQTC.Config:GetChar("collapsed")
             DQTC.Config:SetChar("collapsed", collapsed)
@@ -91,6 +94,11 @@ local function CreateLine(parent, index)
             GameTooltip:SetOwner(self, "ANCHOR_LEFT")
             GameTooltip:SetText(self._rawText or self.text:GetText() or "", nil, nil, nil, nil, true)
             GameTooltip:AddLine("Left-click: focus  |  Shift-click: untrack  |  Right-click: menu", 0.7, 0.7, 0.7, true)
+            GameTooltip:Show()
+        elseif self.kind == "zone" then
+            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+            GameTooltip:SetText(self.zone or "", nil, nil, nil, nil, true)
+            GameTooltip:AddLine(DQTC.L["ZONE_COLLAPSE_HINT"], 0.7, 0.7, 0.7, true)
             GameTooltip:Show()
         elseif self.kind == "header" then
             GameTooltip:SetOwner(self, "ANCHOR_LEFT")
@@ -125,6 +133,7 @@ function TrackerLines:Reset()
         line:ClearAllPoints()
         line.questId = nil
         line.kind = nil
+        line.zone = nil
         line.text:SetText("")
         line._rawText = nil
         line._indent = nil

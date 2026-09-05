@@ -13,6 +13,7 @@ local TOGGLES = {
     { key = "autoTrackQuests", label = "AUTO_TRACK" },
     { key = "trackerLocked", label = "LOCK_TRACKER" },
     { key = "showQuestLevel", label = "SHOW_QUEST_LEVEL" },
+    { key = "organizeByZone", label = "ORGANIZE_BY_ZONE" },
     { key = "hideCompletedObjectives", label = "HIDE_COMPLETED" },
     { key = "showQuestMarkers", label = "SHOW_MARKERS" },
     { key = "showAvailable", label = "SHOW_AVAILABLE" },

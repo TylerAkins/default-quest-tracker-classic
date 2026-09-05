@@ -15,6 +15,8 @@ local defaults = {
         trackerMaxHeightPct = 0.55,
         hideCompletedObjectives = false,
         showQuestLevel = false,
+        -- Group tracker quests under zone headers (Questie-style). Default on.
+        organizeByZone = true,
         sortMode = "log", -- log | zone | level | proximity
         showQuestMarkers = true,
         showAvailable = true,
@@ -42,6 +44,7 @@ local defaults = {
         trackerPosition = nil,
         superTrackedQuestId = nil,
         collapsed = false,
+        collapsedZones = {},
     },
 }
 

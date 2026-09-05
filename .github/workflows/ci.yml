@@ -28,6 +28,7 @@ jobs:
           python3 tests/test_circle_textures.py
           python3 tests/test_wrap_at_spaces.py
           python3 tests/test_tracker_lua_scope.py
+          python3 tests/test_organize_by_zone.py
 
       - name: Dry-run package
         uses: BigWigsMods/packager@v2

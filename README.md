@@ -21,6 +21,7 @@ CurseForge publishing is planned; until then, GitHub Releases are the install pa
 ## Features
 
 - Track more quests than Blizzard’s usual watch limit
+- Organize tracked quests by zone (on by default); click a zone name to collapse or expand it
 - Default position under the minimap; unlock/drag to move; reset in options
 - Tracker titles numbered `(1) (2) (3)`, matching world map and minimap POIs
 - Objective and turn-in **areas** clustered from the spawn database (not a pin on every mob)

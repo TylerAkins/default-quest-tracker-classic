@@ -2,6 +2,12 @@
 
 All notable changes to Default Quest Tracker Classic are documented here.
 
+## [1.2.0] - 2026-09-05
+
+### Added
+
+- Option to organize the quest tracker by zone (on by default), with Questie-style collapsible zone headers
+
 ## [1.1.16] - 2026-08-27
 
 ### Changed
