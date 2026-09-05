@@ -151,6 +151,91 @@ local function StyleObjective(fs)
     ApplyWrapFlags(fs)
 end
 
+local function OrganizeByZoneEnabled()
+    local v = DQTC.Config:Get("organizeByZone")
+    if v == nil then
+        return true
+    end
+    return v
+end
+
+--- Keep in sync with tests/test_organize_by_zone.py
+function TrackerFrame.ZoneNameForQuest(quest, unknownZone)
+    local zone = quest and quest.zone
+    if type(zone) == "string" and zone ~= "" then
+        return zone
+    end
+    return unknownZone or "Unknown Zone"
+end
+
+--- Stable within each zone; zones sorted alphabetically like Questie byZone.
+--- Keep in sync with tests/test_organize_by_zone.py
+function TrackerFrame.GroupIdsByZone(ids, getZone)
+    local buckets = {}
+    local zoneOrder = {}
+    for _, questId in ipairs(ids) do
+        local zone = getZone(questId)
+        if not buckets[zone] then
+            buckets[zone] = {}
+            zoneOrder[#zoneOrder + 1] = zone
+        end
+        local bucket = buckets[zone]
+        bucket[#bucket + 1] = questId
+    end
+    table.sort(zoneOrder)
+    local out = {}
+    for _, zone in ipairs(zoneOrder) do
+        local bucket = buckets[zone]
+        for i = 1, #bucket do
+            out[#out + 1] = bucket[i]
+        end
+    end
+    return out
+end
+
+--- Keep in sync with tests/test_organize_by_zone.py
+function TrackerFrame.BuildDisplayRows(ids, getZone, organizeByZone, collapsedZones)
+    collapsedZones = collapsedZones or {}
+    local rows = {}
+    if not organizeByZone then
+        for i = 1, #ids do
+            rows[i] = { kind = "quest", questId = ids[i] }
+        end
+        return rows
+    end
+    local lastZone
+    local lastZoneSet = false
+    for _, questId in ipairs(ids) do
+        local zone = getZone(questId)
+        if not lastZoneSet or zone ~= lastZone then
+            lastZone = zone
+            lastZoneSet = true
+            local collapsed = collapsedZones[zone] and true or false
+            rows[#rows + 1] = { kind = "zone", zone = zone, collapsed = collapsed }
+        end
+        if not collapsedZones[zone] then
+            rows[#rows + 1] = { kind = "quest", questId = questId, zone = zone }
+        end
+    end
+    return rows
+end
+
+function TrackerFrame:ToggleZoneCollapsed(zoneName)
+    if not zoneName or zoneName == "" then
+        return
+    end
+    local zones = DQTC.Config:GetChar("collapsedZones")
+    if type(zones) ~= "table" then
+        zones = {}
+    end
+    if zones[zoneName] then
+        zones[zoneName] = nil
+    else
+        zones[zoneName] = true
+    end
+    DQTC.Config:SetChar("collapsedZones", zones)
+end
+
 local function SortQuestIds(ids)
     local QuestLogCache = Loader:ImportModule("QuestLogCache")
     local mode = DQTC.Config:Get("sortMode") or "log"
@@ -163,56 +248,66 @@ local function SortQuestIds(ids)
         table.sort(ids, function(a, b)
             return (order[a] or 9999) < (order[b] or 9999)
         end)
-        return
-    end
-
-    local px, py, pmap
-    if mode == "proximity" and C_Map and C_Map.GetPlayerMapPosition then
-        pmap = C_Map.GetBestMapForUnit("player")
-        local pos = pmap and C_Map.GetPlayerMapPosition(pmap, "player")
-        if pos then
-            px, py = pos:GetXY()
-            if px then
-                px, py = px * 100, py * 100
+    else
+        local px, py, pmap
+        if mode == "proximity" and C_Map and C_Map.GetPlayerMapPosition then
+            pmap = C_Map.GetBestMapForUnit("player")
+            local pos = pmap and C_Map.GetPlayerMapPosition(pmap, "player")
+            if pos then
+                px, py = pos:GetXY()
+                if px then
+                    px, py = px * 100, py * 100
+                end
             end
         end
-    end
-    local DB = Loader:ImportModule("DB")
-    table.sort(ids, function(a, b)
-        local qa = QuestLogCache:GetQuest(a)
-        local qb = QuestLogCache:GetQuest(b)
-        if not qa then
-            return false
-        end
-        if not qb then
-            return true
-        end
-        if mode == "level" then
-            if qa.level ~= qb.level then
-                return qa.level < qb.level
+        local DB = Loader:ImportModule("DB")
+        table.sort(ids, function(a, b)
+            local qa = QuestLogCache:GetQuest(a)
+            local qb = QuestLogCache:GetQuest(b)
+            if not qa then
+                return false
+            end
+            if not qb then
+                return true
+            end
+            if mode == "level" then
+                if qa.level ~= qb.level then
+                    return qa.level < qb.level
+                end
+                return (qa.title or "") < (qb.title or "")
+            end
+            if mode == "proximity" and px and py then
+                local function dist(questId)
+                    local sp = DB:GetBestWaypointSpawn(questId)
+                    if not sp or (pmap and sp.uiMapId ~= pmap) then
+                        return 999999
+                    end
+                    local dx, dy = (sp.x or 0) - px, (sp.y or 0) - py
+                    return dx * dx + dy * dy
+                end
+                local da, dbd = dist(a), dist(b)
+                if da ~= dbd then
+                    return da < dbd
+                end
+            end
+            local za, zb = qa.zone or "", qb.zone or ""
+            if za ~= zb then
+                return za < zb
             end
             return (qa.title or "") < (qb.title or "")
+        end)
+    end
+
+    if OrganizeByZoneEnabled() then
+        local unknownZone = L["UNKNOWN_ZONE"] or "Unknown Zone"
+        local grouped = TrackerFrame.GroupIdsByZone(ids, function(questId)
+            return TrackerFrame.ZoneNameForQuest(QuestLogCache:GetQuest(questId), unknownZone)
+        end)
+        wipe(ids)
+        for i = 1, #grouped do
+            ids[i] = grouped[i]
         end
-        if mode == "proximity" and px and py then
-            local function dist(questId)
-                local sp = DB:GetBestWaypointSpawn(questId)
-                if not sp or (pmap and sp.uiMapId ~= pmap) then
-                    return 999999
-                end
-                local dx, dy = (sp.x or 0) - px, (sp.y or 0) - py
-                return dx * dx + dy * dy
-            end
-            local da, dbd = dist(a), dist(b)
-            if da ~= dbd then
-                return da < dbd
-            end
-        end
-        local za, zb = qa.zone or "", qb.zone or ""
-        if za ~= zb then
-            return za < zb
-        end
-        return (qa.title or "") < (qb.title or "")
-    end)
+    end
 end
 
 function TrackerFrame:SortQuestIds(ids)
@@ -233,7 +328,6 @@ function TrackerFrame:Update()
         return
     end
     local TrackerLines = Loader:ImportModule("TrackerLines")
-    local WatchState = Loader:ImportModule("WatchState")
     local QuestLogCache = Loader:ImportModule("QuestLogCache")
     local CombatQueue = Loader:ImportModule("CombatQueue")
 
@@ -245,8 +339,7 @@ function TrackerFrame:Update()
 
         TrackerLines:Reset()
 
-        local tracked = WatchState:GetTrackedQuestIds()
-        SortQuestIds(tracked)
+        local tracked = TrackerFrame:GetSortedTrackedQuestIds()
 
         local header = TrackerLines:Acquire()
         header.kind = "header"
@@ -260,54 +353,83 @@ function TrackerFrame:Update()
             local hideCompleted = DQTC.Config:Get("hideCompletedObjectives")
             local showLevel = DQTC.Config:Get("showQuestLevel")
             local focusId = DQTC.Config:GetChar("superTrackedQuestId")
+            local unknownZone = L["UNKNOWN_ZONE"] or "Unknown Zone"
+            local function getZone(questId)
+                return TrackerFrame.ZoneNameForQuest(QuestLogCache:GetQuest(questId), unknownZone)
+            end
+            local rows = TrackerFrame.BuildDisplayRows(
+                tracked,
+                getZone,
+                OrganizeByZoneEnabled(),
+                DQTC.Config:GetChar("collapsedZones")
+            )
 
-            for _, questId in ipairs(tracked) do
+            local function AddQuestLines(questId)
                 local quest = QuestLogCache:GetQuest(questId)
-                if quest then
-                    local qLine = TrackerLines:Acquire()
-                    qLine.kind = "quest"
-                    qLine.questId = questId
-                    local title = quest.title or ("Quest " .. questId)
-                    if showLevel and quest.level and quest.level > 0 then
-                        title = string.format("[%d] %s", quest.level, title)
-                    end
-                    TrackerLines:SetLineText(qLine, title)
-                    TrackerLines:SetQuestPoi(qLine, questId, focusId == questId, quest.isComplete == 1)
-                    StyleTitle(qLine.text)
-                    local r, g, b = DifficultyColor(quest.level)
-                    if focusId == questId then
-                        qLine.text:SetTextColor(1, 1, 0)
-                    else
-                        qLine.text:SetTextColor(r, g, b)
-                    end
+                if not quest then
+                    return
+                end
+                local qLine = TrackerLines:Acquire()
+                qLine.kind = "quest"
+                qLine.questId = questId
+                local title = quest.title or ("Quest " .. questId)
+                if showLevel and quest.level and quest.level > 0 then
+                    title = string.format("[%d] %s", quest.level, title)
+                end
+                TrackerLines:SetLineText(qLine, title)
+                TrackerLines:SetQuestPoi(qLine, questId, focusId == questId, quest.isComplete == 1)
+                StyleTitle(qLine.text)
+                local r, g, b = DifficultyColor(quest.level)
+                if focusId == questId then
+                    qLine.text:SetTextColor(1, 1, 0)
+                else
+                    qLine.text:SetTextColor(r, g, b)
+                end
 
-                    local showedObjective = false
-                    for _, obj in ipairs(quest.objectives or {}) do
-                        if not (hideCompleted and obj.finished) then
-                            local oLine = TrackerLines:Acquire()
-                            oLine.kind = "objective"
-                            oLine.questId = questId
-                            TrackerLines:SetLineText(oLine, "- " .. (obj.text or ""))
-                            TrackerLines:IndentAsObjective(oLine)
-                            StyleObjective(oLine.text)
-                            if obj.finished or quest.isComplete == 1 then
-                                oLine.text:SetTextColor(0, 1, 0)
-                            else
-                                oLine.text:SetTextColor(0.87, 0.87, 0.87)
-                            end
-                            showedObjective = true
-                        end
-                    end
-
-                    if not showedObjective and quest.isComplete == 1 then
+                local showedObjective = false
+                for _, obj in ipairs(quest.objectives or {}) do
+                    if not (hideCompleted and obj.finished) then
                         local oLine = TrackerLines:Acquire()
                         oLine.kind = "objective"
                         oLine.questId = questId
-                        TrackerLines:SetLineText(oLine, "- " .. (QUEST_WATCH_QUEST_READY or "Ready for turn-in"))
+                        TrackerLines:SetLineText(oLine, "- " .. (obj.text or ""))
                         TrackerLines:IndentAsObjective(oLine)
                         StyleObjective(oLine.text)
-                        oLine.text:SetTextColor(0, 1, 0)
+                        if obj.finished or quest.isComplete == 1 then
+                            oLine.text:SetTextColor(0, 1, 0)
+                        else
+                            oLine.text:SetTextColor(0.87, 0.87, 0.87)
+                        end
+                        showedObjective = true
                     end
+                end
+
+                if not showedObjective and quest.isComplete == 1 then
+                    local oLine = TrackerLines:Acquire()
+                    oLine.kind = "objective"
+                    oLine.questId = questId
+                    TrackerLines:SetLineText(oLine, "- " .. (QUEST_WATCH_QUEST_READY or "Ready for turn-in"))
+                    TrackerLines:IndentAsObjective(oLine)
+                    StyleObjective(oLine.text)
+                    oLine.text:SetTextColor(0, 1, 0)
+                end
+            end
+
+            for _, row in ipairs(rows) do
+                if row.kind == "zone" then
+                    local zLine = TrackerLines:Acquire()
+                    zLine.kind = "zone"
+                    zLine.zone = row.zone
+                    zLine.questId = nil
+                    local label = row.zone
+                    if row.collapsed then
+                        label = label .. " +"
+                    end
+                    TrackerLines:SetLineText(zLine, label)
+                    StyleTitle(zLine.text)
+                    zLine.text:SetTextColor(0.75, 0.75, 0.75)
+                elseif row.kind == "quest" then
+                    AddQuestLines(row.questId)
                 end
             end
         end

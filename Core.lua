@@ -47,7 +47,7 @@ function DQTC:OnConfigChanged(key, value)
 end
 
 function DQTC:OnCharConfigChanged(key, value)
-    if key == "trackerPosition" or key == "collapsed" or key == "superTrackedQuestId" then
+    if key == "trackerPosition" or key == "collapsed" or key == "superTrackedQuestId" or key == "collapsedZones" then
         RefreshAll()
     end
 end
