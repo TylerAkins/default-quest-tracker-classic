@@ -4,24 +4,89 @@ on:
   push:
     tags:
       - "v*"
+    branches:
+      - main
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
+  versioned:
+    if: github.ref_type == 'tag' && startsWith(github.ref_name, 'v')
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: versioned-${{ github.ref }}
+      cancel-in-progress: false
+    permissions:
+      contents: write
     env:
-      # Packager creates/updates a GitHub Release when this is set.
-      # secrets.GITHUB_TOKEN is provided by Actions (needs contents: write).
       GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
+      - name: Validate release version
+        id: release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          VERSION="$(cat VERSION)"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "VERSION must contain exactly X.Y.Z" >&2
+            exit 1
+          fi
+          if [[ "v${VERSION}" != "$GITHUB_REF_NAME" ]]; then
+            echo "VERSION ${VERSION} does not match tag ${GITHUB_REF_NAME}" >&2
+            exit 1
+          fi
+          if [[ "$(git cat-file -t "refs/tags/${GITHUB_REF_NAME}")" != "tag" ]]; then
+            echo "${GITHUB_REF_NAME} must be an annotated tag" >&2
+            exit 1
+          fi
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Package and publish GitHub Release
+        if: steps.release.outputs.exists != 'true'
         uses: BigWigsMods/packager@v2
-        # No CurseForge/Wago tokens yet — GitHub-only upload.
-        # Prefer annotated tags: git tag -a v1.0.0 -m "v1.0.0"
+
+  preview:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Python tests
+        run: |
+          set -euo pipefail
+          for test_file in tests/test_*.py; do
+            PYTHONPATH=. python3 "$test_file"
+          done
+
+      - name: Package addon zip
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -d -n "{package-name}-preview{classic}"
+
+      - name: Upload preview build
+        uses: actions/upload-artifact@v7
+        with:
+          name: DefaultQuestTrackerClassic-${{ github.sha }}
+          path: .release/DefaultQuestTrackerClassic-preview*.zip
+          if-no-files-found: error
+          include-hidden-files: true
