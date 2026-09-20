@@ -14,8 +14,6 @@ Download the latest **addon zip** from [Releases](https://github.com/TylerAkins/
 
 Restart WoW (or `/reload`) and enable the addon at character select if needed.
 
-CurseForge publishing is planned; until then, GitHub Releases are the install path.
-
 **Optional:** [TomTom](https://www.curseforge.com/wow/addons/tomtom) for “Send to GPS.” HereBeDragons is already embedded.
 
 ## Features
@@ -67,6 +65,14 @@ Map pins use an embedded copy of [HereBeDragons](https://www.wowace.com/projects
 
 ## Development
 
+Build a clean, directly installable addon folder with:
+
+```bash
+python3 tools/compile_addon.py
+```
+
+Copy `.compiled/DefaultQuestTrackerClassic` into WoW’s `_classic_era_/Interface/AddOns/` directory, then restart WoW or use `/reload`.
+
 Regenerate the slim DB with [Questie](https://github.com/Questie/Questie) installed next to this folder (`../Questie`):
 
 ```bash
@@ -75,4 +81,4 @@ python tools/convert_questie_db.py
 
 Scripts under `tools/` are for maintainers. Do not commit `tools/.wowhead_cache/` or crawl logs.
 
-Releases are built by GitHub Actions from annotated tags (`vX.Y.Z`). Set the TOC version, update [CHANGELOG.md](CHANGELOG.md), then tag. Player zips come from the Release asset, not the automatic source archive. Publishing notes: [ATTRIBUTION.md](ATTRIBUTION.md).
+Releases are built by GitHub Actions from annotated tags (`vX.Y.Z`); merges to `main` produce preview artifacts for testing. Player zips come from the Release asset, not the automatic source archive. See [the development guide](docs/DEVELOPMENT.md) for testing, release, automatic Classic Era compatibility, and CurseForge setup details.

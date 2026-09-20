@@ -8,30 +8,42 @@ on:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Check TOC and tree
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Check packaging metadata and tree
         run: |
           set -euo pipefail
           test -f DefaultQuestTrackerClassic.toc
           grep -qE '^## Interface:' DefaultQuestTrackerClassic.toc
-          grep -qE '^## Version:' DefaultQuestTrackerClassic.toc
+          grep -qF '## Version: @project-version@' DefaultQuestTrackerClassic.toc
+          test -f VERSION
+          grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$' VERSION
+          test -f tools/compile_addon.py
+          test -f tools/update_classic_era.py
+          test -f docs/DEVELOPMENT.md
           if [ -d tools/.wowhead_cache ]; then
             echo "tools/.wowhead_cache must not be present in the repository"
             exit 1
           fi
-          python3 tests/test_circle_textures.py
-          python3 tests/test_wrap_at_spaces.py
-          python3 tests/test_tracker_lua_scope.py
-          python3 tests/test_organize_by_zone.py
+
+      - name: Python tests
+        run: |
+          set -euo pipefail
+          for test_file in tests/test_*.py; do
+            PYTHONPATH=. python3 "$test_file"
+          done
 
       - name: Dry-run package
         uses: BigWigsMods/packager@v2
         with:
-          # -d skips uploads; still builds the zip so .pkgmeta failures show up in CI
           args: -d

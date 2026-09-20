@@ -7,8 +7,11 @@ ignore:
   - .cursor
   - .gitignore
   - .pkgmeta
-  - ATTRIBUTION.md
+  - .compiled
+  - .release
   - CURSEFORGE_DESCRIPTION.md
+  - VERSION
+  - docs
   - tests
   - tools
   - "**/.DS_Store"
