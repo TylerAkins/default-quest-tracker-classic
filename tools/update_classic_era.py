@@ -112,6 +112,7 @@ def prepare_update(
     toc_path = root / TOC_NAME
     version_path = root / "VERSION"
     changelog_path = root / "CHANGELOG.md"
+    release_notes_path = root / "RELEASE_NOTES.md"
 
     toc = toc_path.read_text(encoding="utf-8")
     interfaces = current_interfaces(toc)
@@ -144,11 +145,13 @@ def prepare_update(
     if not changelog.startswith(marker):
         raise ValueError("CHANGELOG must start with '# Changelog'")
     updated_changelog = marker + entry + changelog[len(marker) :]
+    updated_release_notes = "# Default Quest Tracker Classic\n\n" + entry
 
     if not dry_run:
         toc_path.write_text(updated_toc, encoding="utf-8")
         version_path.write_text(f"{next_version}\n", encoding="utf-8")
         changelog_path.write_text(updated_changelog, encoding="utf-8")
+        release_notes_path.write_text(updated_release_notes, encoding="utf-8")
 
     return UpdateResult(True, game_build, next_version)
 

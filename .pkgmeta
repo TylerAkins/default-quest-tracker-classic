@@ -17,3 +17,5 @@ ignore:
   - "**/.DS_Store"
   - "**/Thumbs.db"
   - "**/__pycache__"
+
+manual-changelog: RELEASE_NOTES.md

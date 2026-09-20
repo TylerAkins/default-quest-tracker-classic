@@ -39,6 +39,7 @@ class CompileAddonTests(unittest.TestCase):
                 "Localization/enUS.lua",
                 "Media/FilledCircle.tga",
                 "Modules/Loader.lua",
+                "RELEASE_NOTES.md",
             ):
                 self.assertTrue((output / required).is_file(), required)
 
