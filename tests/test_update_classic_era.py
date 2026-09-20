@@ -27,6 +27,11 @@ class ClassicEraUpdateTests(unittest.TestCase):
             "# Changelog\n\n## [1.2.1] - 2026-09-05\n",
             encoding="utf-8",
         )
+        (root / "RELEASE_NOTES.md").write_text(
+            "# Default Quest Tracker Classic\n\n"
+            "## [1.2.1] - 2026-09-05\n",
+            encoding="utf-8",
+        )
 
     def test_parses_blizzard_fixture(self) -> None:
         build = update_classic_era.parse_versions(
@@ -69,6 +74,12 @@ class ClassicEraUpdateTests(unittest.TestCase):
             changelog = (root / "CHANGELOG.md").read_text(encoding="utf-8")
             self.assertIn("## [1.2.2] - 2026-09-21", changelog)
             self.assertIn("1.15.10.70123 (Interface 11510)", changelog)
+            release_notes = (root / "RELEASE_NOTES.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("## [1.2.2] - 2026-09-21", release_notes)
+            self.assertIn("1.15.10.70123 (Interface 11510)", release_notes)
+            self.assertNotIn("1.2.1", release_notes)
 
             second = update_classic_era.prepare_update(build, root=root)
             self.assertFalse(second.changed)

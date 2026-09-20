@@ -46,7 +46,7 @@ jobs:
           set -euo pipefail
           python3 tools/update_classic_era.py \
             --versions-file "${RUNNER_TEMP}/classic-era-versions"
-          if git diff --quiet -- DefaultQuestTrackerClassic.toc VERSION CHANGELOG.md; then
+          if git diff --quiet -- DefaultQuestTrackerClassic.toc VERSION CHANGELOG.md RELEASE_NOTES.md; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -93,6 +93,7 @@ jobs:
             DefaultQuestTrackerClassic.toc
             VERSION
             CHANGELOG.md
+            RELEASE_NOTES.md
 
   publish-update:
     if: >-
@@ -129,6 +130,7 @@ jobs:
             exit 1
           fi
           grep -qF "## [${VERSION}]" CHANGELOG.md
+          grep -qF "## [${VERSION}]" RELEASE_NOTES.md
 
       - name: Create tag and dispatch release
         env:

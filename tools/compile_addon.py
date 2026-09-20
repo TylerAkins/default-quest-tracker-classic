@@ -22,6 +22,7 @@ ROOT_FILES = (
     "LICENSE",
     "Options.lua",
     "README.md",
+    "RELEASE_NOTES.md",
 )
 DIRECTORIES = ("Database", "Libs", "Localization", "Media", "Modules")
 IGNORED_NAMES = {".DS_Store", "Thumbs.db", "__pycache__"}

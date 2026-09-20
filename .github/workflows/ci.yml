@@ -28,6 +28,8 @@ jobs:
           grep -qF '## Version: @project-version@' DefaultQuestTrackerClassic.toc
           test -f VERSION
           grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$' VERSION
+          test -f RELEASE_NOTES.md
+          grep -qF "## [$(cat VERSION)]" RELEASE_NOTES.md
           test -f tools/compile_addon.py
           test -f tools/update_classic_era.py
           test -f docs/DEVELOPMENT.md

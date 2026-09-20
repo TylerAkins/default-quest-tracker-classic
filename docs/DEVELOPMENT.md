@@ -40,7 +40,7 @@ Preview builds are for testing. They never create or move a tag. Do not point pl
 
 For a normal release:
 
-1. Update `VERSION` and `CHANGELOG.md` in a release PR.
+1. Update `VERSION`, `CHANGELOG.md`, and `RELEASE_NOTES.md` in a release PR. Keep `RELEASE_NOTES.md` limited to the new version’s entry.
 2. Merge the reviewed PR into `main`.
 3. Create and push an annotated tag matching `VERSION` exactly:
 
@@ -55,7 +55,7 @@ The Release workflow rejects non-semantic, lightweight, or mismatched tags. Retr
 
 The **Update Classic Era compatibility** workflow runs every Monday at 06:00 UTC and can also be run manually on `main`. It reads Blizzard’s public `wow_classic_era` version feed.
 
-Build-number-only changes are ignored. When Blizzard publishes a new TOC interface, the workflow replaces the TOC interface with the latest value, increments the addon patch version, adds a dated changelog entry, and creates or refreshes the `classic-era-build-update` PR.
+Build-number-only changes are ignored. When Blizzard publishes a new TOC interface, the workflow replaces the TOC interface with the latest value, increments the addon patch version, adds a dated changelog entry, replaces `RELEASE_NOTES.md` with that entry, and creates or refreshes the `classic-era-build-update` PR.
 
 Review this PR like any other release change. Merging this exact automation branch is the only `main` merge that automatically creates an annotated tag and stable release. The automation will not move a tag: a conflicting existing tag fails the run, while retrying a same-commit tag is safe.
 
@@ -72,4 +72,4 @@ Configure the CurseForge project dashboard and GitHub repository as follows:
 3. Add the CurseForge-provided packaging webhook in the GitHub repository’s webhook settings.
 4. Subscribe that webhook to the **push event only** and confirm its initial delivery succeeds.
 
-The native packager reads `.pkgmeta` and replaces `@project-version@` with the pushed tag. If CurseForge generates a credentialized webhook URL, keep it only in GitHub’s webhook configuration. No CurseForge API credential belongs in the repository or GitHub Actions secrets.
+The native packager reads `.pkgmeta`, uses `RELEASE_NOTES.md` as the uploaded changelog, and replaces `@project-version@` with the pushed tag. The full historical `CHANGELOG.md` remains in the addon archive. If CurseForge generates a credentialized webhook URL, keep it only in GitHub’s webhook configuration. No CurseForge API credential belongs in the repository or GitHub Actions secrets.
