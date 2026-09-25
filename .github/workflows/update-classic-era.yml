@@ -81,8 +81,9 @@ jobs:
           delete-branch: true
           commit-message: "chore: prepare v${{ steps.update.outputs.version }} for Classic Era"
           title: "chore: prepare v${{ steps.update.outputs.version }} for Classic Era ${{ steps.update.outputs.game_build }}"
+          assignees: TylerAkins
           body: |
-            Automated Classic Era compatibility update.
+            @TylerAkins — automated Classic Era compatibility update.
 
             - Game build: `${{ steps.update.outputs.game_build }}`
             - TOC Interface: `${{ steps.update.outputs.interface }}`
